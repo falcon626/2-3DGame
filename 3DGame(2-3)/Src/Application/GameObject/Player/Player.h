@@ -12,8 +12,6 @@ public:
 	void Update    () override;
 	void PostUpdate() override;
 
-	void SetPos(const Math::Vector3& pos)override;
-
 	void MoveRight();
 	void MoveLeft ();
 	void MoveUp   ();

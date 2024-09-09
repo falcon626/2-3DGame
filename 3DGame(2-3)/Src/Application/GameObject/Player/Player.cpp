@@ -11,7 +11,7 @@ Player::Player() noexcept
 	m_spAnimator->SetAnimation(m_spModelWork->GetData()->GetAnimation("Swim"));
 
 	m_rotY  = m_rotXup;
-	m_pos.y = 0.27f;
+	m_pos.y = 0.3f;
 }
 
 void Player::PreUpdate()
@@ -26,9 +26,9 @@ void Player::Update()
 	{
 		m_pos = MoveJump(m_pos, m_velocity, GravityPow, m_deltaTime);
 
-		if (m_pos.y <= 0.27f)
+		if (m_pos.y <= 0.3f)
 		{
-			m_pos.y = 0.27f; 
+			m_pos.y = 0.3f;
 			m_isMove = false;
 			m_velocity = Def::Vec3;
 		}
@@ -44,11 +44,6 @@ void Player::PostUpdate()
 		DirectX::XMConvertToRadians(90)
 		) *
 		Math::Matrix::CreateTranslation(m_pos);
-}
-
-void Player::SetPos(const Math::Vector3& pos)
-{
-	m_pos = pos;
 }
 
 void Player::MoveRight()

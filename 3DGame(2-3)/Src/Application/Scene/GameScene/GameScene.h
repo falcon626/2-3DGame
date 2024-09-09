@@ -5,6 +5,7 @@
 //class AdminCamera;
 class TPVCamera;
 class Player;
+class LaneManager;
 
 class GameScene : public BaseScene
 {
@@ -22,6 +23,7 @@ private:
 
 	std::weak_ptr<TPVCamera> m_wpCamera;
 	std::weak_ptr<Player> m_wpPlayer;
+	std::shared_ptr<LaneManager> m_spLaneManager;
 
 	bool m_isRightKey = false;
 	bool m_isLeftKey = false;

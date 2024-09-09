@@ -172,6 +172,7 @@
     <ClInclude Include="Src\Application\GameObject\Camera\TPVCamera\TPVCamera.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\GameUi.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\LaneManager.h" />
+    <ClInclude Include="Src\Application\GameObject\Lane\LaneObject.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\BaseLaneObj.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\Car\Car.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\Car\Road.h" />
@@ -255,6 +256,7 @@
     <ClCompile Include="Src\Application\GameObject\Camera\TPVCamera\TPVCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\GameUi.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\LaneManager.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Lane\LaneObject.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\BaseLaneObj.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\Car\Car.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\Car\Road.cpp" />

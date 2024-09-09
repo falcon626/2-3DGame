@@ -3,6 +3,7 @@
 #include "../SceneManager.h"
 #include "../../main.h"
 //    // // // Inanimate // // //    //
+#include "../../GameObject/Lane/LaneObject.h"
 #include "../../GameObject/Lane/LaneManager.h"
 //       // // Creature  // //       //
 #include "../../GameObject/Player/Player.h"
@@ -26,18 +27,18 @@ void GameScene::Event()
 				wp->MoveUp();
 				if (Formula::Rand(0, 99) < 70)
 				{
-					AddObjList<LaneManager>(Math::Vector3(0, 0, count_i), LaneManager::LaneType::Ground);
+					AddObjList<LaneObject>(Math::Vector3(0, 0, count_i), LaneObject::LaneType::Ground);
 				}
 				else
 				{
 					auto ran{ Formula::Rand(0,99) };
 					if (ran < 40)
 					{
-						AddObjList<LaneManager>(Math::Vector3(0, 0, count_i), LaneManager::LaneType::Rail);
+						AddObjList<LaneObject>(Math::Vector3(0, 0, count_i), LaneObject::LaneType::Rail);
 					}
 					else
 					{
-						AddObjList<LaneManager>(Math::Vector3(0, count_i, 13), LaneManager::LaneType::Road);
+						AddObjList<LaneObject>(Math::Vector3(0, count_i, 13), LaneObject::LaneType::Road);
 					}
 				}
 				++count_i;
@@ -89,33 +90,33 @@ void GameScene::Init()
 	PreLoad();
 
 	// Add Objects
-	AddObjList<LaneManager>(Def::Vec3,LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,-1), LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,-3), LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,-4), LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,-5), LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,3), LaneManager::LaneType::River);
-	AddObjList<LaneManager>(Math::Vector3(0,0,4), LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,5), LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,9), LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,11), LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,15), LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,16), LaneManager::LaneType::Ground);
-	AddObjList<LaneManager>(Math::Vector3(0,0,1), LaneManager::LaneType::Rail);
-	AddObjList<LaneManager>(Math::Vector3(0,0,-8), LaneManager::LaneType::Rail);
-	AddObjList<LaneManager>(Math::Vector3(0,0,10), LaneManager::LaneType::Rail);
-	AddObjList<LaneManager>(Math::Vector3(0,0,12), LaneManager::LaneType::Rail);
-	AddObjList<LaneManager>(Math::Vector3(0,0,13), LaneManager::LaneType::Rail);
-	AddObjList<LaneManager>(Math::Vector3(0,0,6), LaneManager::LaneType::Rail);
-	AddObjList<LaneManager>(Math::Vector3(0,0,14), LaneManager::LaneType::Rail);
-	AddObjList<LaneManager>(Math::Vector3(0,0,2), LaneManager::LaneType::Road);
-	AddObjList<LaneManager>(Math::Vector3(0,0,-7), LaneManager::LaneType::Road);
-	AddObjList<LaneManager>(Math::Vector3(0,0,7), LaneManager::LaneType::Road);
-	AddObjList<LaneManager>(Math::Vector3(0,0,8), LaneManager::LaneType::Road);
-	AddObjList<LaneManager>(Math::Vector3(0,0,13), LaneManager::LaneType::Road);
-	AddObjList<LaneManager>(Math::Vector3(0,0,17), LaneManager::LaneType::Road);
-	AddObjList<LaneManager>(Math::Vector3(0,0,-2), LaneManager::LaneType::River);
-	AddObjList<LaneManager>(Math::Vector3(0,0,-6), LaneManager::LaneType::River);
+	AddObjList<LaneObject>(Def::Vec3,LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,-1), LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,-3), LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,-4), LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,-5), LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,3), LaneObject::LaneType::River);
+	AddObjList<LaneObject>(Math::Vector3(0,0,4), LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,5), LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,9), LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,11), LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,15), LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,16), LaneObject::LaneType::Ground);
+	AddObjList<LaneObject>(Math::Vector3(0,0,1), LaneObject::LaneType::Rail);
+	AddObjList<LaneObject>(Math::Vector3(0,0,-8), LaneObject::LaneType::Rail);
+	AddObjList<LaneObject>(Math::Vector3(0,0,10), LaneObject::LaneType::Rail);
+	AddObjList<LaneObject>(Math::Vector3(0,0,12), LaneObject::LaneType::Rail);
+	AddObjList<LaneObject>(Math::Vector3(0,0,13), LaneObject::LaneType::Rail);
+	AddObjList<LaneObject>(Math::Vector3(0,0,6), LaneObject::LaneType::Rail);
+	AddObjList<LaneObject>(Math::Vector3(0,0,14), LaneObject::LaneType::Rail);
+	AddObjList<LaneObject>(Math::Vector3(0,0,2), LaneObject::LaneType::Road);
+	AddObjList<LaneObject>(Math::Vector3(0,0,-7), LaneObject::LaneType::Road);
+	AddObjList<LaneObject>(Math::Vector3(0,0,7), LaneObject::LaneType::Road);
+	AddObjList<LaneObject>(Math::Vector3(0,0,8), LaneObject::LaneType::Road);
+	AddObjList<LaneObject>(Math::Vector3(0,0,13), LaneObject::LaneType::Road);
+	AddObjList<LaneObject>(Math::Vector3(0,0,17), LaneObject::LaneType::Road);
+	AddObjList<LaneObject>(Math::Vector3(0,0,-2), LaneObject::LaneType::River);
+	AddObjList<LaneObject>(Math::Vector3(0,0,-6), LaneObject::LaneType::River);
 
 	AddObjListAndWeak<Player>(m_wpPlayer);
 

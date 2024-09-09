@@ -411,7 +411,7 @@
     <ClInclude Include="Src\Application\GameObject\Player\Player.h">
       <Filter>Src\Application\GameObject\Player</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Lane\LaneManager.h">
+    <ClInclude Include="Src\Application\GameObject\Lane\LaneObject.h">
       <Filter>Src\Application\GameObject\Lane</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\Car\Car.h">
@@ -440,6 +440,9 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\GameUi\GameUi.h">
       <Filter>Src\Application\GameObject\GameUi</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Lane\LaneManager.h">
+      <Filter>Src\Application\GameObject\Lane</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -623,7 +626,7 @@
     <ClCompile Include="Src\Application\GameObject\Player\Player.cpp">
       <Filter>Src\Application\GameObject\Player</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Lane\LaneManager.cpp">
+    <ClCompile Include="Src\Application\GameObject\Lane\LaneObject.cpp">
       <Filter>Src\Application\GameObject\Lane</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\Car\Car.cpp">
@@ -649,6 +652,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\GameUi\GameUi.cpp">
       <Filter>Src\Application\GameObject\GameUi</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Lane\LaneManager.cpp">
+      <Filter>Src\Application\GameObject\Lane</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
