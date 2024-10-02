@@ -20,6 +20,12 @@ protected:
 		if (path.empty()) return;
 		m_spModel = FlDataStorage::Instance().GetModelData(path.data());
 	}
+
+	inline auto SetCol(const std::string_view& colName, const KdCollider::Type type) noexcept
+	{
+		m_pCollider = std::make_unique<KdCollider>();
+		m_pCollider->RegisterCollisionShape(colName, m_spModel, type);
+	}
 private:
 
 	// Class Or Struct Value

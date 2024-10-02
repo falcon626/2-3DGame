@@ -21,6 +21,12 @@ protected:
 		m_spModelWork = std::make_shared<KdModelWork>(FlDataStorage::Instance().GetModelData(path.data()));
 	}
 
+	inline auto SetCol(const std::string_view& colName, const KdCollider::Type type) noexcept
+	{
+		m_pCollider = std::make_unique<KdCollider>();
+		m_pCollider->RegisterCollisionShape(colName, m_spModelWork, type);
+	}
+
 	// Class Or Struct Value
 	std::shared_ptr<KdModelWork> m_spModelWork;
 	std::shared_ptr<KdAnimator>  m_spAnimator;

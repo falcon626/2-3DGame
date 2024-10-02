@@ -30,7 +30,7 @@ namespace Key // Recommended To Use
 		UnderScore = VK_OEM_102,  Slash     = VK_OEM_2,
 	};
 
-	inline const auto IsPushing(_In_ const Code& keyCode) noexcept { return (GetAsyncKeyState(keyCode) & Code::Constant) != Def::IntZero; }
+	inline const auto IsPushing(_In_ const Code keyCode) noexcept { return (GetAsyncKeyState(keyCode) & Code::Constant) != Def::IntZero; }
 	
 	inline const auto IsPushing(_In_ const std::initializer_list<Code>& keyCodes) noexcept 
 	{ 
@@ -40,7 +40,7 @@ namespace Key // Recommended To Use
 		return   isPush;
 	}
 	
-	inline const auto IsPushingWithFocus(_In_ const Code& keyCode) noexcept
+	inline const auto IsPushingWithFocus(_In_ const Code keyCode) noexcept
 	{ 
 		if (KdWindow::Instance().GetWndHandle() != GetForegroundWindow()) return false;
 		else return (GetAsyncKeyState(keyCode) & Code::Constant) != Def::IntZero;

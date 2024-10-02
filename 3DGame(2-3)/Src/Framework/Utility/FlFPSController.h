@@ -1,6 +1,7 @@
 ﻿#pragma once
 
-class FlFPSController {
+class FlFPSController 
+{
 public:
 	void Init();
 	void UpdateStartTime();

@@ -25,14 +25,14 @@ public:
 
 	void Update() override;
 
-private:
-	// Add ObjctList Function (Emplace_Back)
-	template <class T, typename... Args>
-	inline auto AddObjList(Args&&... args) noexcept
-	{
-		static_assert(std::is_base_of<BaseLaneObj, T>::value, "T Must Be Derived From LaneObjTag");
-		m_laneObjList.emplace_back(std::make_shared<T>(std::forward<Args>(args)...));
-	}
+	inline const auto GetLane() const noexcept { return m_laneObj; }
+	inline const auto GetType() const noexcept { return m_type; }
 
-	std::list<std::shared_ptr<KdGameObject>> m_laneObjList;
+	// Ius Vitae Necisque
+	inline auto KillExistence() noexcept { m_isExpired = true; }
+
+private:
+	std::shared_ptr<BaseLaneObj> m_laneObj;
+
+	LaneType m_type;
 };

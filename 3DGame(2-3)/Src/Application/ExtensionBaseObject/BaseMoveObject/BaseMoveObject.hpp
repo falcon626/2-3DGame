@@ -6,8 +6,9 @@ public:
 	BaseMoveObject() noexcept = default;
 	virtual ~BaseMoveObject() noexcept = default;
 
-	inline auto SetMemberPos(const Math::Vector3& pos) noexcept { m_pos = pos; }
 protected:
+	inline auto SetMemberPos(const Math::Vector3& pos) noexcept { m_pos = pos; }
+
 	const auto MoveLinear(const Math::Vector3& currentPosition, const Math::Vector3& speed, const float deltaTime) noexcept { return currentPosition + speed * deltaTime; }
 
 	const auto MoveWithAcceleration(const Math::Vector3& currentPosition, Math::Vector3& speed, const Math::Vector3& maxAcceleration, const float deltaTime) noexcept

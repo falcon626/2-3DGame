@@ -14,7 +14,7 @@ namespace Str // String Series
 	{
 		auto result{ str };
 
-		for (char& c : result) 
+		for (auto& c : result) 
 			if (c == oldChar) c = newChar;
 
 		return result;

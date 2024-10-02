@@ -210,6 +210,8 @@ bool Application::Init(int w, int h)
 	//===================================================================
 	KdAudioManager::Instance().Init();
 
+	SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
+
 	return true;
 }
 

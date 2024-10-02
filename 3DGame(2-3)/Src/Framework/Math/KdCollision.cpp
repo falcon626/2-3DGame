@@ -263,7 +263,7 @@ static bool HitCheckAndPosUpdate(DirectX::XMVECTOR& finalPos, DirectX::XMVECTOR&
 // スフィアとの当たり判定結果をリザルトにセットする
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 static void SetSphereResult(CollisionMeshResult& result, bool isHit, const DirectX::XMVECTOR& hitPos,
-	const DirectX::XMVECTOR& finalPos, const DirectX::XMVECTOR& beginPos)
+	const DirectX::XMVECTOR& finalPos, const DirectX::XMVECTOR& beginPos, const DirectX::XMVECTOR normal = {})
 {
 	result.m_hit = isHit;
 
@@ -274,6 +274,8 @@ static void SetSphereResult(CollisionMeshResult& result, bool isHit, const Direc
 	result.m_overlapDistance = DirectX::XMVector3Length(result.m_hitDir).m128_f32[0];
 
 	result.m_hitDir = DirectX::XMVector3Normalize(result.m_hitDir);
+
+	result.m_hitNormal = normal; // [黒崎授業]
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -368,6 +370,9 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::BoundingSphere& sphere,
 
 	// 全ての面と判定
 	// ※判定はメッシュのローカル空間で行われる
+
+	std::vector<Math::Vector3> v; // [黒崎授業]
+
 	for (UINT faceIdx = 0; faceIdx < faceNum; faceIdx++)
 	{
 		DirectX::XMVECTOR nearPoint;
@@ -378,8 +383,14 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::BoundingSphere& sphere,
 		// 点 と 三角形 の最近接点を求める
 		KdPointToTriangle(finalPos, vertices[idx[0]], vertices[idx[1]], vertices[idx[2]], nearPoint);
 
-		// 当たっているかどうかの判定と最終座標の更新
-		isHit |= HitCheckAndPosUpdate(finalPos, finalHitPos, nearPoint, objScale, radiusSqr, sphere.Radius);
+		// 当たっているかどうかの判定と最終座標の更新 // [黒崎授業]
+		//isHit |= HitCheckAndPosUpdate(finalPos, finalHitPos, nearPoint, objScale, radiusSqr, sphere.Radius);
+		if (HitCheckAndPosUpdate(finalPos, finalHitPos, nearPoint, objScale, radiusSqr, sphere.Radius))
+		{
+			// 当たった面の頂点座標をvに保存
+			v = { vertices[idx[0]],vertices[idx[1]],vertices[idx[2]] };
+			isHit = true;
+		}
 
 		// CollisionResult無しなら結果は関係ないので当たった時点で返る
 		if (!pResult && isHit) { return isHit; }
@@ -388,8 +399,25 @@ bool MeshIntersect(const KdMesh& mesh, const DirectX::BoundingSphere& sphere,
 	// リザルトに結果を格納
 	if (pResult && isHit)
 	{
-		SetSphereResult(*pResult, isHit, XMVector3TransformCoord(finalHitPos, matrix), 
-			XMVector3TransformCoord(finalPos, matrix), XMLoadFloat3(&sphere.Center));
+		// 面の法線を求める[黒崎授業]
+		// ３頂点のワールド座標を算出
+		Math::Vector3 a = XMVector3TransformCoord(v[0], matrix);
+		Math::Vector3 b = XMVector3TransformCoord(v[1], matrix);
+		Math::Vector3 c = XMVector3TransformCoord(v[2], matrix);
+
+		// ベクトル作成
+		Math::Vector3 ab = b - a;
+		ab.Normalize();
+		Math::Vector3 ac = c - a;
+		ac.Normalize();
+
+		// 外積を求める（面に対して垂直なベクトル　＝　法線）
+		Math::Vector3 n;
+		n = ab.Cross(ac);
+		n.Normalize();
+
+		SetSphereResult(*pResult, isHit, XMVector3TransformCoord(finalHitPos, matrix),
+			XMVector3TransformCoord(finalPos, matrix), XMLoadFloat3(&sphere.Center), n);
 	}
 
 	return isHit;

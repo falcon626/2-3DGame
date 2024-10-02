@@ -97,6 +97,12 @@ union        _tagUnion
 
 matrix       mMat
 
+list		 valueList
+
+vector		 valueVector
+
+arry		 values
+
 pointer
 	raw      p
 	share    sp
@@ -107,7 +113,7 @@ function   = const
 	lambda = local
 
 priority
- matrix = bool = local = member < constexpr = const < argument < pointer
+ matrix = bool = local = member < constexpr = const < argument < pointer < list = vector = arry
 
 .h   This Extension Has    Cpp And Classes
 .hpp This Extension Has No Cpp

@@ -3,44 +3,45 @@
 
 #include "LaneObject/Ground/Ground.h"
 #include "LaneObject/River/River.h"
-#include "LaneObject/Car/Road.h"
-#include "LaneObject/Train/Rail.h"
+#include "LaneObject/Road/Road.h"
+#include "LaneObject/Rail/Rail.h"
 
 LaneObject::LaneObject(const Math::Vector3& pos, const LaneType type) noexcept
 {
+	m_entityId = Id::Ground;
+	m_mWorld.Translation(pos);
+
+	m_type = type;
+
 	switch (type)
 	{
 	case LaneType::Ground:
-		AddObjList<Ground>(pos);
+		m_laneObj = std::make_shared<Ground>(pos);
 		break;
 	case LaneType::River:
-		AddObjList<River>(pos);
+		m_laneObj = std::make_shared<River>(pos);
 		break;
 	case LaneType::Road:
-		AddObjList<Road>(pos);
+		m_laneObj = std::make_shared<Road>(pos);
 		break;
 	case LaneType::Rail:
-		AddObjList<Rail>(pos);
+		m_laneObj = std::make_shared<Rail>(pos);
 		break;
-	default:
-		break;
+	default: break;
 	}
 }
 
 void LaneObject::GenerateDepthMapFromLight()
 {
-	for (const auto& laneObj : m_laneObjList)
-		laneObj->GenerateDepthMapFromLight();
+	m_laneObj->GenerateDepthMapFromLight();
 }
 
 void LaneObject::DrawLit()
 {
-	for (const auto& laneObj : m_laneObjList)
-		laneObj->DrawLit();
+	m_laneObj->DrawLit();
 }
 
 void LaneObject::Update()
 {
-	for (const auto& laneObj : m_laneObjList)
-		laneObj->Update();
+	m_laneObj->Update();
 }

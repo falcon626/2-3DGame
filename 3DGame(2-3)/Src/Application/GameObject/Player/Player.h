@@ -12,12 +12,18 @@ public:
 	void Update    () override;
 	void PostUpdate() override;
 
+	void UpdateBumpCol() noexcept;
+
+	void SetPos(const Math::Vector3& pos) noexcept override { SetMemberPos(pos); }
+
 	void MoveRight();
 	void MoveLeft ();
 	void MoveUp   ();
 	void MoveDown ();
+
+	const auto IsMove() const { return m_isMove; }
 private:
-	Math::Vector3 m_velocity{0,2,0};
+	Math::Vector3 m_velocity;
 
 	uint32_t m_count    { Def::SizTZero };
 	uint32_t m_jumpFream{ Def::SizTZero };

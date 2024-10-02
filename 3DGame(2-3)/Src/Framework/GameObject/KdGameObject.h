@@ -8,15 +8,15 @@ public:
 	enum class [[maybe_unused]] Id : size_t
 	{
 		UnKnown        [[maybe_unused]] = Def::BitMaskPos0,
-
-		Player         [[maybe_unused]] = Def::BitMaskPos1 << Def::HalfBit,
-		Enemy          [[maybe_unused]] = Def::BitMaskPos2 << Def::HalfBit,
-		OtherCreature  [[maybe_unused]] = Def::BitMaskPos3 << Def::HalfBit,
 															  
-		Ground         [[maybe_unused]] = Def::BitMaskPos4 << Def::HalfBit,
-		Obstacle       [[maybe_unused]] = Def::BitMaskPos5 << Def::HalfBit,
-		BackGround     [[maybe_unused]] = Def::BitMaskPos6 << Def::HalfBit,
-		OtherInanimate [[maybe_unused]] = Def::BitMaskPos7 << Def::HalfBit,
+		BackGround     [[maybe_unused]] = Def::BitMaskPos1 << Def::HalfBit,
+		Ground         [[maybe_unused]] = Def::BitMaskPos2 << Def::HalfBit,
+		Obstacle       [[maybe_unused]] = Def::BitMaskPos3 << Def::HalfBit,
+		OtherInanimate [[maybe_unused]] = Def::BitMaskPos4 << Def::HalfBit,
+
+		Player         [[maybe_unused]] = Def::BitMaskPos5 << Def::HalfBit,
+		Enemy          [[maybe_unused]] = Def::BitMaskPos6 << Def::HalfBit,
+		OtherCreature  [[maybe_unused]] = Def::BitMaskPos7 << Def::HalfBit,
 															  
 		Ui             [[maybe_unused]] = Def::BitMaskPos8 << Def::HalfBit,
 															  
@@ -64,8 +64,8 @@ public:
 	inline const auto IdFilter(Id id, size_t filterMask) noexcept { return (static_cast<size_t>(id) & filterMask) != Def::SizTZero; }
 
 	virtual void OnHit()                                    {}
-	virtual void OnHit([[maybe_unused]] const int   damage) {}
-	virtual void OnHit([[maybe_unused]] const float damage) {}
+	virtual void OnHit(const int  ) {}
+	virtual void OnHit(const float) {}
 
 	// 拡大率を変更する関数
 	void SetScale(float scalar);

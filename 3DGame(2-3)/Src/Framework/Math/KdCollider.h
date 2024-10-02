@@ -136,6 +136,7 @@ public:
 	{
 		Math::Vector3 m_hitPos;			// 衝突した座標
 		Math::Vector3 m_hitDir;			// 対象からの方向ベクトル（押し返しなどに使う
+		Math::Vector3 m_hitNormal;		// 衝突した物の法線[黒崎授業]
 		float m_overlapDistance = 0.0f; // 重なり量
 	};
 

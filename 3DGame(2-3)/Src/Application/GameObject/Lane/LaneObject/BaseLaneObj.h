@@ -13,6 +13,8 @@ public:
 
 	void PreUpdate()override;
 
+	inline const auto GetTilesList() const noexcept { return m_tilesList; }
+
 protected:
 
 	// Add ObjctList Function (Emplace_Back)
@@ -26,6 +28,6 @@ protected:
 	std::list<std::shared_ptr<KdGameObject>> m_tilesList;
 private:
 
-	uint32_t m_tilesNum;
-	float    m_tilesStartPosX;
+	//uint32_t m_tilesNum;
+	//float    m_tilesStartPosX;
 };

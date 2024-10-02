@@ -42,7 +42,7 @@ void DebugScene::Init()
 	AddObjListAndWeak<TestObj>(m_wpTest);
 	AddObjListAndWeak<WoodenBox>(m_wpBox);
 
-	AddObjListInitAndWeak<AdminCamera>(m_wpCamera);
+	AddObjListAndWeak<AdminCamera>(m_wpCamera);
 
 	// Setter
 
@@ -50,7 +50,7 @@ void DebugScene::Init()
 	static_assert(noexcept(AddObjList<Terrain>()), "AddObjList<Terrain> Function");
 	static_assert(noexcept(AddObjListAndWeak<TestObj>(m_wpTest)), "AddObjListAndWeak<TestObj> Function");
 	static_assert(noexcept(AddObjListAndWeak<WoodenBox>(m_wpBox)), "AddObjListAndWeak<WoodenBox> Function");
-	static_assert(noexcept(AddObjListInitAndWeak<AdminCamera>(m_wpCamera)), "AddObjListInitAndWeak<AdminCamera> Function");
+	static_assert(noexcept(AddObjListAndWeak<AdminCamera>(m_wpCamera)), "AddObjListInitAndWeak<AdminCamera> Function");
 
 	static_assert(noexcept(WeakPtrIsExpired(m_wpCamera)), "WeakPtrIsExpired Function");
 	static_assert(noexcept(WeakPtrIsExpired(m_wpBox)), "WeakPtrIsExpired Function");

@@ -145,23 +145,35 @@
     <Filter Include="Src\Application\GameObject\Lane\LaneObject">
       <UniqueIdentifier>{e882e252-87d7-4e92-82bc-759a480a2207}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Lane\LaneObject\Car">
-      <UniqueIdentifier>{9686c0fe-b5b8-44d4-8e0e-b16ca25cfe36}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Lane\LaneObject\Ground">
       <UniqueIdentifier>{1af6a461-f7a0-4830-a8b9-1dcb496c8c36}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\Lane\LaneObject\River">
       <UniqueIdentifier>{6701cc2d-9d55-4311-b5ee-318a16fa890f}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\Lane\LaneObject\Train">
-      <UniqueIdentifier>{117f659f-7adc-40c1-bf5a-5109d354e287}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\Lane\LaneObject\CommonTile">
       <UniqueIdentifier>{c4a5680c-e8a3-42b6-986f-d46c90074479}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\GameObject\GameUi">
       <UniqueIdentifier>{36e4abb5-6b95-4771-929d-b3b951079491}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Lane\DamageObject">
+      <UniqueIdentifier>{dbd4883a-ee83-4bb5-8078-057ba81bc5a3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Lane\LaneObject\Road">
+      <UniqueIdentifier>{9686c0fe-b5b8-44d4-8e0e-b16ca25cfe36}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Lane\LaneObject\Rail">
+      <UniqueIdentifier>{117f659f-7adc-40c1-bf5a-5109d354e287}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Lane\DamageObject\Car">
+      <UniqueIdentifier>{1f31efcb-f4fd-482e-a328-beed463a7bb3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Lane\DamageObject\Train">
+      <UniqueIdentifier>{1ea6f268-9fc8-4456-bba3-60a20191c0c1}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj">
+      <UniqueIdentifier>{b2be1d31-e788-49a4-8525-f11d8475967f}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -414,23 +426,11 @@
     <ClInclude Include="Src\Application\GameObject\Lane\LaneObject.h">
       <Filter>Src\Application\GameObject\Lane</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\Car\Car.h">
-      <Filter>Src\Application\GameObject\Lane\LaneObject\Car</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\River\River.h">
       <Filter>Src\Application\GameObject\Lane\LaneObject\River</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\Ground\Ground.h">
       <Filter>Src\Application\GameObject\Lane\LaneObject\Ground</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\Car\Road.h">
-      <Filter>Src\Application\GameObject\Lane\LaneObject\Car</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\Train\Rail.h">
-      <Filter>Src\Application\GameObject\Lane\LaneObject\Train</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\Train\Train.h">
-      <Filter>Src\Application\GameObject\Lane\LaneObject\Train</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\BaseLaneObj.h">
       <Filter>Src\Application\GameObject\Lane\LaneObject</Filter>
@@ -443,6 +443,24 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\Lane\LaneManager.h">
       <Filter>Src\Application\GameObject\Lane</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\Road\Road.h">
+      <Filter>Src\Application\GameObject\Lane\LaneObject\Road</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Lane\LaneObject\Rail\Rail.h">
+      <Filter>Src\Application\GameObject\Lane\LaneObject\Rail</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.h">
+      <Filter>Src\Application\GameObject\Lane\DamageObject\Car</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\Train\Train.h">
+      <Filter>Src\Application\GameObject\Lane\DamageObject\Train</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.h">
+      <Filter>Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\DamageObjManager.h">
+      <Filter>Src\Application\GameObject\Lane\DamageObject</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -629,23 +647,11 @@
     <ClCompile Include="Src\Application\GameObject\Lane\LaneObject.cpp">
       <Filter>Src\Application\GameObject\Lane</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\Car\Car.cpp">
-      <Filter>Src\Application\GameObject\Lane\LaneObject\Car</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\River\River.cpp">
       <Filter>Src\Application\GameObject\Lane\LaneObject\River</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\Ground\Ground.cpp">
       <Filter>Src\Application\GameObject\Lane\LaneObject\Ground</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\Car\Road.cpp">
-      <Filter>Src\Application\GameObject\Lane\LaneObject\Car</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\Train\Rail.cpp">
-      <Filter>Src\Application\GameObject\Lane\LaneObject\Train</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\Train\Train.cpp">
-      <Filter>Src\Application\GameObject\Lane\LaneObject\Train</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\BaseLaneObj.cpp">
       <Filter>Src\Application\GameObject\Lane\LaneObject</Filter>
@@ -655,6 +661,22 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Lane\LaneManager.cpp">
       <Filter>Src\Application\GameObject\Lane</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\Road\Road.cpp">
+      <Filter>Src\Application\GameObject\Lane\LaneObject\Road</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Lane\LaneObject\Rail\Rail.cpp">
+      <Filter>Src\Application\GameObject\Lane\LaneObject\Rail</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.cpp">
+      <Filter>Src\Application\GameObject\Lane\DamageObject\Car</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\Train\Train.cpp">
+      <Filter>Src\Application\GameObject\Lane\DamageObject\Train</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\DamageObjManager.cpp">
+      <Filter>Src\Application\GameObject\Lane\DamageObject</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

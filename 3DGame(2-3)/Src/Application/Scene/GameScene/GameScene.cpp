@@ -11,6 +11,7 @@
 #include "../../DebugRoom/AdminCamera/AdminCamera.h"
 #include "../../GameObject/Camera/TPVCamera/TPVCamera.h"
 //             Other                 //
+#include "../../System/Console/Console.hpp"
 
 void GameScene::Event()
 {
@@ -18,112 +19,65 @@ void GameScene::Event()
 
 	//if (auto wp{ WeakPtrIsExpired(m_wpCamera) }) wp->SetIsNotCursorFree(Key::IsPushingWithFocus(Key::R_Click));
 
-	if (auto wp{ WeakPtrIsExpired(m_wpPlayer) })
+	if (auto sp{ WeakPtrIsExpired(m_wpPlayer) })
 	{
-		if (Key::IsPushingWithFocus(Key::Right))
-		{
-			if (!m_isRightKey)
-			{
-				wp->MoveUp();
-				if (Formula::Rand(0, 99) < 70)
-				{
-					AddObjList<LaneObject>(Math::Vector3(0, 0, count_i), LaneObject::LaneType::Ground);
-				}
-				else
-				{
-					auto ran{ Formula::Rand(0,99) };
-					if (ran < 40)
-					{
-						AddObjList<LaneObject>(Math::Vector3(0, 0, count_i), LaneObject::LaneType::Rail);
-					}
-					else
-					{
-						AddObjList<LaneObject>(Math::Vector3(0, count_i, 13), LaneObject::LaneType::Road);
-					}
-				}
-				++count_i;
-			}
-			m_isRightKey = true;
-		}
-		else m_isRightKey = false;
+		auto nowWheelVal{ KdWindow::Instance().GetMouseWheelVal() };
 
-		if (Key::IsPushingWithFocus(Key::Left))
-		{
-			if (!m_isLeftKey)
-			{
-				wp->MoveDown();
-			}
-			m_isLeftKey = true;
-		}
-		else m_isLeftKey = false;
+		if      (Key::IsPushingWithFocus({ Key::Right, Key::R_Click, Key::D })) sp->MoveUp();
 
-		if (Key::IsPushingWithFocus(Key::Up))
-		{
-			if (!m_isUpKey)
-			{
-				wp->MoveLeft();
-			}
-			m_isUpKey = true;
-		}
-		else m_isUpKey = false;
+		else if (Key::IsPushingWithFocus({ Key::Left,  Key::L_Click, Key::A })) sp->MoveDown();
 
-		if (Key::IsPushingWithFocus(Key::Down))
+		else if (Key::IsPushingWithFocus({ Key::Up,    Key::W })) sp->MoveLeft();
+
+		else if (Key::IsPushingWithFocus({ Key::Down,  Key::S}))  sp->MoveRight();
+
+		else if (nowWheelVal > Def::IntZero) sp->MoveLeft();
+
+		else if (nowWheelVal < Def::IntZero) sp->MoveRight();
+
+		LaneManager::Instance().PreUpdate(sp->GetPos().z);
+
+		if (Key::IsPushingWithFocus(Key::Tab))
 		{
-			if (!m_isDownKey)
-			{
-				wp->MoveRight();
-			}
-			m_isDownKey = true;
-		}
-		else m_isDownKey = false;
-	
-		if (Key::IsPushingWithFocus(Key::Enter))
-		{
-			wp->SetPos({ 0,0.25f,0 });
+			sp->SetPos({ 0,0.25f,0 });
 		}
 	}
+
+	if (Key::IsPushing(Key::L))
+	{
+		LaneManager::Instance().KillLane(0);
+		LaneManager::Instance().KillLane(1);
+		LaneManager::Instance().KillLane(2);
+		LaneManager::Instance().KillLane(3);
+		LaneManager::Instance().KillLane(4);
+		LaneManager::Instance().KillLane(5);
+		LaneManager::Instance().KillLane(6);
+		LaneManager::Instance().KillLane(7);
+		LaneManager::Instance().KillLane(8);
+	}
+
+	Console::get_Instance()->write(m_objList.size());
 }
 
 void GameScene::Init()
 {
+	Console::Create();
+
 	// Pre Asset Load
 	PreLoad();
 
 	// Add Objects
-	AddObjList<LaneObject>(Def::Vec3,LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,-1), LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,-3), LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,-4), LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,-5), LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,3), LaneObject::LaneType::River);
-	AddObjList<LaneObject>(Math::Vector3(0,0,4), LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,5), LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,9), LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,11), LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,15), LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,16), LaneObject::LaneType::Ground);
-	AddObjList<LaneObject>(Math::Vector3(0,0,1), LaneObject::LaneType::Rail);
-	AddObjList<LaneObject>(Math::Vector3(0,0,-8), LaneObject::LaneType::Rail);
-	AddObjList<LaneObject>(Math::Vector3(0,0,10), LaneObject::LaneType::Rail);
-	AddObjList<LaneObject>(Math::Vector3(0,0,12), LaneObject::LaneType::Rail);
-	AddObjList<LaneObject>(Math::Vector3(0,0,13), LaneObject::LaneType::Rail);
-	AddObjList<LaneObject>(Math::Vector3(0,0,6), LaneObject::LaneType::Rail);
-	AddObjList<LaneObject>(Math::Vector3(0,0,14), LaneObject::LaneType::Rail);
-	AddObjList<LaneObject>(Math::Vector3(0,0,2), LaneObject::LaneType::Road);
-	AddObjList<LaneObject>(Math::Vector3(0,0,-7), LaneObject::LaneType::Road);
-	AddObjList<LaneObject>(Math::Vector3(0,0,7), LaneObject::LaneType::Road);
-	AddObjList<LaneObject>(Math::Vector3(0,0,8), LaneObject::LaneType::Road);
-	AddObjList<LaneObject>(Math::Vector3(0,0,13), LaneObject::LaneType::Road);
-	AddObjList<LaneObject>(Math::Vector3(0,0,17), LaneObject::LaneType::Road);
-	AddObjList<LaneObject>(Math::Vector3(0,0,-2), LaneObject::LaneType::River);
-	AddObjList<LaneObject>(Math::Vector3(0,0,-6), LaneObject::LaneType::River);
-
 	AddObjListAndWeak<Player>(m_wpPlayer);
 
+	AddLane();
+
 	//AddObjListInitAndWeak<AdminCamera>(m_wpCamera);
-	AddObjListInitAndWeak<TPVCamera>(m_wpCamera);
+	AddObjListAndWeak<TPVCamera>(m_wpCamera);
 	// Setter
-	if (auto wp{ WeakPtrIsExpired(m_wpCamera) }) wp->SetTarget(m_wpPlayer.lock());
+	if (auto sp{ WeakPtrIsExpired(m_wpCamera) }) sp->SetTarget(m_wpPlayer.lock());
+
+//	decltype(auto) ins{ SceneManager::Instance() };
+//	ins.GetObjList();
 }
 
 void GameScene::PreLoad() noexcept
@@ -132,4 +86,50 @@ void GameScene::PreLoad() noexcept
 		"Player/fish1.gltf",
 		"Numbers/numbersBox.png"
 		});
+}
+
+void GameScene::AddLane()
+{
+	std::initializer_list<LaneObject::LaneType> lanes{
+		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::Road,
+		LaneObject::LaneType::River,
+		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::River,
+		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::Road,
+		LaneObject::LaneType::River,
+		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::Road,
+		LaneObject::LaneType::Road,
+		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::Ground,
+	};
+
+	auto laneObj{ std::weak_ptr<LaneObject>{} };
+
+	auto z{ -9.f };
+
+	//for (auto i{ Def::SizTZero }; i < 25U; ++i)
+	//{
+	//	LaneManager::Instance().AddLane();
+	//}
+	for(const auto& lane : lanes)
+	{
+		AddObjListAndWeak<LaneObject>(laneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, z), lane);
+		LaneManager::Instance().AddWeakPtr(laneObj);
+		++z;
+	}
 }

@@ -21,12 +21,12 @@ public:
 	template <typename _T>
 	auto Load(const std::string filename, std::vector<_T>& load, size_t& elementsNum) noexcept
 	{
-		std::ifstream file(filename, std::ios::binary);
+		auto file{ std::ifstream{filename, std::ios::binary} };
 		if (file.is_open()) 
 		{
 			// Get File Size
 			file.seekg(NULL, std::ios::end);
-			std::streamsize size = file.tellg();
+			auto size{ std::streamsize{file.tellg()} };
 			file.seekg(NULL, std::ios::beg);
 
 			// File Size Check

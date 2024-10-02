@@ -19,17 +19,13 @@ private:
 	void Event() override;
 	void Init() override;
 
+	void AddLane();
+
 	void PreLoad() noexcept override;
 
 	std::weak_ptr<TPVCamera> m_wpCamera;
-	std::weak_ptr<Player> m_wpPlayer;
-	std::shared_ptr<LaneManager> m_spLaneManager;
+	std::weak_ptr<Player>    m_wpPlayer;
 
-	bool m_isRightKey = false;
-	bool m_isLeftKey = false;
-	bool m_isUpKey = false;
-	bool m_isDownKey = false;
-
-	float count_i = 18;
+	float count_i = 16;
 	int Delcount_i = -8;
 };

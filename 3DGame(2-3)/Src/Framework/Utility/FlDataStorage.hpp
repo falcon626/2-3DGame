@@ -7,7 +7,7 @@ public:
 	const auto GetModelData(const std::string& path) noexcept { return GetData(m_modelStorage, ModelPath + path); }
 
 	// Common Path For All Omitted Textures
-	const auto GetTexture(const std::string& path)  noexcept { return GetData(m_textureStorage, TexturePath + path); }
+	const auto GetTexture(const std::string& path)   noexcept { return GetData(m_textureStorage, TexturePath + path); }
 
 	// Cache Of KdModelDates
 	auto PreLoadModelsData(const std::initializer_list<std::string>& paths) noexcept { PreLoadData(m_modelStorage, paths, ModelPath); }
@@ -19,22 +19,22 @@ public:
 	template<class DataType>
 	const auto GetData(const std::string& path) noexcept
 	{
-		const auto extension{ Str::FileExtensionSearcher(path) };
+		const auto Extension{ Str::FileExtensionSearcher(path) };
 
-		if      (extension == ModelExtension)    return GetData(m_modelStorage, ModelPath + path);
-		else if (extension == TextureExtension)  return GetData(m_textureStorage, TexturePath + path);
+		if      (Extension == ModelExtension)   return GetData(m_modelStorage, ModelPath + path);
+		else if (Extension == TextureExtension) return GetData(m_textureStorage, TexturePath + path);
 		else return nullptr;
 	}
 
 	// Cache Of Data
 	auto PreLoadData(const std::initializer_list<std::string>& paths) noexcept
 	{
-		for (const auto& path : paths)
+		for (decltype(auto) path : paths)
 		{
-			const auto extension{ Str::FileExtensionSearcher(path) };
+			const auto Extension{ Str::FileExtensionSearcher(path) };
 
-			if      (extension == ModelExtension)   LoadData(m_modelStorage,   ModelPath + path);
-			else if (extension == TextureExtension) LoadData(m_textureStorage, TexturePath + path);
+			if      (Extension == ModelExtension)   LoadData(m_modelStorage,   ModelPath + path);
+			else if (Extension == TextureExtension) LoadData(m_textureStorage, TexturePath + path);
 			else { _ASSERT_EXPR(false, L"This Path Is Not Model And Texture"); continue; }
 		}
 	}
