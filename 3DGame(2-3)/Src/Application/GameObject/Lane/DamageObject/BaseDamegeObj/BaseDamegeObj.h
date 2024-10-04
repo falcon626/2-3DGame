@@ -8,8 +8,10 @@ public:
 	BaseDamegeObj() noexcept;
 	virtual ~BaseDamegeObj() override = default;
 
-	void Move();
+	void Update() override;
+	void PostUpdate() override;
 
+	inline void SetDeltaTime(const float deltaTime) noexcept override { m_deltaTime = deltaTime; }
 	void SetPos(const Math::Vector3& pos)noexcept override { SetMemberPos(pos); }
 protected:
 	float m_speed;

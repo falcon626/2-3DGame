@@ -173,7 +173,7 @@
     <ClInclude Include="Src\Application\GameObject\GameUi\GameUi.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.h" />
-    <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\DamageObjManager.h" />
+    <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\DamageObjects.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\Train\Train.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\LaneManager.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\LaneObject.h" />
@@ -259,7 +259,7 @@
     <ClCompile Include="Src\Application\GameObject\GameUi\GameUi.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\DamageObjManager.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\DamageObjects.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\Train\Train.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\LaneManager.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\LaneObject.cpp" />

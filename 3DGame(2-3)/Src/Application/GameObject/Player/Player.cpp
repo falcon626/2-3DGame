@@ -60,9 +60,7 @@ void Player::UpdateBumpCol() noexcept
 
 	std::list<KdCollider::CollisionResult> retList;
 	for (const auto& obj : LaneManager::Instance().GetTilesList(m_pos.z))
-	{
 		obj->Intersects(sphere, &retList);
-	}
 
 	auto overlap{ Def::FloatZero };
 	auto hit    { false };
@@ -123,7 +121,7 @@ void Player::MoveUp()
 void Player::MoveDown()
 {
 	if (m_isDown || m_isMove)return;
-	m_rotY   = m_rotXdown;
+	m_rotY     = m_rotXdown;
 	m_velocity = { 0,2,-2 };
 	m_isMove = true;
 	m_isDown = true;

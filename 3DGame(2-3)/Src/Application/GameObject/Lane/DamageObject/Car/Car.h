@@ -4,7 +4,8 @@
 class Car : public BaseDamegeObj
 {
 public:
-	Car();
+	Car(const Math::Vector3& pos);
+	Car() = default;
 	~Car() override = default;
 
 private:

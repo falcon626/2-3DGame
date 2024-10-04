@@ -5,6 +5,7 @@
 //    // // // Inanimate // // //    //
 #include "../../GameObject/Lane/LaneObject.h"
 #include "../../GameObject/Lane/LaneManager.h"
+#include "../../GameObject/Lane/DamageObject/DamageObjects.h"
 //       // // Creature  // //       //
 #include "../../GameObject/Player/Player.h"
 //          // Camera    //          //
@@ -23,13 +24,13 @@ void GameScene::Event()
 	{
 		auto nowWheelVal{ KdWindow::Instance().GetMouseWheelVal() };
 
-		if      (Key::IsPushingWithFocus({ Key::Right, Key::R_Click, Key::D })) sp->MoveUp();
+		if (Key::IsPushingWithFocus({ Key::Right, Key::R_Click, Key::D })) sp->MoveUp();
 
 		else if (Key::IsPushingWithFocus({ Key::Left,  Key::L_Click, Key::A })) sp->MoveDown();
 
 		else if (Key::IsPushingWithFocus({ Key::Up,    Key::W })) sp->MoveLeft();
 
-		else if (Key::IsPushingWithFocus({ Key::Down,  Key::S}))  sp->MoveRight();
+		else if (Key::IsPushingWithFocus({ Key::Down,  Key::S }))  sp->MoveRight();
 
 		else if (nowWheelVal > Def::IntZero) sp->MoveLeft();
 
@@ -55,19 +56,17 @@ void GameScene::Event()
 		LaneManager::Instance().KillLane(7);
 		LaneManager::Instance().KillLane(8);
 	}
-
-	Console::get_Instance()->write(m_objList.size());
 }
 
 void GameScene::Init()
 {
-	Console::Create();
-
 	// Pre Asset Load
 	PreLoad();
 
 	// Add Objects
 	AddObjListAndWeak<Player>(m_wpPlayer);
+
+	AddObjList<DamageObjects>();
 
 	AddLane();
 
@@ -75,9 +74,6 @@ void GameScene::Init()
 	AddObjListAndWeak<TPVCamera>(m_wpCamera);
 	// Setter
 	if (auto sp{ WeakPtrIsExpired(m_wpCamera) }) sp->SetTarget(m_wpPlayer.lock());
-
-//	decltype(auto) ins{ SceneManager::Instance() };
-//	ins.GetObjList();
 }
 
 void GameScene::PreLoad() noexcept

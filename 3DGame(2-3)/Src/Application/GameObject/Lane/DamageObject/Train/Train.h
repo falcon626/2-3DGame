@@ -4,7 +4,8 @@
 class Train : public BaseDamegeObj
 {
 public:
-	Train();
+	Train(const Math::Vector3& pos);
+	Train() = default;
 	~Train() override = default;
 
 private:

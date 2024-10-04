@@ -93,25 +93,29 @@ public:
 	bool Intersects(const KdCollider::BoxInfo& targetBox, std::list<KdCollider::CollisionResult>* pResults);
 	bool Intersects(const KdCollider::RayInfo& targetShape, std::list<KdCollider::CollisionResult>* pResults);
 
-	auto SetDeltaTime(const float deltaTime) noexcept { m_deltaTime = deltaTime; }
+	virtual inline void SetDeltaTime(const float deltaTime) noexcept { m_deltaTime = deltaTime; }
 
 protected:
 
 	void Release() {}
 
 	template <typename T>
-	const auto Increment(const T value, const  T incrementRate, const float deltaTime) noexcept
+	inline const auto Increment(const T value, const std::type_identity_t<T> incrementRate, const float deltaTime) noexcept
 	{
 		static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "Not A Valid Numeric Type");
 		return value + incrementRate * deltaTime;
 	}
 
+	inline const auto Increment(const auto incrementRate, const float deltaTime) noexcept { return incrementRate * deltaTime; }
+
 	template <typename _T>
-	const auto Decrement(const _T value, const _T decrementRate, const float deltaTime) noexcept
+	inline const auto Decrement(const _T value, const std::type_identity_t<_T> decrementRate, const float deltaTime) noexcept
 	{
 		static_assert(std::is_integral<_T>::value || std::is_floating_point<_T>::value, "Not A Valid Numeric Type");
 		return value - decrementRate * deltaTime;
 	}
+
+	inline const auto Decrement(const auto decrementRate, const float deltaTime) noexcept { return decrementRate * deltaTime; }
 
 	float m_deltaTime{ Def::FloatZero };
 

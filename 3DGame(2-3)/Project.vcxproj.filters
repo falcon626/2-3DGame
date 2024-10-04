@@ -459,7 +459,7 @@
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.h">
       <Filter>Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\DamageObjManager.h">
+    <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\DamageObjects.h">
       <Filter>Src\Application\GameObject\Lane\DamageObject</Filter>
     </ClInclude>
   </ItemGroup>
@@ -675,7 +675,7 @@
       <Filter>Src\Application\GameObject\Lane\DamageObject\Train</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\DamageObjManager.cpp">
+    <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\DamageObjects.cpp">
       <Filter>Src\Application\GameObject\Lane\DamageObject</Filter>
     </ClCompile>
   </ItemGroup>
