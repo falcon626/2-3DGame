@@ -175,6 +175,9 @@
     <Filter Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj">
       <UniqueIdentifier>{b2be1d31-e788-49a4-8525-f11d8475967f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\GameObject\GameUi\StageTime">
+      <UniqueIdentifier>{83df0efa-82df-40c5-b906-8d7a08687e5f}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -462,6 +465,9 @@
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\DamageObjects.h">
       <Filter>Src\Application\GameObject\Lane\DamageObject</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\GameUi\StageTime\StageTime.h">
+      <Filter>Src\Application\GameObject\GameUi\StageTime</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -677,6 +683,9 @@
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\DamageObjects.cpp">
       <Filter>Src\Application\GameObject\Lane\DamageObject</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\GameUi\StageTime\StageTime.cpp">
+      <Filter>Src\Application\GameObject\GameUi\StageTime</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

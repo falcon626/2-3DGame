@@ -31,11 +31,24 @@ void LaneManager::AddLane()
 {
 	auto wpLaneObj{ std::weak_ptr<LaneObject>{} };
 
-	if (Formula::Rand(1, 100) > 50)
-		SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Rail);
+	auto isSafe{ static_cast<int>(m_laneZ) % 15};
+
+	if (!isSafe)
+	{
+		SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::River);
+	}
 	else
-		SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Road);
-	
+	{
+		auto rnd{ Formula::Rand(1, 100) };
+
+		if (rnd < 75)
+			SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Ground);
+		else if (rnd < 85)
+			SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Road);
+		else
+			SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Rail);
+	}
+
 	AddWeakPtr(wpLaneObj);
 }
 

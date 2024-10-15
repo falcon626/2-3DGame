@@ -79,10 +79,10 @@ void DamageObjects::AddCar(const std::shared_ptr<LaneObject>& lane) noexcept
 
 		if (carData.interval_ == Def::IntZero)
 		{
-			carData.pos_ = lane->GetPos();
+			carData.pos_ = lane->GetPos() + Math::Vector3{ -10,0,0 };
 			m_damaObjList.emplace_back(std::make_shared<Car>(carData.pos_, "CarCol", carData.Type_));
 
-			carData.interval_ =static_cast<float>(Formula::Rand(120, 410) / Def::Freame);
+			carData.interval_ =static_cast<float>(Formula::Rand(180, 420) / Def::Freame);
 		}
 		else
 		{
@@ -101,7 +101,7 @@ void DamageObjects::AddTrain(const std::shared_ptr<LaneObject>& lane) noexcept
 
 		if (trainData.interval_ == Def::IntZero)
 		{
-			trainData.pos_ = lane->GetPos();
+			trainData.pos_ = lane->GetPos() + Math::Vector3{ -10,0,0 };
 			m_damaObjList.emplace_back(std::make_shared<Train>(trainData.pos_, "TrainCol", trainData.Type_));
 
 			trainData.interval_ = static_cast<float>(Formula::Rand(160, 410) / Def::Freame);
@@ -120,6 +120,6 @@ void DamageObjects::KillDameObj() noexcept
 	for (const auto& dameObj : m_damaObjList)
 	{
 		auto damePos{ dameObj->GetPos() };
-		if (10 < damePos.x) dameObj->KillExistence();
+		if (15 < damePos.x) dameObj->KillExistence();
 	}
 }

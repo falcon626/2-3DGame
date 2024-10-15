@@ -15,8 +15,11 @@ public:
 	void PostUpdate() override;
 
 	void SetPos(const Math::Vector3& pos) noexcept override { SetMemberPos(pos); }
-
 	inline auto SetDameObjs(const std::weak_ptr<DamageObjects>& wp) noexcept { m_wpDameObjs = wp; }
+
+	inline const auto GetHp() const noexcept { return m_hp; }
+
+	inline const auto IsSafe() const noexcept { return m_isSafe; }
 
 	inline auto IsMinPow(const bool isMinPow) noexcept { m_isMinPow = isMinPow; }
 
@@ -29,6 +32,9 @@ public:
 private:
 	void UpdateBumpCol() noexcept;
 	void UpdateDameCol() noexcept;
+	void UpdateSafeCol() noexcept;
+
+	void UpdateHeal() noexcept;
 
 	std::weak_ptr<DamageObjects> m_wpDameObjs;
 
@@ -36,6 +42,10 @@ private:
 
 	uint32_t m_count    { Def::SizTZero };
 	uint32_t m_jumpFream{ Def::SizTZero };
+
+	int32_t m_hp{ Def::IntZero };
+	int32_t m_healInterval{ Def::IntZero };
+	int32_t m_hitInterval { Def::IntZero };
 
 	const float m_rotXrighat = 270;
 	const float m_rotXleft   = 90;
@@ -50,4 +60,5 @@ private:
 	bool m_isDown = true;
 
 	bool m_isMinPow = false;
+	bool m_isSafe   = false;
 };

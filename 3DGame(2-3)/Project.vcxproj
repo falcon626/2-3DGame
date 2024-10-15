@@ -171,6 +171,7 @@
     <ClInclude Include="Src\Application\GameObject\Camera\TPSCamera\TPSCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\TPVCamera\TPVCamera.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\GameUi.h" />
+    <ClInclude Include="Src\Application\GameObject\GameUi\StageTime\StageTime.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\DamageObjects.h" />
@@ -257,6 +258,7 @@
     <ClCompile Include="Src\Application\GameObject\Camera\TPSCamera\TPSCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\TPVCamera\TPVCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\GameUi.cpp" />
+    <ClCompile Include="Src\Application\GameObject\GameUi\StageTime\StageTime.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\DamageObjects.cpp" />

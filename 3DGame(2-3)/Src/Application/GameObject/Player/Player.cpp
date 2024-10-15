@@ -19,8 +19,9 @@ Player::Player() noexcept
 	m_pDebugWire = std::make_unique<KdDebugWireFrame>();
 
 	m_rotY  = m_rotXup;
-	m_pos.y = 0.3f;
+	m_pos.y = 0.25f;
 
+	m_hp = 3;
 }
 
 Player::~Player() noexcept
@@ -54,6 +55,9 @@ void Player::Update()
 void Player::PostUpdate()
 {
 	UpdateDameCol();
+	UpdateSafeCol();
+
+	UpdateHeal();
 
 	m_mWorld = Math::Matrix::CreateScale(0.1f) *
 		Math::Matrix::CreateFromYawPitchRoll(
@@ -66,7 +70,7 @@ void Player::PostUpdate()
 
 void Player::UpdateBumpCol() noexcept
 {
-	KdCollider::SphereInfo sphere{ KdCollider::TypeBump, m_pos, 0.4f };
+	KdCollider::SphereInfo sphere{ KdCollider::TypeBump, m_pos, 0.35f };
 
 	std::list<KdCollider::CollisionResult> retList;
 	for (const auto& obj : LaneManager::Instance().GetTilesList(m_pos.z))
@@ -95,7 +99,7 @@ void Player::UpdateBumpCol() noexcept
 
 		m_pos += normal * overlap;
 
-		Application::Instance().m_log.AddLog("\nHit");
+		Application::Instance().m_log.AddLog("\nHit\n");
 	}
 
 #if _DEBUG
@@ -105,15 +109,60 @@ void Player::UpdateBumpCol() noexcept
 
 void Player::UpdateDameCol() noexcept
 {
+	if (m_hitInterval > Def::IntZero)
+	{
+		m_hitInterval = Decrement(m_hitInterval, Def::Freame, m_deltaTime);
+		return;
+	}
+
 	auto sphere{ KdCollider::SphereInfo{KdCollider::Type::TypeDamage, m_pos, 0.2f} };
 	auto retSphereList{ std::list<KdCollider::CollisionResult>{} };
 
 	for (decltype(auto) obj : m_wpDameObjs.lock()->GetDamaList())
-		if (obj->Intersects(sphere, &retSphereList)) Application::Instance().m_log.AddLog("\nDied\n");
+		if (obj->Intersects(sphere, &retSphereList))
+		{
+			--m_hp;
+			m_hitInterval = 50;
+			Application::Instance().m_log.AddLog("\nDead\n");
+		}
 
 #if _DEBUG
 	m_pDebugWire->AddDebugSphere(sphere.m_sphere.Center, sphere.m_sphere.Radius, kWhiteColor);
 #endif // _DEBUG
+}
+
+void Player::UpdateSafeCol() noexcept
+{
+	auto sphere{ KdCollider::SphereInfo{KdCollider::Type::TypeEvent, m_pos, 0.35f} };
+	auto retSphereList{ std::list<KdCollider::CollisionResult>{} };
+
+	for (decltype(auto) obj : LaneManager::Instance().GetTilesList(m_pos.z))
+	{
+		if (obj->Intersects(sphere, &retSphereList))
+		{
+			m_isSafe = true;
+			break;
+		}
+		else m_isSafe = false;
+	}
+#if _DEBUG
+	m_pDebugWire->AddDebugSphere(sphere.m_sphere.Center, sphere.m_sphere.Radius, kBlueColor);
+#endif // _DEBUG
+}
+
+void Player::UpdateHeal() noexcept
+{
+	if (!m_isSafe)return;
+
+	if (m_healInterval <= Def::IntZero)
+	{
+		++m_hp;
+		if (m_hp > 3) m_hp = 3;
+		m_healInterval = 60;
+
+		Application::Instance().m_log.AddLog("\nHeal\n");
+	}
+	else m_healInterval = Decrement(m_healInterval, Def::Freame, m_deltaTime);
 }
 
 void Player::MoveRight()

@@ -6,6 +6,7 @@
 #include "../../GameObject/Lane/LaneObject.h"
 #include "../../GameObject/Lane/LaneManager.h"
 #include "../../GameObject/Lane/DamageObject/DamageObjects.h"
+#include "../../GameObject/GameUi/GameUi.h"
 //       // // Creature  // //       //
 #include "../../GameObject/Player/Player.h"
 //          // Camera    //          //
@@ -46,7 +47,7 @@ void GameScene::Event()
 		}
 	}
 
-	if (Key::IsPushing(Key::L))
+	if (Key::IsPushing(Key::P))
 	{
 		LaneManager::Instance().KillLane(0);
 		LaneManager::Instance().KillLane(1);
@@ -67,6 +68,8 @@ void GameScene::Init()
 
 	// Add Objects
 	AddObjListAndWeak<Player>(m_wpPlayer);
+
+	AddObjList<GameUi>();
 
 	AddObjListAndWeak<DamageObjects>(m_wpDamaObjects);
 
@@ -101,30 +104,26 @@ void GameScene::AddLane()
 		LaneObject::LaneType::Ground,
 		LaneObject::LaneType::Ground,
 		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Road,
 		LaneObject::LaneType::River,
 		LaneObject::LaneType::Ground,
 		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::Ground,
 		LaneObject::LaneType::Rail,
 		LaneObject::LaneType::Road,
 		LaneObject::LaneType::Road,
 		LaneObject::LaneType::Ground,
 		LaneObject::LaneType::Rail,
 		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Rail,
-		LaneObject::LaneType::Rail,
-		LaneObject::LaneType::Rail,
 		LaneObject::LaneType::Ground,
+		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::River,
 	};
 
 	auto laneObj{ std::weak_ptr<LaneObject>{} };
 
 	auto z{ -9.f };
 
-	//for (auto i{ Def::SizTZero }; i < 25U; ++i)
-	//{
-	//	LaneManager::Instance().AddLane();
-	//}
 	for(const auto& lane : lanes)
 	{
 		AddObjListAndWeak<LaneObject>(laneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, z), lane);

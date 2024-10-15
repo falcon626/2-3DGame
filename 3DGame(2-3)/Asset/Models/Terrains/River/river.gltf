@@ -9,7 +9,8 @@
 			"name":"Scene",
 			"nodes":[
 				0,
-				2
+				2,
+				3
 			]
 		}
 	],
@@ -30,7 +31,21 @@
 				0,
 				0.7071068286895752,
 				0,
-				0.7071068286895752
+				0.7071067094802856
+			]
+		},
+		{
+			"mesh":1,
+			"name":"COL",
+			"scale":[
+				0.4939587414264679,
+				0.3853645324707031,
+				0.3456679582595825
+			],
+			"translation":[
+				0,
+				0.2010481208562851,
+				0
 			]
 		}
 	],
@@ -99,6 +114,19 @@
 					},
 					"indices":11,
 					"material":2
+				}
+			]
+		},
+		{
+			"name":"\u5e73\u9762",
+			"primitives":[
+				{
+					"attributes":{
+						"POSITION":12,
+						"NORMAL":13,
+						"TEXCOORD_0":14
+					},
+					"indices":15
 				}
 			]
 		}
@@ -205,6 +233,40 @@
 			"componentType":5123,
 			"count":18,
 			"type":"SCALAR"
+		},
+		{
+			"bufferView":12,
+			"componentType":5126,
+			"count":4,
+			"max":[
+				1,
+				0,
+				1
+			],
+			"min":[
+				-1,
+				0,
+				-1
+			],
+			"type":"VEC3"
+		},
+		{
+			"bufferView":13,
+			"componentType":5126,
+			"count":4,
+			"type":"VEC3"
+		},
+		{
+			"bufferView":14,
+			"componentType":5126,
+			"count":4,
+			"type":"VEC2"
+		},
+		{
+			"bufferView":15,
+			"componentType":5123,
+			"count":6,
+			"type":"SCALAR"
 		}
 	],
 	"bufferViews":[
@@ -279,11 +341,35 @@
 			"byteLength":36,
 			"byteOffset":3524,
 			"target":34963
+		},
+		{
+			"buffer":0,
+			"byteLength":48,
+			"byteOffset":3560,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":48,
+			"byteOffset":3608,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":32,
+			"byteOffset":3656,
+			"target":34962
+		},
+		{
+			"buffer":0,
+			"byteLength":12,
+			"byteOffset":3688,
+			"target":34963
 		}
 	],
 	"buffers":[
 		{
-			"byteLength":3560,
+			"byteLength":3700,
 			"uri":"river.bin"
 		}
 	]
