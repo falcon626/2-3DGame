@@ -14,8 +14,8 @@ public:
 		Obstacle       [[maybe_unused]] = Def::BitMaskPos3 << Def::HalfBit,
 		OtherInanimate [[maybe_unused]] = Def::BitMaskPos4 << Def::HalfBit,
 
-		Player         [[maybe_unused]] = Def::BitMaskPos5 << Def::HalfBit,
-		Enemy          [[maybe_unused]] = Def::BitMaskPos6 << Def::HalfBit,
+		Enemy          [[maybe_unused]] = Def::BitMaskPos5 << Def::HalfBit,
+		Player         [[maybe_unused]] = Def::BitMaskPos6 << Def::HalfBit,
 		OtherCreature  [[maybe_unused]] = Def::BitMaskPos7 << Def::HalfBit,
 															  
 		Ui             [[maybe_unused]] = Def::BitMaskPos8 << Def::HalfBit,

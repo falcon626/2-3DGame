@@ -36,7 +36,7 @@ void DamageObjects::PreUpdate()
 		}
 	}
 
-	AddDamaObj();
+	AddDamaObjs();
 
 	for (const auto& dameObj : m_damaObjList)
 	{
@@ -59,11 +59,11 @@ void DamageObjects::PostUpdate()
 	KillDameObj();
 }
 
-void DamageObjects::AddDamaObj()
+void DamageObjects::AddDamaObjs() noexcept
 {
 	for (decltype(auto) laneWeakPtr : LaneManager::Instance().GetLaneData())
 	{
-		if (auto lane = laneWeakPtr.lock())
+		if (auto lane{ laneWeakPtr.lock() })
 		{
 			AddCar(lane);
 			AddTrain(lane);
@@ -71,52 +71,55 @@ void DamageObjects::AddDamaObj()
 	}
 }
 
-void DamageObjects::AddCar(const std::shared_ptr<LaneObject>& lane)
+void DamageObjects::AddCar(const std::shared_ptr<LaneObject>& lane) noexcept
 {
 	if (lane->GetType() == LaneObject::LaneType::Road)
 	{
-		auto& carData = m_laneCarDataMap[lane];
+		auto& carData{ m_laneCarDataMap[lane] };
 
 		if (carData.interval_ == Def::IntZero)
 		{
 			carData.pos_ = lane->GetPos();
-			m_damaObjList.emplace_back(std::make_shared<Car>(carData.pos_));
+			m_damaObjList.emplace_back(std::make_shared<Car>(carData.pos_, "CarCol", carData.Type_));
 
-			carData.interval_ = Formula::Rand(120, 410);
+			carData.interval_ =static_cast<float>(Formula::Rand(120, 410) / Def::Freame);
 		}
 		else
 		{
-			carData.interval_ = static_cast<int32_t>(Decrement(carData.interval_, Def::Freame, m_deltaTime));
+			carData.interval_ -= m_deltaTime;
 
 			if (carData.interval_ < Def::IntZero) carData.interval_ = Def::IntZero;
 		}
 	}
 }
 
-void DamageObjects::AddTrain(const std::shared_ptr<LaneObject>& lane)
+void DamageObjects::AddTrain(const std::shared_ptr<LaneObject>& lane) noexcept
 {
 	if (lane->GetType() == LaneObject::LaneType::Rail)
 	{
-		auto& trainData = m_laneTrainDataMap[lane];
+		auto& trainData{ m_laneTrainDataMap[lane] };
 
 		if (trainData.interval_ == Def::IntZero)
 		{
 			trainData.pos_ = lane->GetPos();
-			m_damaObjList.emplace_back(std::make_shared<Train>(trainData.pos_));
+			m_damaObjList.emplace_back(std::make_shared<Train>(trainData.pos_, "TrainCol", trainData.Type_));
 
-			trainData.interval_ = Formula::Rand(160, 410);
+			trainData.interval_ = static_cast<float>(Formula::Rand(160, 410) / Def::Freame);
 		}
 		else
 		{
-			trainData.interval_ = static_cast<int32_t>(Decrement(trainData.interval_, Def::Freame, m_deltaTime));
+			trainData.interval_ -= m_deltaTime;
 
 			if (trainData.interval_ < Def::IntZero) trainData.interval_ = Def::IntZero;
 		}
 	}
 }
 
-void DamageObjects::KillDameObj()
+void DamageObjects::KillDameObj() noexcept
 {
 	for (const auto& dameObj : m_damaObjList)
-		if (8 < dameObj->GetPos().x) dameObj->KillExistence();
+	{
+		auto damePos{ dameObj->GetPos() };
+		if (10 < damePos.x) dameObj->KillExistence();
+	}
 }

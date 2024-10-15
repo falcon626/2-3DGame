@@ -1,7 +1,10 @@
 ﻿#include "Player.h"
 #include "../Lane/LaneManager.h"
+#include "../Lane/DamageObject/DamageObjects.h"
 #include "../../Scene/SceneManager.h"
 #include "../../main.h"
+
+#include "../../ExtensionBaseObject/BaseBasic3DObject/BaseBasic3DObject.hpp"
 
 Player::Player() noexcept
 	: m_rotY(Def::FloatZero)
@@ -18,6 +21,11 @@ Player::Player() noexcept
 	m_rotY  = m_rotXup;
 	m_pos.y = 0.3f;
 
+}
+
+Player::~Player() noexcept
+{
+	Application::Instance().m_log.AddLog("Dead");
 }
 
 void Player::PreUpdate()
@@ -45,6 +53,8 @@ void Player::Update()
 
 void Player::PostUpdate()
 {
+	UpdateDameCol();
+
 	m_mWorld = Math::Matrix::CreateScale(0.1f) *
 		Math::Matrix::CreateFromYawPitchRoll(
 		DirectX::XMConvertToRadians(m_rotY),
@@ -93,11 +103,26 @@ void Player::UpdateBumpCol() noexcept
 #endif // _DEBUG
 }
 
+void Player::UpdateDameCol() noexcept
+{
+	auto sphere{ KdCollider::SphereInfo{KdCollider::Type::TypeDamage, m_pos, 0.2f} };
+	auto retSphereList{ std::list<KdCollider::CollisionResult>{} };
+
+	for (decltype(auto) obj : m_wpDameObjs.lock()->GetDamaList())
+		if (obj->Intersects(sphere, &retSphereList)) Application::Instance().m_log.AddLog("\nDied\n");
+
+#if _DEBUG
+	m_pDebugWire->AddDebugSphere(sphere.m_sphere.Center, sphere.m_sphere.Radius, kWhiteColor);
+#endif // _DEBUG
+}
+
 void Player::MoveRight()
 {
 	if(m_pos.x > 3.0f || m_isMove)return;
 	m_rotY   = m_rotXrighat;
-	m_velocity = { 2,2,0 };
+
+	if(m_isMinPow) m_velocity = { 1,0.5f,0 };
+	else m_velocity = { 2,2,0 };
 	m_isMove = true;
 }
 
@@ -105,7 +130,9 @@ void Player::MoveLeft()
 {
 	if (m_pos.x < -3.0f || m_isMove)return;
 	m_rotY   = m_rotXleft;
-	m_velocity = { -2,2,0 };
+
+	if (m_isMinPow) m_velocity = { -1,0.5f,0 };
+	else m_velocity = { -2,2,0 };
 	m_isMove = true;
 }
 
@@ -113,16 +140,23 @@ void Player::MoveUp()
 {
 	if (m_isMove) return;
 	m_rotY   = m_rotXup;
-	m_velocity = { 0,2,2 };
+
+	if (m_isMinPow) m_velocity = { 0,0.5f,1 };
+	else
+	{
+		m_velocity = { 0,2,2 };
+		m_isDown = false;
+	}
 	m_isMove = true;
-	m_isDown = false;
 }
 
 void Player::MoveDown()
 {
 	if (m_isDown || m_isMove)return;
 	m_rotY     = m_rotXdown;
-	m_velocity = { 0,2,-2 };
+
+	if (m_isMinPow) m_velocity = { 0,0.5f,-1 };
+	else m_velocity = { 0,2,-2 };
 	m_isMove = true;
 	m_isDown = true;
 }

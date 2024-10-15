@@ -15,13 +15,14 @@ void TPVCamera::PostUpdate()
 	// ターゲットの行列(有効な場合利用する)
 	auto									  _targetMat { Def::Mat };
 	const std::shared_ptr<const KdGameObject> _spTarget  { m_wpTarget.lock() };
-	if (!!_spTarget)
+	if (_spTarget)
 	{
 		Math::Vector3 pos{ 0,0,_spTarget->GetPos().z };
 		_targetMat = Math::Matrix::CreateTranslation(pos);
+
+		// カメラの回転
+		m_mWorld = m_mLocalPos * _targetMat;
 	}
-	// カメラの回転
-	m_mWorld = m_mLocalPos * _targetMat;
 }
 
 void TPVCamera::PreventFilling(const std::shared_ptr<const KdGameObject>& spTarget) noexcept
@@ -50,7 +51,7 @@ void TPVCamera::PreventFilling(const std::shared_ptr<const KdGameObject>& spTarg
 	for (auto& _wpGameObj : m_wpHitObjectList)
 	{
 		auto _spGameObj{ _wpGameObj.lock() };
-		if (!!_spGameObj)
+		if (_spGameObj)
 		{
 			std::list<KdCollider::CollisionResult> _rayResult;
 			_spGameObj->Intersects(_rayInfo, &_rayResult);

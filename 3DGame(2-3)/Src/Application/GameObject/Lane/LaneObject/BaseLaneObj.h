@@ -6,7 +6,7 @@ class BaseLaneObj : public KdGameObject
 {
 public:
 	BaseLaneObj () = default;
-	~BaseLaneObj() override = default;
+	virtual ~BaseLaneObj() override = default;
 
 	void GenerateDepthMapFromLight() override;
 	void DrawLit()                   override;

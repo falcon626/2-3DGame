@@ -67,20 +67,20 @@ private:
 	template<class DataType>
 	std::shared_ptr<DataType> LoadData(std::unordered_map<std::string, std::shared_ptr<DataType>>& storage, const std::string& fileName) const noexcept
 	{
-		const auto newData{ std::make_shared<DataType>() };
-		if (!newData->Load(fileName))
+		const auto NewData{ std::make_shared<DataType>() };
+		if (!NewData->Load(fileName))
 		{
 			assert(NULL && L"FlDataStorage::LoadData: Not Found File; Please Check File Path");
 			return nullptr;
 		}
-		storage[fileName] = newData;
-		return newData;
+		storage[fileName] = NewData;
+		return NewData;
 	}
 
 	template<class DataType>
 	std::shared_ptr<DataType> GetData(std::unordered_map<std::string, std::shared_ptr<DataType>>& storage, const std::string& fullPath) noexcept
 	{
-		auto it = storage.find(fullPath);
+		auto it{ storage.find(fullPath) };
 		if (it != storage.end())
 			return it->second;
 
@@ -90,14 +90,14 @@ private:
 	template<class DataType>
 	auto PreLoadData(std::unordered_map<std::string, std::shared_ptr<DataType>>& storage, const std::vector<std::string>& paths, const std::string& basePath) noexcept
 	{
-		for (const auto& path : paths)
+		for (decltype(auto) path : paths)
 			LoadData(storage, basePath + path);
 	}
 
 	template<class DataType>
 	auto ClearUnusedData(std::unordered_map<std::string, std::shared_ptr<DataType>>& storage) noexcept
 	{
-		for (auto it = storage.begin(); it != storage.end();)
+		for (auto it{ storage.begin() }; it != storage.end();)
 		{
 			if (it->second.use_count() == Def::LongOne) it = storage.erase(it);
 			else ++it;

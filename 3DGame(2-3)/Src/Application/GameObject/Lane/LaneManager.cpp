@@ -32,7 +32,7 @@ void LaneManager::AddLane()
 	auto wpLaneObj{ std::weak_ptr<LaneObject>{} };
 
 	if (Formula::Rand(1, 100) > 50)
-		SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Ground);
+		SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Rail);
 	else
 		SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Road);
 	
@@ -41,26 +41,36 @@ void LaneManager::AddLane()
 
 const std::list<std::shared_ptr<KdGameObject>> LaneManager::GetTilesList(const float playerZ) const
 {
-	auto nearLane{ Def::FloatOne };
-	auto result{ std::shared_ptr<BaseLaneObj>{} };
+	auto nearLanes{ std::vector<std::pair<float, std::shared_ptr<BaseLaneObj>>>{} };
+
 	for (const auto& laneData : m_laneData)
 	{
 		if (auto sp{ laneData.lock() })
 		{
 			auto laneZ{ sp->GetPos().z };
-
 			auto dist{ std::abs(laneZ - playerZ) };
 
-			if (nearLane > dist)
-			{
-				nearLane = dist;
-				result   = sp->GetLane();
-			}
-			else continue;
+			nearLanes.emplace_back(dist, sp->GetLane());
 		}
-		else continue;
 	}
-	return result->GetTilesList();
+
+	std::sort(nearLanes.begin(), nearLanes.end(), [](const auto& lhs, const auto& rhs) {
+		return lhs.first < rhs.first;
+		});
+
+	auto top3Lanes{ std::vector<std::shared_ptr<BaseLaneObj>>{} };
+	for (size_t i = 0; i < 3 && i < nearLanes.size(); ++i)
+		top3Lanes.push_back(nearLanes[i].second);
+
+	std::list<std::shared_ptr<KdGameObject>> resultList;
+
+	for (const auto& lane : top3Lanes)
+	{
+		const auto& tiles = lane->GetTilesList();
+		resultList.insert(resultList.end(), tiles.begin(), tiles.end());
+	}
+
+	return resultList;
 }
 
 void LaneManager::KillLane(const uint32_t element) noexcept

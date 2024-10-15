@@ -17,12 +17,12 @@ public:
 	};
 
 	explicit LaneObject (const Math::Vector3& pos, const LaneType type) noexcept;
-	LaneObject () noexcept = default;
 	~LaneObject() noexcept override = default;
 
 	void GenerateDepthMapFromLight() override;
 	void DrawLit() override;
 
+	void PreUpdate() override;
 	void Update() override;
 
 	inline const auto GetLane() const noexcept { return m_laneObj; }

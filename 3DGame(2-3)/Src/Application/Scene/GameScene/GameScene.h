@@ -6,6 +6,7 @@
 class TPVCamera;
 class Player;
 class LaneManager;
+class DamageObjects;
 
 class GameScene : public BaseScene
 {
@@ -23,8 +24,9 @@ private:
 
 	void PreLoad() noexcept override;
 
-	std::weak_ptr<TPVCamera> m_wpCamera;
-	std::weak_ptr<Player>    m_wpPlayer;
+	std::weak_ptr<TPVCamera>     m_wpCamera;
+	std::weak_ptr<Player>        m_wpPlayer;
+	std::weak_ptr<DamageObjects> m_wpDamaObjects;
 
 	float count_i = 16;
 	int Delcount_i = -8;

@@ -2,19 +2,23 @@
 #include "../../ExtensionBaseObject/BaseBasicWork3DObject/BaseBasicWork3DObject.hpp"
 #include "../../ExtensionBaseObject/BaseMoveObject/BaseMoveObject.hpp"
 
+class DamageObjects;
+
 class Player : public BaseBasicWork3DObject, BaseMoveObject
 {
 public:
 	Player () noexcept;
-	~Player() noexcept = default;
+	~Player() noexcept override;
 
 	void PreUpdate () override;
 	void Update    () override;
 	void PostUpdate() override;
 
-	void UpdateBumpCol() noexcept;
-
 	void SetPos(const Math::Vector3& pos) noexcept override { SetMemberPos(pos); }
+
+	inline auto SetDameObjs(const std::weak_ptr<DamageObjects>& wp) noexcept { m_wpDameObjs = wp; }
+
+	inline auto IsMinPow(const bool isMinPow) noexcept { m_isMinPow = isMinPow; }
 
 	void MoveRight();
 	void MoveLeft ();
@@ -23,6 +27,11 @@ public:
 
 	const auto IsMove() const { return m_isMove; }
 private:
+	void UpdateBumpCol() noexcept;
+	void UpdateDameCol() noexcept;
+
+	std::weak_ptr<DamageObjects> m_wpDameObjs;
+
 	Math::Vector3 m_velocity;
 
 	uint32_t m_count    { Def::SizTZero };
@@ -39,4 +48,6 @@ private:
 
 	bool m_isMove = false;
 	bool m_isDown = true;
+
+	bool m_isMinPow = false;
 };

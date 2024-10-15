@@ -36,6 +36,8 @@ void GameScene::Event()
 
 		else if (nowWheelVal < Def::IntZero) sp->MoveRight();
 
+		sp->IsMinPow(Key::IsPushingWithFocus({ Key::Shift, Key::Wheel_Click }));
+
 		LaneManager::Instance().PreUpdate(sp->GetPos().z);
 
 		if (Key::IsPushingWithFocus(Key::Tab))
@@ -66,7 +68,7 @@ void GameScene::Init()
 	// Add Objects
 	AddObjListAndWeak<Player>(m_wpPlayer);
 
-	AddObjList<DamageObjects>();
+	AddObjListAndWeak<DamageObjects>(m_wpDamaObjects);
 
 	AddLane();
 
@@ -74,6 +76,7 @@ void GameScene::Init()
 	AddObjListAndWeak<TPVCamera>(m_wpCamera);
 	// Setter
 	if (auto sp{ WeakPtrIsExpired(m_wpCamera) }) sp->SetTarget(m_wpPlayer.lock());
+	if (auto sp{ WeakPtrIsExpired(m_wpPlayer) }) sp->SetDameObjs(m_wpDamaObjects);
 }
 
 void GameScene::PreLoad() noexcept
@@ -97,7 +100,7 @@ void GameScene::AddLane()
 		LaneObject::LaneType::River,
 		LaneObject::LaneType::Ground,
 		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Rail,
+		LaneObject::LaneType::Ground,
 		LaneObject::LaneType::Road,
 		LaneObject::LaneType::River,
 		LaneObject::LaneType::Ground,

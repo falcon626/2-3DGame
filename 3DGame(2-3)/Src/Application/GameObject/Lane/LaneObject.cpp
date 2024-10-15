@@ -41,6 +41,11 @@ void LaneObject::DrawLit()
 	m_laneObj->DrawLit();
 }
 
+void LaneObject::PreUpdate()
+{
+	m_laneObj->PreUpdate();
+}
+
 void LaneObject::Update()
 {
 	m_laneObj->Update();
