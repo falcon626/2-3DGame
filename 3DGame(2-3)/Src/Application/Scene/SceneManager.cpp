@@ -169,7 +169,7 @@ void SceneManager::SoundSpriteDraw() noexcept
 
 	else if (m_muteFlg || m_masterVolume <= static_cast<float>(NULL)) m_soundTexRect.x = static_cast<long>((m_spSoundTex->GetWidth() / SoundType::TypeMax) * SoundType::VolumeMute);
 
-	else m_soundTexRect.x = static_cast<long>((m_spSoundTex->GetWidth() / SoundType::TypeMax) * SoundType::Normal);
+	else m_soundTexRect.x = static_cast<long>((m_spSoundTex->GetWidth() / SoundType::TypeMax) * SoundType::Basic);
 
 	KdShaderManager::Instance().m_spriteShader.DrawTex(m_spSoundTex, static_cast<int>(m_soundTexPos.x), static_cast<int>(m_soundTexPos.y), static_cast<int>(m_spSoundTex->GetHeight()), static_cast<int>(m_spSoundTex->GetHeight()), &m_soundTexRect);
 }

@@ -77,7 +77,7 @@ private :
 
 	enum SoundType : size_t
 	{
-		Normal,
+		Basic,
 		VolumeUp,
 		VolumeDown,
 		VolumeMute,

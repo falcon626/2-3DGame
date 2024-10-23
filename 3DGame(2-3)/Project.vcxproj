@@ -198,6 +198,8 @@
     <ClInclude Include="Src\Application\System\Counter\Counter.h" />
     <ClInclude Include="Src\Application\System\Timer\Timer.h" />
     <ClInclude Include="Src\Application\TitleObject\Bar\Bar.h" />
+    <ClInclude Include="Src\Application\TitleObject\CheckBox\CheckBox.h" />
+    <ClInclude Include="Src\Application\TitleObject\ModeSelect\ModeSelect.h" />
     <ClInclude Include="Src\Application\TitleObject\TitleCamera\TitleCamera.h" />
     <ClInclude Include="Src\Application\TitleObject\TitleCar\TitleCar.h" />
     <ClInclude Include="Src\Application\TitleObject\TitleFish\TitleFish.h" />
@@ -292,6 +294,8 @@
     <ClCompile Include="Src\Application\System\Counter\Counter.cpp" />
     <ClCompile Include="Src\Application\System\Timer\Timer.cpp" />
     <ClCompile Include="Src\Application\TitleObject\Bar\Bar.cpp" />
+    <ClCompile Include="Src\Application\TitleObject\CheckBox\CheckBox.cpp" />
+    <ClCompile Include="Src\Application\TitleObject\ModeSelect\ModeSelect.cpp" />
     <ClCompile Include="Src\Application\TitleObject\TitleCamera\TitleCamera.cpp" />
     <ClCompile Include="Src\Application\TitleObject\TitleCar\TitleCar.cpp" />
     <ClCompile Include="Src\Application\TitleObject\TitleFish\TitleFish.cpp" />
