@@ -97,7 +97,7 @@ public:
 	//=================================================
 
 	// 指定サブセットを描画
-	void DrawSubset(int subsetNo) const;
+	void DrawSubset(int subsetNo, const bool isInstancing, const int numInstances) const;
 
 	// 
 	KdMesh() {}

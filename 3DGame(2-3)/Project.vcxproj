@@ -165,12 +165,16 @@
     <ClInclude Include="Src\Application\ExtensionBaseObject\BaseBasic3DObject\BaseBasic3DObject.hpp" />
     <ClInclude Include="Src\Application\ExtensionBaseObject\BaseBasicWork3DObject\BaseBasicWork3DObject.hpp" />
     <ClInclude Include="Src\Application\ExtensionBaseObject\BaseMoveObject\BaseMoveObject.hpp" />
+    <ClInclude Include="Src\Application\GameObject\Award\Award.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\CameraBase.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\CCTVCamera\CCTVCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\FPSCamera\FPSCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\TPSCamera\TPSCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\TPVCamera\TPVCamera.h" />
+    <ClInclude Include="Src\Application\GameObject\GameUi\Dist\Dist.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\GameUi.h" />
+    <ClInclude Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.h" />
+    <ClInclude Include="Src\Application\GameObject\GameUi\Score\Score.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\StageTime\StageTime.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.h" />
@@ -193,6 +197,11 @@
     <ClInclude Include="Src\Application\System\Console\Console.hpp" />
     <ClInclude Include="Src\Application\System\Counter\Counter.h" />
     <ClInclude Include="Src\Application\System\Timer\Timer.h" />
+    <ClInclude Include="Src\Application\TitleObject\Bar\Bar.h" />
+    <ClInclude Include="Src\Application\TitleObject\TitleCamera\TitleCamera.h" />
+    <ClInclude Include="Src\Application\TitleObject\TitleCar\TitleCar.h" />
+    <ClInclude Include="Src\Application\TitleObject\TitleFish\TitleFish.h" />
+    <ClInclude Include="Src\Application\TitleObject\TitleTrain\TitleTrain.h" />
     <ClInclude Include="Src\Framework\Direct3D\KdMaterial.h" />
     <ClInclude Include="Src\Framework\Direct3D\Polygon\KdPolygon.h" />
     <ClInclude Include="Src\Framework\Direct3D\Polygon\KdSquarePolygon.h" />
@@ -252,12 +261,16 @@
     <ClCompile Include="Src\Application\DebugRoom\Terrains\Terrain\Terrain.cpp" />
     <ClCompile Include="Src\Application\DebugRoom\Terrains\WoodenBox\WoodenBox.cpp" />
     <ClCompile Include="Src\Application\DebugRoom\TestObj\TestObj.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Award\Award.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\CameraBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\CCTVCamera\CCTVCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\FPSCamera\FPSCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\TPSCamera\TPSCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\TPVCamera\TPVCamera.cpp" />
+    <ClCompile Include="Src\Application\GameObject\GameUi\Dist\Dist.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\GameUi.cpp" />
+    <ClCompile Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.cpp" />
+    <ClCompile Include="Src\Application\GameObject\GameUi\Score\Score.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\StageTime\StageTime.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.cpp" />
@@ -278,6 +291,11 @@
     <ClCompile Include="Src\Application\Scene\TitleScene\TitleScene.cpp" />
     <ClCompile Include="Src\Application\System\Counter\Counter.cpp" />
     <ClCompile Include="Src\Application\System\Timer\Timer.cpp" />
+    <ClCompile Include="Src\Application\TitleObject\Bar\Bar.cpp" />
+    <ClCompile Include="Src\Application\TitleObject\TitleCamera\TitleCamera.cpp" />
+    <ClCompile Include="Src\Application\TitleObject\TitleCar\TitleCar.cpp" />
+    <ClCompile Include="Src\Application\TitleObject\TitleFish\TitleFish.cpp" />
+    <ClCompile Include="Src\Application\TitleObject\TitleTrain\TitleTrain.cpp" />
     <ClCompile Include="Src\Framework\Direct3D\KdMaterial.cpp">
       <SubType>
       </SubType>

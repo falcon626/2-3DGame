@@ -48,7 +48,6 @@ public :
 			obj->Init();
 			m_objList.push_back(obj);
 		}
-
 		else m_objList.emplace_back(std::make_shared<T>(std::forward<Args>(args)...));
 	}
 

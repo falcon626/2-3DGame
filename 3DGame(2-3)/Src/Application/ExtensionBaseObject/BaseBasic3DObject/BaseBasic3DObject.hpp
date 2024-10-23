@@ -17,6 +17,8 @@ protected:
 	// KdModelData
 	inline auto SetModelData(const std::string_view& path) noexcept { m_spModel = FlDataStorage::Instance().GetModelData(path.data()); }
 
+	inline auto SetModelData(const std::weak_ptr<KdModelData>& wpModel) noexcept { if (wpModel.expired()) [[unlikely]] return; m_spModel = wpModel.lock(); }
+
 	inline auto SetCol(const std::string_view& colName, const KdCollider::Type type) noexcept
 	{
 		m_pCollider = std::make_unique<KdCollider>();

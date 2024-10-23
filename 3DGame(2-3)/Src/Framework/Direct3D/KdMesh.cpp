@@ -97,7 +97,7 @@ bool KdMesh::Create(const std::vector<KdMeshVertex>& vertices, const std::vector
 }
 
 
-void KdMesh::DrawSubset(int subsetNo) const
+void KdMesh::DrawSubset(int subsetNo, const bool isInstancing, const int numInstances) const
 {
 	// 範囲外のサブセットはスキップ
 	if (subsetNo >= (int)m_subsets.size())return;
@@ -105,5 +105,8 @@ void KdMesh::DrawSubset(int subsetNo) const
 	if (m_subsets[subsetNo].FaceCount == 0)return;
 
 	// 描画
-	KdDirect3D::Instance().WorkDevContext()->DrawIndexed(m_subsets[subsetNo].FaceCount * 3, m_subsets[subsetNo].FaceStart * 3, 0);
+	if(isInstancing)
+		KdDirect3D::Instance().WorkDevContext()->DrawIndexedInstanced(m_subsets[subsetNo].FaceCount * 3, numInstances, m_subsets[subsetNo].FaceStart * 3, 0, 0);
+	else
+		KdDirect3D::Instance().WorkDevContext()->DrawIndexed(m_subsets[subsetNo].FaceCount * 3, m_subsets[subsetNo].FaceStart * 3, 0);
 }

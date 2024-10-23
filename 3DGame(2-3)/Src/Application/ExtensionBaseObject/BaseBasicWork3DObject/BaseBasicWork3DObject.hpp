@@ -13,7 +13,6 @@ public:
 	// Ius Vitae Necisque
 	inline auto KillExistence() noexcept { m_isExpired = true; }
 protected:
-
 	// KdModelData
 	inline auto SetModelData(const std::string_view& path) noexcept{ m_spModelWork = std::make_shared<KdModelWork>(FlDataStorage::Instance().GetModelData(path.data())); }
 

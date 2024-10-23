@@ -14,6 +14,21 @@ public :
 		Game,
 	};
 
+	enum Mode : uint32_t
+	{
+		Normal	   = Def::BitMaskPos0,
+		Tuna	   = Def::BitMaskPos1,
+		HardCore   = Def::BitMaskPos2,
+		SpeedUp    = Def::BitMaskPos3,
+
+		TimeLimit  = Def::BitMaskPos4,
+		TimeAttack = Def::BitMaskPos5,
+		
+		Fish1      = Def::BitMaskPos6,
+		Chicken    = Def::BitMaskPos7,
+		Fish2      = Def::BitMaskPos8,
+	};
+
 	void PreUpdate();
 	void Update(const float deltaTime);
 	void PostUpdate();
@@ -32,6 +47,10 @@ public :
 	// 現在のシーンのオブジェクトリストを取得
 	const std::list<std::shared_ptr<KdGameObject>>& GetObjList();
 	std::list<std::shared_ptr<KdGameObject>>&       WorkObjList();
+
+	inline const auto CheckBitFilter(const Mode mode, const Mode filter) noexcept{ return (static_cast<uint32_t>(mode) & static_cast<uint32_t>(filter)) != Def::BitMaskPos0; }
+
+	inline const auto GetMode() const noexcept { return m_mode; }
 
 	// 現在のシーンにオブジェクトを追加
 	void AddObject(const std::shared_ptr<KdGameObject>& obj);
@@ -56,16 +75,27 @@ public :
 
 private :
 
+	enum SoundType : size_t
+	{
+		Normal,
+		VolumeUp,
+		VolumeDown,
+		VolumeMute,
+		TypeMax
+	};
+
 	// マネージャーの初期化
 	// インスタンス生成(アプリ起動)時にコンストラクタで自動実行
-	void Init()
-	{
-		// 開始シーンに切り替え
-		ChangeScene(m_currentSceneType);
-	}
+	void Init();
 
 	// シーン切り替え関数
 	void ChangeScene(SceneType sceneType);
+
+	// サウンドボリューム制御関数
+	void SoundUpdate() noexcept;
+
+	// サウンドボリューム描画関数
+	void SoundSpriteDraw() noexcept;
 
 	// 現在のシーンのインスタンスを保持しているポインタ
 	std::shared_ptr<BaseScene> m_currentScene = nullptr;
@@ -76,6 +106,30 @@ private :
 	// 次のシーンの種類を保持している変数
 	SceneType m_nextSceneType = m_currentSceneType;
 
+	// サウンドテクスチャー
+	std::shared_ptr<KdTexture> m_spSoundTex = nullptr;
+
+	// サウンドテクスチャー切り取り用変数
+	Math::Rectangle m_soundTexRect = {};
+
+	// サウンドテクスチャー座標用変数
+	Math::Vector2 m_soundTexPos = {};
+
+	// すべてのサウンドのボリューム
+	float m_masterVolume = static_cast<float>(NULL);
+
+	// サウンドボリューム変動値
+	float m_changeVol = static_cast<float>(NULL);
+
+	// ミュートフラグ
+	bool m_muteFlg = false;
+
+	// キーフラグ
+	bool m_volUpKeyFlg = false;
+	bool m_volDownKeyFlg = false;
+	bool m_volMuteKeyFlg = false;
+
+	Mode m_mode{ Mode::Normal };
 private:
 
 	SceneManager() { Init(); }

@@ -7,7 +7,7 @@ public:
 	TPSCamera()							{}
 	~TPSCamera()			override	{}
 
-	void Init()				override;
+	void Init()				;
 	void PostUpdate()		override;
 
 	void PreventFilling(const std::shared_ptr<const KdGameObject>& spTarget) noexcept;

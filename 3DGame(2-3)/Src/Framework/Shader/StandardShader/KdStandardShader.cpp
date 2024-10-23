@@ -22,6 +22,7 @@ void KdStandardShader::BeginLit()
 
 		KdShaderManager::Instance().SetVSConstantBuffer(0, m_cb0_Obj.GetAddress());
 		KdShaderManager::Instance().SetVSConstantBuffer(1, m_cb1_Mesh.GetAddress());
+		KdShaderManager::Instance().SetVSConstantBuffer(4, m_cb4_Instance.GetAddress()); // インスタンシング対応
 	}
 
 	// ピクセルシェーダーのパイプライン変更
@@ -136,7 +137,7 @@ void KdStandardShader::EndGenerateDepthMapFromLight()
 // サブセットごとに描画命令を呼び出す：サブセットの個数分処理が重くなる
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void KdStandardShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
-	const std::vector<KdMaterial>& materials, const Math::Vector4& colRate, const Math::Vector3& emissive)
+	const std::vector<KdMaterial>& materials, const Math::Vector4& colRate, const Math::Vector3& emissive, const bool isInstancing, const int numInstances)
 {
 	if (mesh == nullptr) { return; }
 
@@ -160,7 +161,7 @@ void KdStandardShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
 		//-----------------------
 		// サブセット描画
 		//-----------------------
-		mesh->DrawSubset(subi);
+		mesh->DrawSubset(subi, isInstancing, numInstances);
 	}
 }
 
@@ -169,9 +170,12 @@ void KdStandardShader::DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld,
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 // データに所属する全ての描画用メッシュを描画する
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdStandardShader::DrawModel(const KdModelData& rModel, const Math::Matrix& mWorld,
+void KdStandardShader::DrawModel(const KdModelData& rModel, const Math::Matrix& mWorld, const bool isInstancing, const int numInstances,
 	const Math::Color& colRate, const Math::Vector3& emissive)
 {
+	// インスタンシング対応
+	if (isInstancing)SetEnableInstancingDraw(isInstancing);
+
 	// オブジェクト単位の情報転送
 	if (m_dirtyCBObj)
 	{
@@ -183,9 +187,20 @@ void KdStandardShader::DrawModel(const KdModelData& rModel, const Math::Matrix& 
 	// 全描画用メッシュノードを描画
 	for (auto& nodeIdx : rModel.GetDrawMeshNodeIndices())
 	{
+		if (GetEnableOutLineDraw())
+		{
+			// 表面をカリング（非表示）にする　ラスタライザステートをセット
+			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullFront);
+		}
+
 		// 描画
 		DrawMesh(dataNodes[nodeIdx].m_spMesh.get(), dataNodes[nodeIdx].m_worldTransform * mWorld,
-			rModel.GetMaterials(), colRate, emissive);
+			rModel.GetMaterials(), colRate, emissive, isInstancing, numInstances);
+
+		if (GetEnableOutLineDraw())
+		{
+			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullBack);
+		}
 	}
 
 	// 定数に変更があった場合は自動的に初期状態に戻す
@@ -196,11 +211,11 @@ void KdStandardShader::DrawModel(const KdModelData& rModel, const Math::Matrix& 
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-// モデルワークを描画（ダイナミック(アニメーションをしする)なモデルに対応
+// モデルワークを描画（ダイナミック(アニメーションをする)なモデルに対応
 // ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== ===== =====
 // データに所属する全ての描画用メッシュをワークの3D行列に従って描画する
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
-void KdStandardShader::DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld,
+void KdStandardShader::DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld, const bool isInstancing, const int numInstances,
 	const Math::Color& colRate, const Math::Vector3& emissive)
 {
 	if (!rModel.IsEnable()) { return; }
@@ -214,6 +229,10 @@ void KdStandardShader::DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld
 	{
 		rModel.CalcNodeMatrices();
 	}
+
+	// インスタンシング対応
+	if (isInstancing)SetEnableInstancingDraw(isInstancing);
+
 
 	// オブジェクト単位の情報転送
 	if (m_dirtyCBObj)
@@ -255,9 +274,20 @@ void KdStandardShader::DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld
 	// 全描画用メッシュノードを描画
 	for (auto& nodeIdx : data->GetDrawMeshNodeIndices())
 	{
+		if (GetEnableOutLineDraw())
+		{
+			// 表面をカリング（非表示）にする　ラスタライザステートをセット
+			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullFront);
+		}
+
 		// 描画
 		DrawMesh(dataNodes[nodeIdx].m_spMesh.get(), workNodes[nodeIdx].m_worldTransform * mWorld,
-			data->GetMaterials(), colRate, emissive);
+			data->GetMaterials(), colRate, emissive, isInstancing, numInstances);
+
+		if (GetEnableOutLineDraw())
+		{
+			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullBack);
+		}
 	}
 
 	// 定数に変更があった場合は自動的に初期状態に戻す
@@ -265,6 +295,116 @@ void KdStandardShader::DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld
 	{
 		ResetCBObject();
 	}
+}
+
+// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+// モデルデータを描画（スタティック(アニメーションをしない)なモデル専用 - インスタンシング対応）
+// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+void KdStandardShader::DrawModel(const KdModelData& rModel, const std::vector<Math::Matrix>& mWorld, const bool isInstancing, const int numInstances,
+	const Math::Color& colRate, const Math::Vector3& emissive)
+{
+	// インスタンシングが有効でない場合はリターン
+	if (!isInstancing || numInstances <= 0) { return; }
+
+	// インスタンシング用のフラグを有効化
+	SetEnableInstancingDraw(true);
+
+	// インスタンスのワールド行列を定数バッファに送信
+	UpdateInstanceBuffer(mWorld);
+
+	auto& dataNodes = rModel.GetOriginalNodes();
+
+	// 全描画用メッシュノードを描画
+	for (auto& nodeIdx : rModel.GetDrawMeshNodeIndices())
+	{
+		if (GetEnableOutLineDraw())
+		{
+			// 表面をカリング（非表示）にする　ラスタライザステートをセット
+			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullFront);
+		}
+
+		// 描画
+		DrawMesh(dataNodes[nodeIdx].m_spMesh.get(), mWorld[0], // インスタンシング時には最初の行列を使用
+			rModel.GetMaterials(), colRate, emissive, true, numInstances);
+
+		if (GetEnableOutLineDraw())
+		{
+			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullBack);
+		}
+	}
+
+	// インスタンシングのフラグをリセット
+	SetEnableInstancingDraw(false);
+}
+
+// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+// モデルワークを描画（ダイナミック(アニメーションをする)なモデルに対応 - インスタンシング対応）
+// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
+void KdStandardShader::DrawModel(KdModelWork& rModel, const std::vector<Math::Matrix>& mWorld, const bool isInstancing, const int numInstances,
+	const Math::Color& colRate, const Math::Vector3& emissive)
+{
+	if (!rModel.IsEnable()) { return; }
+
+	const std::shared_ptr<KdModelData>& data = rModel.GetData();
+
+	// データがないときはスキップ
+	if (data == nullptr || !isInstancing || numInstances <= 0) { return; }
+
+	if (rModel.NeedCalcNodeMatrices())
+	{
+		rModel.CalcNodeMatrices();
+	}
+
+	// インスタンシング用のフラグを有効化
+	SetEnableInstancingDraw(true);
+
+	// インスタンスのワールド行列を定数バッファに送信
+	UpdateInstanceBuffer(mWorld);
+
+	auto& workNodes = rModel.GetNodes();
+	auto& dataNodes = data->GetOriginalNodes();
+
+	// スキンメッシュ対応（スキンメッシュモデルだった場合：ボーン情報書き込み）
+	if (data->IsSkinMesh())
+	{
+		for (auto&& nodeIdx : data->GetBoneNodeIndices())
+		{
+			if (nodeIdx >= KdStandardShader::maxBoneBufferSize)
+			{
+				assert(0 && "転送できるBoneの上限を超えました");
+				return;
+			}
+			auto& dataNode = dataNodes[nodeIdx];
+			auto& workNode = workNodes[nodeIdx];
+
+			// Bone情報からGPUに渡す行列の計算
+			m_cb3_Bone.Work().mBones[dataNode.m_boneIndex] =
+				dataNode.m_boneInverseWorldMatrix * workNode.m_worldTransform;
+			m_cb3_Bone.Write();
+		}
+	}
+
+	// 全描画用メッシュノードを描画
+	for (auto& nodeIdx : data->GetDrawMeshNodeIndices())
+	{
+		if (GetEnableOutLineDraw())
+		{
+			// 表面をカリング（非表示）にする　ラスタライザステートをセット
+			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullFront);
+		}
+
+		// 描画
+		DrawMesh(dataNodes[nodeIdx].m_spMesh.get(), mWorld[0], // インスタンシング時には最初の行列を使用
+			data->GetMaterials(), colRate, emissive, true, numInstances);
+
+		if (GetEnableOutLineDraw())
+		{
+			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullBack);
+		}
+	}
+
+	// インスタンシングのフラグをリセット
+	SetEnableInstancingDraw(false);
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
@@ -434,6 +574,12 @@ bool KdStandardShader::Init()
 			{ "TANGENT",   0, DXGI_FORMAT_R32G32B32_FLOAT,		0, 36, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "SKININDEX", 0, DXGI_FORMAT_R16G16B16A16_UINT,    0, 48, D3D11_INPUT_PER_VERTEX_DATA, 0 },
 			{ "SKINWEIGHT",0, DXGI_FORMAT_R32G32B32A32_FLOAT,   0, 56, D3D11_INPUT_PER_VERTEX_DATA, 0 },
+
+			// インスタンシング対応
+			{ "INSTANCE_WORLD", 0, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 0, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+			{ "INSTANCE_WORLD", 1, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 16, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+			{ "INSTANCE_WORLD", 2, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 32, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
+			{ "INSTANCE_WORLD", 3, DXGI_FORMAT_R32G32B32A32_FLOAT, 1, 48, D3D11_INPUT_PER_INSTANCE_DATA, 1 },
 		};
 
 		// 頂点入力レイアウト作成
@@ -583,6 +729,25 @@ void KdStandardShader::WriteMaterial(const KdMaterial& material, const Math::Vec
 
 	// セット
 	KdDirect3D::Instance().WorkDevContext()->PSSetShaderResources(0, _countof(srvs), srvs);
+}
+
+void KdStandardShader::UpdateInstanceBuffer(const std::vector<Math::Matrix>& instanceWorlds) noexcept
+{
+	// インスタンス数が多すぎる場合のチェック
+	if (instanceWorlds.size() > 300)
+	{
+		assert(0 && "インスタンス数が上限を超えています");
+		return;
+	}
+
+	// 定数バッファにデータを設定
+	for (size_t i = 0; i < instanceWorlds.size(); ++i)
+	{
+		m_cb4_Instance.Work().instances[i].worldMatrix = instanceWorlds[i];
+	}
+
+	// 定数バッファを GPU に転送
+	m_cb4_Instance.Write();
 }
 
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////

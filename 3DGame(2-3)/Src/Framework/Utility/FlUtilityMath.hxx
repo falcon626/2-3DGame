@@ -38,7 +38,7 @@ namespace Formula // Convenience Functions
 		std::random_device rd;
 		std::mt19937 mt{ rd() };
 
-		// Exclusion Check Function (Lambda)
+		// Check Exclusion Function (Lambda)
 		auto isExcluded = [&exclusion](const _T& value)
 			{ return std::find(exclusion.begin(), exclusion.end(), value) != exclusion.end(); };
 

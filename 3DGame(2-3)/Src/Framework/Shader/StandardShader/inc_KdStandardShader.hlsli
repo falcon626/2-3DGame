@@ -11,6 +11,12 @@ cbuffer cbObject : register(b0)
 	float g_dissolveValue; // ディゾルブの閾値
 	float g_dissolveEdgeRange; // ディゾルブの境界線の太さ
 	float3 g_dissolveEmissive; // 境界の色
+
+	// アウトライン対応
+	int g_EnableOutLineDraw;
+
+	// インスタンシング対応
+	int g_EnableInstancingDraw;
 };
 
 // 定数バッファ(メッシュ単位)
@@ -33,6 +39,12 @@ cbuffer cbBones : register(b3)
 {
 	row_major float4x4 g_mBones[300];
 };
+
+// インスタンスごとのワールド行列
+cbuffer cbInstance : register(b4)
+{
+	row_major float4x4 g_mInstanceWorlds[300];
+}
 
 // 頂点シェーダから出力するデータ
 struct VSOutput

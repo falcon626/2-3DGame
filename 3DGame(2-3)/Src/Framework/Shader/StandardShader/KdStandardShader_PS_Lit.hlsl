@@ -48,6 +48,12 @@ float4 main(VSOutput In) : SV_Target0
 	{
 		discard;
 	}
+
+	// アウトライン描画
+	if (g_EnableOutLineDraw)
+	{
+		return float4(0, 0, 0, 1);
+	}
 	
 	// カメラへの方向
 	float3 vCam = g_CamPos - In.wPos;
@@ -139,7 +145,7 @@ float4 main(VSOutput In) : SV_Target0
 		// 光の方向と法線の方向との角度さが光の強さになる
 		float lightDiffuse = dot( -g_DL_Dir, wN );
 		lightDiffuse = saturate( lightDiffuse ); // マイナス値は0にする　0(暗)～1(明)になる
-
+		
 		// 正規化Lambert
 		lightDiffuse /= 3.1415926535;
 
@@ -152,7 +158,7 @@ float4 main(VSOutput In) : SV_Target0
 		// 反射した光の強さを求める
 		// Blinn-Phong NDF
 		float spec = BlinnPhong( g_DL_Dir, vCam, wN, specPower );
-
+		
 		// 光の色 * 反射光の強さ * 材質の反射色 * 透明率 * 適当な調整値
 		outColor += (g_DL_Color * spec) * baseSpecular * baseColor.a * 0.5 * shadow;
 	}

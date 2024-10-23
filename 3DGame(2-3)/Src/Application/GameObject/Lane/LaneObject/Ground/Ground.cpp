@@ -5,7 +5,7 @@ Ground::Ground(const Math::Vector3& pos) noexcept
 {
 	for (auto i{ Def::SizTZero }; i < 13; ++i)
 	{
-		if (i == Def::SizTZero)
+		if (i == 8)
 		{
 			AddObjList<CommonTile>("Terrains/Terrain/terrain_grass.gltf", Math::Vector3((1 * static_cast<float>(i)) - 8, 0, 0) + pos);
 			continue;

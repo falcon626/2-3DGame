@@ -1,13 +1,16 @@
 ﻿#pragma once
 #include "../../ExtensionBaseObject/BaseBasic2DObject/BaseBasic2DObject.hpp"
 
+class Player;
+
 class GameUi : public KdGameObject
 {
 public:
-	GameUi ();
+	explicit GameUi(const std::weak_ptr<Player>& wp);
 	~GameUi() noexcept = default;
 
 	void DrawSprite()override;
+	void PreUpdate()override;
 	void Update()override;
 private:
 	template <class T, typename... Args>
@@ -18,4 +21,6 @@ private:
 	}
 
 	std::list<std::shared_ptr<KdGameObject>> m_uiObjList;
+
+	std::weak_ptr<Player> m_wpPlayer;
 };

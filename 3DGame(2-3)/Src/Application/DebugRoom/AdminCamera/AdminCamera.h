@@ -7,7 +7,7 @@ public:
 	AdminCamera () noexcept = default;
 	~AdminCamera() noexcept override = default;
 
-	void Init()				override;
+	void Init()				;
 	void PostUpdate()		override;
 
 	auto SetIsNotCursorFree(const bool& isNotCursorFree) noexcept { m_isNotCursorFree = isNotCursorFree; }

@@ -1,6 +1,7 @@
 ﻿#include "Player.h"
 #include "../Lane/LaneManager.h"
 #include "../Lane/DamageObject/DamageObjects.h"
+#include "../Camera/TPVCamera/TPVCamera.h"
 #include "../../Scene/SceneManager.h"
 #include "../../main.h"
 
@@ -24,9 +25,14 @@ Player::Player() noexcept
 	m_hp = 3;
 }
 
-Player::~Player() noexcept
+void Player::DrawUnLit()
 {
-	Application::Instance().m_log.AddLog("Dead");
+	if (!m_spModelWork) [[unlikely]] return;
+	if (!m_isOverLap) return;
+	KdShaderManager::Instance().ChangeDepthStencilState(KdDepthStencilState::ZDisable);
+	//KdShaderManager::Instance().m_StandardShader.SetEnableOutLineDraw(true);
+	KdShaderManager::Instance().m_StandardShader.DrawModel(*m_spModelWork, m_mWorld);
+	KdShaderManager::Instance().ChangeDepthStencilState(KdDepthStencilState::ZEnable);
 }
 
 void Player::PreUpdate()
@@ -66,6 +72,8 @@ void Player::PostUpdate()
 		DirectX::XMConvertToRadians(90)
 		) *
 		Math::Matrix::CreateTranslation(m_pos);
+
+	if (m_hp == Def::IntZero)KillExistence();
 }
 
 void Player::UpdateBumpCol() noexcept
@@ -111,18 +119,20 @@ void Player::UpdateDameCol() noexcept
 {
 	if (m_hitInterval > Def::IntZero)
 	{
-		m_hitInterval = Decrement(m_hitInterval, Def::Freame, m_deltaTime);
+		m_hitInterval = static_cast<int32_t>(Decrement(m_hitInterval, Def::Freame, m_deltaTime, -Def::IntOne));
 		return;
 	}
 
-	auto sphere{ KdCollider::SphereInfo{KdCollider::Type::TypeDamage, m_pos, 0.2f} };
+	auto sphere{ KdCollider::SphereInfo{KdCollider::Type::TypeDamage, m_pos, 0.18f} };
 	auto retSphereList{ std::list<KdCollider::CollisionResult>{} };
 
 	for (decltype(auto) obj : m_wpDameObjs.lock()->GetDamaList())
 		if (obj->Intersects(sphere, &retSphereList))
 		{
 			--m_hp;
-			m_hitInterval = 50;
+			if (m_hp < Def::IntZero)m_hp = Def::IntZero;
+
+			m_hitInterval = 180;
 			Application::Instance().m_log.AddLog("\nDead\n");
 		}
 
@@ -152,6 +162,9 @@ void Player::UpdateSafeCol() noexcept
 
 void Player::UpdateHeal() noexcept
 {
+	m_healInterval = static_cast<int32_t>(Decrement(m_healInterval, Def::Freame, m_deltaTime , -Def::IntOne));
+	if (m_healInterval < Def::IntZero)m_healInterval = Def::IntZero;
+
 	if (!m_isSafe)return;
 
 	if (m_healInterval <= Def::IntZero)
@@ -162,7 +175,6 @@ void Player::UpdateHeal() noexcept
 
 		Application::Instance().m_log.AddLog("\nHeal\n");
 	}
-	else m_healInterval = Decrement(m_healInterval, Def::Freame, m_deltaTime);
 }
 
 void Player::MoveRight()

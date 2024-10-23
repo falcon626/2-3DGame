@@ -7,7 +7,7 @@ public:
 	CCTVCamera ()noexcept = default;
 	~CCTVCamera()noexcept = default;
 
-	void Init()				override;
+	void Init()				;
 	void PostUpdate()		override;
 private:
 

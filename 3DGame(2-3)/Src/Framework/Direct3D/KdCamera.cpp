@@ -112,16 +112,20 @@ void KdCamera::ConvertWorldToScreenDetail(const Math::Vector3& pos, Math::Vector
 	Math::Matrix wvp = world * GetCameraViewMatrix() * GetProjMatrix();
 
 	// ②奥行情報(w = ._44で割る必要がある)
-	wvp._41 /= wvp._44;
-	wvp._42 /= wvp._44;
-	wvp._43 /= wvp._44;
+	float w = wvp._44;
+
+	if (w != 0.0f) {
+		wvp._41 /= w;
+		wvp._42 /= w;
+		wvp._43 /= w;
+	}
 
 	// 射影行列系での2D(みたいな)座標
 	// ↑-1~1の範囲の座標の事
 	Math::Vector3 localPos = wvp.Translation();
 
-	// ここで幅や高さを考慮して計算する(これで正確なスクリーン座標になる)
-	result.x = localPos.x * (vp.width * 0.5f);
-	result.y = localPos.y * (vp.height * 0.5f);
+	// ここで幅や高さを考慮して計算する (これで正確なスクリーン座標になる)
+	result.x = (localPos.x * 0.5f + 0.5f) * vp.width + vp.x;
+	result.y = (localPos.y * -0.5f + 0.5f) * vp.height + vp.y; // Y軸は上下が逆なので反転
 	result.z = wvp._44;
 }

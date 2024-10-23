@@ -311,7 +311,7 @@ void Application::Execute()
 		m_fpsController.Update();
 		//m_fpsController.SetMaxFPS(m_maxFps);
 
-		std::string titleBar = "3DBasic <Fps = " + std::to_string(GetNowFPS()) + ">";
+		std::string titleBar = "Go Across <Fps = " + std::to_string(GetNowFPS()) + ">";
 		SetWindowTextA(KdWindow::Instance().GetWndHandle(), titleBar.c_str());
 	}
 

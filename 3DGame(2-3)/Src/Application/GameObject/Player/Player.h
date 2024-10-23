@@ -3,12 +3,15 @@
 #include "../../ExtensionBaseObject/BaseMoveObject/BaseMoveObject.hpp"
 
 class DamageObjects;
+class CameraBase;
 
 class Player : public BaseBasicWork3DObject, BaseMoveObject
 {
 public:
 	Player () noexcept;
-	~Player() noexcept override;
+	~Player() noexcept override = default;
+
+	void DrawUnLit()  override;
 
 	void PreUpdate () override;
 	void Update    () override;
@@ -16,8 +19,10 @@ public:
 
 	void SetPos(const Math::Vector3& pos) noexcept override { SetMemberPos(pos); }
 	inline auto SetDameObjs(const std::weak_ptr<DamageObjects>& wp) noexcept { m_wpDameObjs = wp; }
+	inline auto SetCamera(const std::weak_ptr<CameraBase>& wp) noexcept { m_wpCamera = wp; }
+	inline void IsOverLap(const bool isOverLap) noexcept override { m_isOverLap = isOverLap; }
 
-	inline const auto GetHp() const noexcept { return m_hp; }
+	inline const auto GetHp() const noexcept { return (m_hp <= Def::IntZero) ? Def::IntZero : m_hp; }
 
 	inline const auto IsSafe() const noexcept { return m_isSafe; }
 
@@ -37,6 +42,7 @@ private:
 	void UpdateHeal() noexcept;
 
 	std::weak_ptr<DamageObjects> m_wpDameObjs;
+	std::weak_ptr<CameraBase>    m_wpCamera;
 
 	Math::Vector3 m_velocity;
 
@@ -59,6 +65,7 @@ private:
 	bool m_isMove = false;
 	bool m_isDown = true;
 
-	bool m_isMinPow = false;
-	bool m_isSafe   = false;
+	bool m_isMinPow  = false;
+	bool m_isSafe    = false;
+	bool m_isOverLap = false;
 };

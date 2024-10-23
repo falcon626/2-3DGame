@@ -18,14 +18,18 @@ protected:
 	{
 		m_spTex = FlDataStorage::Instance().GetTexture(path.data());
 
-		*m_spTexInfo = m_spTex->GetInfo();
+		m_texInfo = m_spTex->GetInfo();
 	}
 
+	inline auto SetTexScale(const float siz) noexcept  { m_siz = { siz,siz }; }
+	inline auto SetTexScale(const Math::Vector2& siz) noexcept { m_siz = siz; }
+
 	// Class Or Struct Value
-	std::shared_ptr<D3D11_TEXTURE2D_DESC> m_spTexInfo;
+	D3D11_TEXTURE2D_DESC m_texInfo{};
 	Math::Vector2 m_pos;
 private:
 
 	// Class Or Struct Value
 	std::shared_ptr<KdTexture> m_spTex;
+	Math::Vector2 m_siz{ Math::Vector2::One };
 };

@@ -33,6 +33,13 @@ VSOutputNoLighting main(
 	
 	VSOutputNoLighting Out;
 
+	// アウトライン描画チェック
+	if (g_EnableOutLineDraw)
+	{
+		// 頂点座標を「法線方向」に少しずらす
+		pos.xyz = pos.xyz + normal * 0.03;
+	}
+
 	// 座標変換
 	Out.Pos = mul(pos, g_mWorld);		// ローカル座標系 -> ワールド座標系へ変換
 	Out.wPos = Out.Pos.xyz;				// ワールド座標を別途保存

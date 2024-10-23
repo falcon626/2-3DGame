@@ -27,6 +27,12 @@ float4 main(VSOutputNoLighting In) : SV_Target0
 	{
 		discard;
 	}
+
+	// アウトライン描画
+	if (g_EnableOutLineDraw)
+	{
+		return float4(0, 0, 1, 1);
+	}
 	
 	// 自己発光色の適応
 	if (g_OnlyEmissie)

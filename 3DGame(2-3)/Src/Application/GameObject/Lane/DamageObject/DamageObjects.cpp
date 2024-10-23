@@ -10,6 +10,8 @@
 DamageObjects::DamageObjects()
 {
 	m_entityId = Id::Enemy;
+
+
 }
 
 void DamageObjects::GenerateDepthMapFromLight()
@@ -122,4 +124,15 @@ void DamageObjects::KillDameObj() noexcept
 		auto damePos{ dameObj->GetPos() };
 		if (15 < damePos.x) dameObj->KillExistence();
 	}
+}
+
+const std::vector<Math::Matrix> DamageObjects::CreateMatrixVector(const std::list<std::shared_ptr<BaseBasic3DObject>>& dameObjs) noexcept
+{
+	auto mVec{ std::vector<Math::Matrix>{} };
+	mVec.reserve(dameObjs.size());
+
+	for (decltype(auto) dameObj : dameObjs)
+		mVec.push_back(dameObj->GetMatrix());
+
+	return mVec;
 }

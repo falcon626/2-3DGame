@@ -32,6 +32,14 @@ public:
 		float			DissolveEdgeRange = 0.03f;	// 0 ～ 1
 
 		Math::Vector3	DissolveEmissive = { 0.0f, 1.0f, 1.0f };
+
+		// アウトライン対応
+		int EnableOutLineDraw = 0;
+		
+		// インスタンシング対応
+		int EnableInstancingDraw = 0;
+
+		float _blank[2] = { 0,0 };
 	};
 
 	// 定数バッファ(メッシュ単位更新)
@@ -55,6 +63,19 @@ public:
 	struct cbBone
 	{
 		Math::Matrix mBones[300];
+	};
+
+	// インスタンシング対応
+	// インスタンスごとのデータ
+	struct InstanceData
+	{
+	    Math::Matrix worldMatrix; // 各インスタンスのワールド行列
+	};
+	
+	// 定数バッファ構造体
+	struct cbInstance
+	{
+	    InstanceData instances[300]; // インスタンスの最大数分のデータを格納
 	};
 
 
@@ -130,6 +151,26 @@ public:
 		SetDissolveTexture(*m_dissolveTex);
 	}
 
+	// アウトライン対応 描画設定
+	void SetEnableOutLineDraw(const bool enableOutLineDraw)
+	{
+		if (m_cb0_Obj.Work().EnableOutLineDraw != static_cast<int>(enableOutLineDraw))
+		{
+			m_cb0_Obj.Work().EnableOutLineDraw = enableOutLineDraw;
+			m_dirtyCBObj = true;
+		}
+	}
+
+	// インスタンシング対応 描画設定
+	void SetEnableInstancingDraw(const bool enableInstancingDraw)
+	{
+		if (m_cb0_Obj.Work().EnableInstancingDraw != static_cast<int>(enableInstancingDraw))
+		{
+			m_cb0_Obj.Work().EnableInstancingDraw = enableInstancingDraw;
+			m_dirtyCBObj = true;
+		}
+	}
+
 	//================================================
 	// 各定数バッファの取得
 	//================================================
@@ -162,15 +203,26 @@ public:
 	//================================================
 	// メッシュ描画
 	void DrawMesh(const KdMesh* mesh, const Math::Matrix& mWorld, const std::vector<KdMaterial>& materials,
-		const Math::Vector4& col, const Math::Vector3& emissive);
+		const Math::Vector4& col, const Math::Vector3& emissive, const bool isInstancing, const int numInstances);
 
 	// モデルデータ描画：アニメーションに非対応
-	void DrawModel(const KdModelData& rModel, const Math::Matrix& mWorld = Math::Matrix::Identity,
+	void DrawModel(const KdModelData& rModel, const Math::Matrix& mWorld = Math::Matrix::Identity, const bool isInstancing = false, const int numInstances = Def::IntZero ,
 		const Math::Color& colRate = kWhiteColor, const Math::Vector3& emissive = Math::Vector3::Zero);
 
 	// モデルワーク描画：アニメーションに対応
-	void DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld = Math::Matrix::Identity,
+	void DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld = Math::Matrix::Identity, const bool isInstancing = false, const int numInstances = Def::IntZero,
 		const Math::Color& colRate = kWhiteColor, const Math::Vector3& emissive = Math::Vector3::Zero);
+
+
+	// インスタンシング対応
+	// モデルデータ描画：アニメーションに非対応
+	void DrawModel(const KdModelData& rModel, const std::vector<Math::Matrix>& mWorld = {}, const bool isInstancing = false, const int numInstances = Def::IntZero,
+		const Math::Color& colRate = kWhiteColor, const Math::Vector3& emissive = Math::Vector3::Zero);
+
+	// モデルワーク描画：アニメーションに対応
+	void DrawModel(KdModelWork& rModel, const std::vector<Math::Matrix>& mWorld = {}, const bool isInstancing = false, const int numInstances = Def::IntZero,
+		const Math::Color& colRate = kWhiteColor, const Math::Vector3& emissive = Math::Vector3::Zero);
+
 
 	// 任意の頂点群からなるポリゴン描画
 	void DrawPolygon(const KdPolygon& poly, const Math::Matrix& mWorld = Math::Matrix::Identity,
@@ -211,6 +263,10 @@ private:
 		}
 	}
 
+	void UpdateInstanceBuffer(const std::vector<Math::Matrix>& instanceWorlds) noexcept;
+
+	inline const auto GetEnableOutLineDraw() noexcept { return m_cb0_Obj.Work().EnableOutLineDraw; }
+
 	// ポリゴンの法線情報を2Dように書き換える
 	void ConvertNormalsFor2D(std::vector<KdPolygon::Vertex>& target, const Math::Matrix& mWorld);
 
@@ -249,6 +305,7 @@ private:
 	KdConstantBuffer<cbMesh>		m_cb1_Mesh;				// メッシュ毎に更新
 	KdConstantBuffer<cbMaterial>	m_cb2_Material;			// マテリアル毎に更新
 	KdConstantBuffer<cbBone>		m_cb3_Bone;			    // スキンメッシュ対応
+	KdConstantBuffer<cbInstance>	m_cb4_Instance;		    // インスタンシング対応
 
 	KdRenderTargetPack	m_depthMapFromLightRTPack;
 	KdRenderTargetChanger m_depthMapFromLightRTChanger;

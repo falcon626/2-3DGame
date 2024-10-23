@@ -178,6 +178,45 @@
     <Filter Include="Src\Application\GameObject\GameUi\StageTime">
       <UniqueIdentifier>{83df0efa-82df-40c5-b906-8d7a08687e5f}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\GameObject\Effect">
+      <UniqueIdentifier>{d8020616-b41e-41c0-8b39-8ac2ed0c4acb}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Effect\Bubble">
+      <UniqueIdentifier>{bffea5c3-ad65-4eea-a6f6-4c37ce9c834b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Effect\Particle">
+      <UniqueIdentifier>{4847ac9c-aa34-4217-b838-f6f19d119b98}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\TitleObject">
+      <UniqueIdentifier>{51e28008-c2d8-4e8e-9aa5-ca1b0ad297ba}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\TitleObject\Bar">
+      <UniqueIdentifier>{81ba4cb0-71d0-43ba-9214-2d055c227a5b}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\TitleObject\TitleCar">
+      <UniqueIdentifier>{97a211d9-e061-46ba-9a77-dd4073bfc650}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\TitleObject\TitleCamera">
+      <UniqueIdentifier>{c402f308-0f3e-4ce2-b349-fffe9762c631}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\TitleObject\TitleTrain">
+      <UniqueIdentifier>{2de5a5c0-be4c-4a80-a106-4a68d556ddcc}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\TitleObject\TitleFish">
+      <UniqueIdentifier>{3a263a55-df46-40f0-b5ad-78017a1bd1e3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\GameUi\HitPoint">
+      <UniqueIdentifier>{2aff3990-7494-4058-a7a7-a6797d9ca96e}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\GameUi\Score">
+      <UniqueIdentifier>{e345eac7-505f-410d-b4ad-6816b5eb3a63}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\GameUi\Dist">
+      <UniqueIdentifier>{b17e1f70-08d8-4881-8158-ab399449bd6d}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Award">
+      <UniqueIdentifier>{c4a89c92-18a7-454b-a749-b01d06c8f509}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -468,6 +507,33 @@
     <ClInclude Include="Src\Application\GameObject\GameUi\StageTime\StageTime.h">
       <Filter>Src\Application\GameObject\GameUi\StageTime</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\TitleObject\Bar\Bar.h">
+      <Filter>Src\Application\TitleObject\Bar</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\TitleObject\TitleCar\TitleCar.h">
+      <Filter>Src\Application\TitleObject\TitleCar</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\TitleObject\TitleCamera\TitleCamera.h">
+      <Filter>Src\Application\TitleObject\TitleCamera</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\TitleObject\TitleTrain\TitleTrain.h">
+      <Filter>Src\Application\TitleObject\TitleTrain</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\TitleObject\TitleFish\TitleFish.h">
+      <Filter>Src\Application\TitleObject\TitleFish</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.h">
+      <Filter>Src\Application\GameObject\GameUi\HitPoint</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\GameUi\Score\Score.h">
+      <Filter>Src\Application\GameObject\GameUi\Score</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\GameUi\Dist\Dist.h">
+      <Filter>Src\Application\GameObject\GameUi\Dist</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Award\Award.h">
+      <Filter>Src\Application\GameObject\Award</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -686,6 +752,33 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\GameUi\StageTime\StageTime.cpp">
       <Filter>Src\Application\GameObject\GameUi\StageTime</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\TitleObject\Bar\Bar.cpp">
+      <Filter>Src\Application\TitleObject\Bar</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\TitleObject\TitleCar\TitleCar.cpp">
+      <Filter>Src\Application\TitleObject\TitleCar</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\TitleObject\TitleCamera\TitleCamera.cpp">
+      <Filter>Src\Application\TitleObject\TitleCamera</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\TitleObject\TitleTrain\TitleTrain.cpp">
+      <Filter>Src\Application\TitleObject\TitleTrain</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\TitleObject\TitleFish\TitleFish.cpp">
+      <Filter>Src\Application\TitleObject\TitleFish</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.cpp">
+      <Filter>Src\Application\GameObject\GameUi\HitPoint</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\GameUi\Score\Score.cpp">
+      <Filter>Src\Application\GameObject\GameUi\Score</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\GameUi\Dist\Dist.cpp">
+      <Filter>Src\Application\GameObject\GameUi\Dist</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Award\Award.cpp">
+      <Filter>Src\Application\GameObject\Award</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

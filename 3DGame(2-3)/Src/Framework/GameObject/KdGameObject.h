@@ -9,18 +9,19 @@ public:
 	{
 		UnKnown        [[maybe_unused]] = Def::BitMaskPos0,
 															  
-		BackGround     [[maybe_unused]] = Def::BitMaskPos1 << Def::HalfBit,
-		Ground         [[maybe_unused]] = Def::BitMaskPos2 << Def::HalfBit,
-		Obstacle       [[maybe_unused]] = Def::BitMaskPos3 << Def::HalfBit,
-		OtherInanimate [[maybe_unused]] = Def::BitMaskPos4 << Def::HalfBit,
+		BackGround     [[maybe_unused]] = Def::BitMaskPos1  << Def::HalfBit,
+		Ground         [[maybe_unused]] = Def::BitMaskPos2  << Def::HalfBit,
+		Obstacle       [[maybe_unused]] = Def::BitMaskPos3  << Def::HalfBit,
+		OtherInanimate [[maybe_unused]] = Def::BitMaskPos4  << Def::HalfBit,
 
-		Enemy          [[maybe_unused]] = Def::BitMaskPos5 << Def::HalfBit,
-		Player         [[maybe_unused]] = Def::BitMaskPos6 << Def::HalfBit,
-		OtherCreature  [[maybe_unused]] = Def::BitMaskPos7 << Def::HalfBit,
-															  
-		Ui             [[maybe_unused]] = Def::BitMaskPos8 << Def::HalfBit,
-															  
-		Camera         [[maybe_unused]] = Def::BitMaskPos9 << Def::HalfBit,
+		Ui			   [[maybe_unused]] = Def::BitMaskPos5 << Def::HalfBit,
+														    
+		Effect         [[maybe_unused]] = Def::BitMaskPos6  << Def::HalfBit,
+		Enemy          [[maybe_unused]] = Def::BitMaskPos7  << Def::HalfBit,
+		Player         [[maybe_unused]] = Def::BitMaskPos8  << Def::HalfBit,
+		OtherCreature  [[maybe_unused]] = Def::BitMaskPos9  << Def::HalfBit,
+															   
+		Camera         [[maybe_unused]] = Def::BitMaskPos10 << Def::HalfBit,
 	};
 
 	// どのような描画を行うのかを設定するTypeID：Bitフラグで複数指定可能
@@ -37,7 +38,7 @@ public:
 	virtual ~KdGameObject() { Release(); }
 
 	// 生成される全てに共通するパラメータに対する初期化のみ
-	virtual void Init() {}
+	//virtual void Init() {}
 
 	virtual void PreUpdate() {}
 	virtual void Update() {}
@@ -79,6 +80,8 @@ public:
 	virtual bool IsVisible()	const { return false; }
 	virtual bool IsRideable()	const { return false; }
 
+	virtual inline void IsOverLap(const bool) noexcept {};
+
 	// 視錐台範囲内に入っているかどうか
 	virtual bool CheckInScreen(const DirectX::BoundingFrustum&) const { return false; }
 
@@ -100,19 +103,25 @@ protected:
 	void Release() {}
 
 	template <typename T>
-	inline const auto Increment(const T value, const std::type_identity_t<T> incrementRate, const float deltaTime) noexcept
+	inline const auto Increment(const T value, const std::type_identity_t<T> incrementRate, const float deltaTime, const T maxValue = static_cast<T>(Def::IntOne)) noexcept
 	{
 		static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "Not A Valid Numeric Type");
-		return value + incrementRate * deltaTime;
+
+		auto newValue = value + incrementRate * deltaTime;
+
+		return newValue > maxValue ? maxValue : newValue;
 	}
 
 	inline const auto Increment(const auto incrementRate, const float deltaTime) noexcept { return incrementRate * deltaTime; }
 
 	template <typename _T>
-	inline const auto Decrement(const _T value, const std::type_identity_t<_T> decrementRate, const float deltaTime) noexcept
+	inline const auto Decrement(const _T value, const std::type_identity_t<_T> decrementRate, const float deltaTime, const _T minValue = static_cast<_T>(-Def::IntOne)) noexcept
 	{
 		static_assert(std::is_integral<_T>::value || std::is_floating_point<_T>::value, "Not A Valid Numeric Type");
-		return value - decrementRate * deltaTime;
+
+		auto newValue = value - decrementRate * deltaTime;
+
+		return newValue < minValue ? minValue : newValue;
 	}
 
 	inline const auto Decrement(const auto decrementRate, const float deltaTime) noexcept { return decrementRate * deltaTime; }

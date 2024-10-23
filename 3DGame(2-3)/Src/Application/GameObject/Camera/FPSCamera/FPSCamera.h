@@ -7,6 +7,6 @@ public:
 	FPSCamera()							{}
 	~FPSCamera()			override	{}
 
-	void Init()				override;
+	void Init()				;
 	void PostUpdate()		override;
 };

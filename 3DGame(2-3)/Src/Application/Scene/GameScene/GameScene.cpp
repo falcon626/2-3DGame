@@ -19,19 +19,21 @@ void GameScene::Event()
 {
 	if (Key::IsPushingWithFocus(Key::F11)) SceneManager::Instance().SetNextScene(SceneManager::SceneType::Debug);
 
+	if (Key::IsPushingWithFocus(Key::Esc)) SceneManager::Instance().SetNextScene(SceneManager::SceneType::Title);
+
 	//if (auto wp{ WeakPtrIsExpired(m_wpCamera) }) wp->SetIsNotCursorFree(Key::IsPushingWithFocus(Key::R_Click));
 
 	if (auto sp{ WeakPtrIsExpired(m_wpPlayer) })
 	{
 		auto nowWheelVal{ KdWindow::Instance().GetMouseWheelVal() };
 
-		if (Key::IsPushingWithFocus({ Key::Right, Key::R_Click, Key::D })) sp->MoveUp();
+		if (Key::IsPushingWithFocus({ Key::Right, Key::R_Click, Key::D }))      sp->MoveUp();
 
 		else if (Key::IsPushingWithFocus({ Key::Left,  Key::L_Click, Key::A })) sp->MoveDown();
 
 		else if (Key::IsPushingWithFocus({ Key::Up,    Key::W })) sp->MoveLeft();
 
-		else if (Key::IsPushingWithFocus({ Key::Down,  Key::S }))  sp->MoveRight();
+		else if (Key::IsPushingWithFocus({ Key::Down,  Key::S })) sp->MoveRight();
 
 		else if (nowWheelVal > Def::IntZero) sp->MoveLeft();
 
@@ -46,7 +48,10 @@ void GameScene::Event()
 			sp->SetPos({ 0,0.25f,0 });
 		}
 	}
+	else if (m_wpPlayer.expired())
+	{
 
+	}
 	if (Key::IsPushing(Key::P))
 	{
 		LaneManager::Instance().KillLane(0);
@@ -69,7 +74,7 @@ void GameScene::Init()
 	// Add Objects
 	AddObjListAndWeak<Player>(m_wpPlayer);
 
-	AddObjList<GameUi>();
+	AddObjList<GameUi>(m_wpPlayer);
 
 	AddObjListAndWeak<DamageObjects>(m_wpDamaObjects);
 
@@ -77,9 +82,17 @@ void GameScene::Init()
 
 	//AddObjListInitAndWeak<AdminCamera>(m_wpCamera);
 	AddObjListAndWeak<TPVCamera>(m_wpCamera);
+
 	// Setter
-	if (auto sp{ WeakPtrIsExpired(m_wpCamera) }) sp->SetTarget(m_wpPlayer.lock());
-	if (auto sp{ WeakPtrIsExpired(m_wpPlayer) }) sp->SetDameObjs(m_wpDamaObjects);
+	if (auto sp{ WeakPtrIsExpired(m_wpCamera) })
+	{
+		sp->SetTarget(m_wpPlayer.lock());
+		sp->SetDamageObjcts(m_wpDamaObjects);
+	}
+	if (auto sp{ WeakPtrIsExpired(m_wpPlayer) })
+	{
+		sp->SetDameObjs(m_wpDamaObjects);
+	}
 }
 
 void GameScene::PreLoad() noexcept

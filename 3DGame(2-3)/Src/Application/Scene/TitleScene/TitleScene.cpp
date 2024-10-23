@@ -1,9 +1,16 @@
 ﻿#include "TitleScene.h"
 #include "../SceneManager.h"
 
+#include "../../TitleObject/TitleCamera/TitleCamera.h"
+
+#include "../../TitleObject/Bar/Bar.h"
+#include "../../TitleObject/TitleCar/TitleCar.h"
+#include "../../TitleObject/TitleTrain/TitleTrain.h"
+#include "../../TitleObject/TitleFish/TitleFish.h"
+
 void TitleScene::Event()
 {
-	if (GetAsyncKeyState(VK_RETURN) & 0x8000)
+	if (Key::IsPushingWithFocus({ Key::Wheel_Click, Key::Enter }))
 	{
 		SceneManager::Instance().SetNextScene
 		(
@@ -14,4 +21,9 @@ void TitleScene::Event()
 
 void TitleScene::Init()
 {
+	AddObjList<TitleCamera>(Math::Vector3{0,0,-4.8f});
+	AddObjList<Bar>();
+	AddObjList<TitleCar>();
+	AddObjList<TitleTrain>();
+	AddObjList<TitleFish>();
 }

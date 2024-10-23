@@ -1,4 +1,8 @@
 ﻿#include "TPVCamera.h"
+#include "../../Player/Player.h"
+#include "../../Lane/DamageObject/DamageObjects.h"
+#include "../../../Scene/SceneManager.h"
+#include "../../../ExtensionBaseObject/BaseBasic3DObject/BaseBasic3DObject.hpp"
 
 void TPVCamera::Init()
 {
@@ -14,68 +18,37 @@ void TPVCamera::PostUpdate()
 {
 	// ターゲットの行列(有効な場合利用する)
 	auto									  _targetMat { Def::Mat };
-	const std::shared_ptr<const KdGameObject> _spTarget  { m_wpTarget.lock() };
+	const std::shared_ptr<KdGameObject> _spTarget  { m_wpTarget.lock() };
 	if (_spTarget)
 	{
 		Math::Vector3 pos{ 0,0,_spTarget->GetPos().z };
 		_targetMat = Math::Matrix::CreateTranslation(pos);
+
+		_spTarget->IsOverLap(IsInterrupt());
 
 		// カメラの回転
 		m_mWorld = m_mLocalPos * _targetMat;
 	}
 }
 
-void TPVCamera::PreventFilling(const std::shared_ptr<const KdGameObject>& spTarget) noexcept
+const bool TPVCamera::IsInterrupt() noexcept
 {
-	KdCollider::RayInfo _rayInfo;
-	const auto _nowPos{ GetPos() };
+	if (m_wpDameObjs.expired() || m_wpTarget.expired())return false;
 
+	m_isInterrupt = true;
 
-	_rayInfo.m_pos = _nowPos;
-	_rayInfo.m_type = KdCollider::Type::TypeGround;
+	auto spDame{ m_wpDameObjs.lock() };
+	auto spCamera{ m_wpTarget.lock() };
 
-	if (!!spTarget)
-	{
-		auto _tagPos{ spTarget->GetPos() };
-		_tagPos.y += 0.1f;
-		_rayInfo.m_dir = _tagPos - _nowPos;
-		_rayInfo.m_range = _rayInfo.m_dir.Length();
-		_rayInfo.m_dir.Normalize();
-	}
-	else
-	{
-		_rayInfo.m_dir = Math::Vector3::Down;
-		_rayInfo.m_range = 1000.0f;
-	}
+	auto pos{ GetPos() + Math::Vector3{0,2.5f,0} };
 
-	for (auto& _wpGameObj : m_wpHitObjectList)
-	{
-		auto _spGameObj{ _wpGameObj.lock() };
-		if (_spGameObj)
-		{
-			std::list<KdCollider::CollisionResult> _rayResult;
-			_spGameObj->Intersects(_rayInfo, &_rayResult);
+	auto dir{ spCamera->GetPos() - pos };
+	auto range{ dir.LengthSquared() };
 
-			auto _maxOveLap{ Def::FloatZero };
-			auto _hitPos{ Def::Vec3 };
-			auto _isHit{ false };
+	auto ray{ KdCollider::RayInfo{KdCollider::Type::TypeDamage, pos, dir, range} };
+	auto retRayList{ std::list<KdCollider::CollisionResult>{} };
 
-			for (const auto& _ret : _rayResult)
-			{
-				if (_maxOveLap < _ret.m_overlapDistance)
-				{
-					_maxOveLap = _ret.m_overlapDistance;
-					_hitPos = _ret.m_hitPos;
-					_isHit = true;
-				}
-			}
-
-			if (_isHit)
-			{
-				auto _corrPos{ _hitPos };
-				_corrPos += _rayInfo.m_dir * 0.4f;
-				SetPos(_corrPos);
-			}
-		}
-	}
+	for (decltype(auto) obj : spDame->GetDamaList())
+		if (obj->Intersects(ray, &retRayList)) return true;
+	return false;
 }

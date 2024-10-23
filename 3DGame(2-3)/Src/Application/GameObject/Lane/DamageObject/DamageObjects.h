@@ -28,6 +28,8 @@ private:
 
 	void KillDameObj() noexcept;
 
+	const std::vector<Math::Matrix> CreateMatrixVector(const std::list<std::shared_ptr<BaseBasic3DObject>>& dameObjs)noexcept;
+
 	// functionoid : functor
 	template<typename T>
 	struct WeakPtrHash 
@@ -60,4 +62,7 @@ private:
 	std::list<std::shared_ptr<BaseBasic3DObject>> m_damaObjList;
 
 	std::weak_ptr<KdGameObject> m_wpTarget;
+
+	std::shared_ptr<KdModelData> m_spTrain;
+	std::shared_ptr<KdModelData> m_spCar;
 };

@@ -6,7 +6,7 @@ public:
 	CameraBase()						{}
 	virtual ~CameraBase()	override	{}
 
-	void Init()				override;
+	void Init()				;
 	void PreDraw()			override;
 	void PreUpdate()        override;
 
@@ -36,6 +36,13 @@ public:
 	{
 		return Math::Matrix::CreateRotationY(
 			   DirectX::XMConvertToRadians(m_DegAng.y));
+	}
+
+	inline const auto GetTwoDimensionPos(const Math::Vector3& pos) const noexcept
+	{
+		auto posResult{ Def::Vec3 };
+		m_spCamera->ConvertWorldToScreenDetail(pos, posResult);
+		return posResult;
 	}
 
 	void RegisHitObject(const std::shared_ptr<KdGameObject>& object)
