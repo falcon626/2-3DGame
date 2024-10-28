@@ -4,6 +4,11 @@
 #include "../Player/Player.h"
 #include "../../Scene/SceneManager.h"
 
+void LaneManager::Init() noexcept
+{
+	m_laneZ = -9;
+}
+
 void LaneManager::PreUpdate(const float playerZ)
 {
 	for (const auto& laneData : m_laneData)

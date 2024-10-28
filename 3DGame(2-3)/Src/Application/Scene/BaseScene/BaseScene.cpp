@@ -29,15 +29,15 @@ void BaseScene::PreUpdate()
 
 void BaseScene::Update(const float deltaTime)
 {
+	// シーン毎のイベント処理
+	Event();
+
 	// KdGameObjectを継承した全てのオブジェクトの更新 (ポリモーフィズム)
 	for (auto& obj : m_objList)
 	{
 		obj->SetDeltaTime(deltaTime);
 		obj->Update();
 	}
-
-	// シーン毎のイベント処理
-	Event();
 }
 
 void BaseScene::PostUpdate()

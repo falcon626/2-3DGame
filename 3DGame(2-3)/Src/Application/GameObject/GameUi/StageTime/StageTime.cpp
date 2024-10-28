@@ -2,7 +2,7 @@
 #include "../../../System/Counter/Counter.h"
 #include "../../../System/Timer/Timer.h"
 
-StageTime::StageTime()
+StageTime::StageTime(const std::weak_ptr<Player>& wp)
 {
 	m_spTex = FlDataStorage::Instance().GetTexture("Numbers/numbersBox.png");
 
@@ -12,6 +12,8 @@ StageTime::StageTime()
 	m_pos = { -460,300 };
 
 	m_spTimer->Start();
+
+	m_wpPlayer = wp;
 }
 
 void StageTime::DrawSprite()
@@ -26,4 +28,6 @@ void StageTime::Update()
 	m_spCounter->SetCounterParameter(m_time, m_pos);
 
 	m_spCounter->Update();
+
+	if (m_wpPlayer.expired()) m_spTimer->Stop();
 }

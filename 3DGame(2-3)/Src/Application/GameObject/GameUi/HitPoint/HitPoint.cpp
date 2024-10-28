@@ -5,8 +5,8 @@ HitPoint::HitPoint(const std::weak_ptr<Player>& wp)
 {
 	m_rect = Math::Rectangle{ 0,m_rectY,150,50 };
 	m_spTex = FlDataStorage::Instance().GetTexture("Hp/hitPoint.png");
-	m_siz = { 95,55 };
-	m_pos = { -530,240 };
+	m_siz = { 100,50 };
+	m_pos = { -530,200 };
 
 	SetPlayer(wp);
 }
@@ -54,7 +54,7 @@ void HitPoint::Update()
 {
 	if (m_isDame)
 	{
-		m_pos.x = Formula::Rand(-560, -500);
+		m_pos.x = Formula::Rand(-560.f, -500.f);
 
 		m_motionInterval -= m_deltaTime;
 

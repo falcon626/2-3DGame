@@ -8,6 +8,16 @@ Dist::Dist(const std::weak_ptr<Player>& wp)
 
 	m_wpPlayer = wp;
 	m_pos = { -270,300 };
+
+	auto parameter{ std::vector<float>{} };
+	auto counter{ Def::SizTZero };
+
+	{
+		[[maybe_unused]] const auto IsAssert{ BinaryAccessor::Instance().Load("Asset/Data/PlayerScore/memory_float.dat", parameter, counter) };
+		_ASSERT_EXPR(IsAssert, L"Not Found File");
+	}
+
+	m_best = parameter[--counter];
 }
 
 void Dist::DrawSprite()
@@ -24,6 +34,16 @@ void Dist::Update()
 		if (m_playerPos.z > 999)m_playerPos.z = 999;
 
 		m_spCounter->SetCounterParameter(static_cast<const int>(m_playerPos.z), m_pos, { 1,1 - m_playerPos.z / 999,1 - m_playerPos.z / 999,1 });
+		
+		if (m_best < m_playerPos.z) m_best = m_playerPos.z;
 	}
+	else if(!m_dirty)
+	{
+		auto parameter{ std::vector<float>{m_best} };
+
+		BinaryAccessor::Instance().Save("Asset/Data/PlayerScore/memory_float.dat", parameter);
+		m_dirty = true;
+	}
+
 	m_spCounter->Update();
 }

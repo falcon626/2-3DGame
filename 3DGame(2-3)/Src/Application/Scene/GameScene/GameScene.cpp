@@ -52,24 +52,14 @@ void GameScene::Event()
 	{
 
 	}
-	if (Key::IsPushing(Key::P))
-	{
-		LaneManager::Instance().KillLane(0);
-		LaneManager::Instance().KillLane(1);
-		LaneManager::Instance().KillLane(2);
-		LaneManager::Instance().KillLane(3);
-		LaneManager::Instance().KillLane(4);
-		LaneManager::Instance().KillLane(5);
-		LaneManager::Instance().KillLane(6);
-		LaneManager::Instance().KillLane(7);
-		LaneManager::Instance().KillLane(8);
-	}
 }
 
 void GameScene::Init()
 {
 	// Pre Asset Load
 	PreLoad();
+
+	LaneManager::Instance().Init();
 
 	// Add Objects
 	AddObjListAndWeak<Player>(m_wpPlayer);

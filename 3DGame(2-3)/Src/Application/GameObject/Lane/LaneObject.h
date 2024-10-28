@@ -28,6 +28,8 @@ public:
 	inline const auto GetLane() const noexcept { return m_laneObj; }
 	inline const auto GetType() const noexcept { return m_type; }
 
+	const bool IsUp() const noexcept;
+
 	// Ius Vitae Necisque
 	inline auto KillExistence() noexcept { m_isExpired = true; }
 

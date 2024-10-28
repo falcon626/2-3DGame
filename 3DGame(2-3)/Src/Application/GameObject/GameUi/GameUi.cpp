@@ -2,14 +2,16 @@
 #include "StageTime/StageTime.h"
 #include "HitPoint/HitPoint.h"
 #include "Dist/Dist.h"
+#include "BestDist/BestDist.h"
 
 GameUi::GameUi(const std::weak_ptr<Player>& wp)
 {
 	m_entityId = Id::Ui;
 
-	AddObjList<StageTime>();
+	//AddObjList<StageTime>(wp);
 	AddObjList<HitPoint>(wp);
 	AddObjList<Dist>(wp);
+	AddObjList<BestDist>();
 }
 
 void GameUi::DrawSprite()

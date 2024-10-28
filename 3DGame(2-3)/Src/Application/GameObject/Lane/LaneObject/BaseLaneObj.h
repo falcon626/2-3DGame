@@ -13,6 +13,8 @@ public:
 
 	void PreUpdate()override;
 
+	virtual inline const bool IsUp() const noexcept { return m_isUp; }
+
 	inline const auto GetTilesList() const noexcept { return m_tilesList; }
 
 protected:
@@ -26,6 +28,8 @@ protected:
 	}
 
 	std::list<std::shared_ptr<KdGameObject>> m_tilesList;
+
+	bool m_isUp{ false };
 private:
 
 	//uint32_t m_tilesNum;

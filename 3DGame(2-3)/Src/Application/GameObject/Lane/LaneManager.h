@@ -7,6 +7,8 @@ class Player;
 class LaneManager
 {
 public:
+	void Init() noexcept;
+
 	void PreUpdate(const float playerZ);
 	void Update();
 	void AddLane();

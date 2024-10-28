@@ -11,5 +11,5 @@ public:
 	void DrawSprite() override;
 	void Update() override;
 private:
-	std::array<std::shared_ptr<CheckBox>, 8> m_arr;
+	std::array<std::shared_ptr<CheckBox>, 4> m_checkBoxArr;
 };

@@ -1,12 +1,14 @@
 ﻿#pragma once
 
+class Player;
+
 class Counter;
 class Timer;
 
 class StageTime : public KdGameObject
 {
 public:
-	StageTime();
+	explicit StageTime(const std::weak_ptr<Player>& wp);
 	~StageTime() override = default;
 
 	void DrawSprite()override;
@@ -16,6 +18,8 @@ private:
 
 	std::shared_ptr<Counter> m_spCounter;
 	std::shared_ptr<Timer>   m_spTimer;
+
+	std::weak_ptr<Player> m_wpPlayer;
 
 	Math::Vector2            m_pos;
 

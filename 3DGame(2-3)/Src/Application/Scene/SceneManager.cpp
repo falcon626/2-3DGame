@@ -87,7 +87,7 @@ void SceneManager::Init()
 #endif // _DEBUG
 	}
 
-	m_masterVolume = parameter[--counter];
+	m_masterVolume = parameter[--counter] * 0.5f;
 	m_changeVol = parameter[--counter];
 
 	m_soundTexPos.x = parameter[--counter];
@@ -122,7 +122,7 @@ void SceneManager::ChangeScene(SceneType sceneType)
 
 void SceneManager::SoundUpdate() noexcept
 {
-	if (Key::IsPushing(Key::Up) && Key::IsPushing(Key::Space))
+	if (Key::IsPushing(Key::Up) && Key::IsPushing(Key::Shift))
 	{
 		if (!m_volUpKeyFlg)
 		{
@@ -132,7 +132,7 @@ void SceneManager::SoundUpdate() noexcept
 	}
 	else m_volUpKeyFlg = false;
 
-	if (Key::IsPushing(Key::Down) && Key::IsPushing(Key::Space))
+	if (Key::IsPushing(Key::Down) && Key::IsPushing(Key::Shift))
 	{
 		if (!m_volDownKeyFlg)
 		{

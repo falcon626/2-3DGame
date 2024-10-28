@@ -223,6 +223,9 @@
     <Filter Include="Src\Application\TitleObject\ModeSelect">
       <UniqueIdentifier>{e5b5dc87-0375-4739-9d77-a59190e4763d}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\GameObject\GameUi\BestDist">
+      <UniqueIdentifier>{a10f6c9f-4386-4ed1-afc8-1126055d2563}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -546,6 +549,9 @@
     <ClInclude Include="Src\Application\TitleObject\ModeSelect\ModeSelect.h">
       <Filter>Src\Application\TitleObject\ModeSelect</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\GameUi\BestDist\BestDist.h">
+      <Filter>Src\Application\GameObject\GameUi\BestDist</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -797,6 +803,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\TitleObject\ModeSelect\ModeSelect.cpp">
       <Filter>Src\Application\TitleObject\ModeSelect</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\GameUi\BestDist\BestDist.cpp">
+      <Filter>Src\Application\GameObject\GameUi\BestDist</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

@@ -171,6 +171,7 @@
     <ClInclude Include="Src\Application\GameObject\Camera\FPSCamera\FPSCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\TPSCamera\TPSCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\TPVCamera\TPVCamera.h" />
+    <ClInclude Include="Src\Application\GameObject\GameUi\BestDist\BestDist.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\Dist\Dist.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\GameUi.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.h" />
@@ -269,6 +270,7 @@
     <ClCompile Include="Src\Application\GameObject\Camera\FPSCamera\FPSCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\TPSCamera\TPSCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\TPVCamera\TPVCamera.cpp" />
+    <ClCompile Include="Src\Application\GameObject\GameUi\BestDist\BestDist.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\Dist\Dist.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\GameUi.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.cpp" />

@@ -103,7 +103,7 @@ void Player::UpdateBumpCol() noexcept
 		auto a{ -m_velocity.Dot(normal) };
 		auto r{ m_velocity + 2 * a * normal };
 		r.Normalize();
-		m_velocity = r;
+		m_velocity = r * 1.5f;
 
 		m_pos += normal * overlap;
 

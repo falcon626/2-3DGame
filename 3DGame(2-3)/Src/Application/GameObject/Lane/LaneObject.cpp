@@ -50,3 +50,8 @@ void LaneObject::Update()
 {
 	m_laneObj->Update();
 }
+
+const bool LaneObject::IsUp() const noexcept
+{
+	return m_laneObj->IsUp();
+}

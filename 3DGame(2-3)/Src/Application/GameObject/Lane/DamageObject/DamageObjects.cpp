@@ -81,8 +81,10 @@ void DamageObjects::AddCar(const std::shared_ptr<LaneObject>& lane) noexcept
 
 		if (carData.interval_ == Def::IntZero)
 		{
-			carData.pos_ = lane->GetPos() + Math::Vector3{ -10,0,0 };
-			m_damaObjList.emplace_back(std::make_shared<Car>(carData.pos_, "CarCol", carData.Type_));
+			if(!lane->IsUp()) carData.pos_ = lane->GetPos() + Math::Vector3{ -10,0,0 };
+			else carData.pos_ = lane->GetPos() + Math::Vector3{ 4,0,0 };
+
+			m_damaObjList.emplace_back(std::make_shared<Car>(carData.pos_, "CarCol", carData.Type_, lane->IsUp()));
 
 			carData.interval_ =static_cast<float>(Formula::Rand(180, 420) / Def::Freame);
 		}
@@ -103,8 +105,10 @@ void DamageObjects::AddTrain(const std::shared_ptr<LaneObject>& lane) noexcept
 
 		if (trainData.interval_ == Def::IntZero)
 		{
-			trainData.pos_ = lane->GetPos() + Math::Vector3{ -10,0,0 };
-			m_damaObjList.emplace_back(std::make_shared<Train>(trainData.pos_, "TrainCol", trainData.Type_));
+			if (!lane->IsUp()) trainData.pos_ = lane->GetPos() + Math::Vector3{ -10,0,0 };
+			else trainData.pos_ = lane->GetPos() + Math::Vector3{ 6,0,0 };
+
+			m_damaObjList.emplace_back(std::make_shared<Train>(trainData.pos_, "TrainCol", trainData.Type_, lane->IsUp()));
 
 			trainData.interval_ = static_cast<float>(Formula::Rand(160, 410) / Def::Freame);
 		}

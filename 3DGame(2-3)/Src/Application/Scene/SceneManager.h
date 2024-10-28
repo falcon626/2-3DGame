@@ -19,14 +19,13 @@ public :
 		Normal	   = Def::BitMaskPos0,
 		Tuna	   = Def::BitMaskPos1,
 		HardCore   = Def::BitMaskPos2,
-		SpeedUp    = Def::BitMaskPos3,
 
-		TimeLimit  = Def::BitMaskPos4,
-		TimeAttack = Def::BitMaskPos5,
+		TimeLimit  = Def::BitMaskPos3,
+		TimeAttack = Def::BitMaskPos4,
 		
-		Fish1      = Def::BitMaskPos6,
-		Chicken    = Def::BitMaskPos7,
-		Fish2      = Def::BitMaskPos8,
+		Fish1      = Def::BitMaskPos5,
+		Chicken    = Def::BitMaskPos6,
+		Fish2      = Def::BitMaskPos7,
 	};
 
 	void PreUpdate();
@@ -48,8 +47,9 @@ public :
 	const std::list<std::shared_ptr<KdGameObject>>& GetObjList();
 	std::list<std::shared_ptr<KdGameObject>>&       WorkObjList();
 
-	inline const auto CheckBitFilter(const Mode mode, const Mode filter) noexcept{ return (static_cast<uint32_t>(mode) & static_cast<uint32_t>(filter)) != Def::BitMaskPos0; }
+	inline const auto CheckModeFilter(const Mode mode, const Mode filter) noexcept{ return (static_cast<uint32_t>(mode) & static_cast<uint32_t>(filter)) != Def::BitMaskPos0; }
 
+	inline auto SetMode(const Mode mode) noexcept { m_mode = mode; }
 	inline const auto GetMode() const noexcept { return m_mode; }
 
 	// 現在のシーンにオブジェクトを追加
