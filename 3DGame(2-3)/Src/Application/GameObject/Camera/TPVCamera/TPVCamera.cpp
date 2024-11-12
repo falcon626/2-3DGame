@@ -17,18 +17,21 @@ void TPVCamera::Init()
 void TPVCamera::PostUpdate()
 {
 	// ターゲットの行列(有効な場合利用する)
-	auto									  _targetMat { Def::Mat };
+	auto							    _targetMat { Def::Mat };
 	const std::shared_ptr<KdGameObject> _spTarget  { m_wpTarget.lock() };
 	if (_spTarget)
 	{
 		Math::Vector3 pos{ 0,0,_spTarget->GetPos().z };
 		_targetMat = Math::Matrix::CreateTranslation(pos);
 
-		_spTarget->IsOverLap(IsInterrupt());
+		_spTarget->SetOverLap(IsInterrupt());
 
 		// カメラの回転
 		m_mWorld = m_mLocalPos * _targetMat;
 	}
+
+	auto logger{ std::make_shared<DebugLogger>() };
+	DEBUG_LOG(logger, "ゲームカメラ更新");
 }
 
 const bool TPVCamera::IsInterrupt() noexcept

@@ -1,5 +1,6 @@
 #pragma once
 
+// <Flyweight>
 class FlDataStorage
 {
 public:

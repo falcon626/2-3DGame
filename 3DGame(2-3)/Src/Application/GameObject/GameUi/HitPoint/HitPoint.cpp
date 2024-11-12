@@ -3,10 +3,11 @@
 
 HitPoint::HitPoint(const std::weak_ptr<Player>& wp)
 {
-	m_rect = Math::Rectangle{ 0,m_rectY,150,50 };
+	m_rect  = Math::Rectangle{ 0,m_rectY,150,50 };
 	m_spTex = FlDataStorage::Instance().GetTexture("Hp/hitPoint.png");
-	m_siz = { 100,50 };
-	m_pos = { -530,200 };
+	m_texWide   = { m_spTex->GetWidth() };
+	m_texHeight = { m_spTex->GetHeight() / 4 };
+	m_pos       = { -530,200 };
 
 	SetPlayer(wp);
 }
@@ -15,7 +16,7 @@ void HitPoint::DrawSprite()
 {
 	if (!m_spTex) [[unlikely]] return; 
 	
-	KdShaderManager::Instance().m_spriteShader.DrawTex(m_spTex, static_cast<const int>(m_pos.x), static_cast<const int>(m_pos.y),static_cast<const int>(m_siz.x), static_cast<const int>(m_siz.y), &m_rect);
+	KdShaderManager::Instance().m_spriteShader.DrawTex(m_spTex, static_cast<const int>(m_pos.x), static_cast<const int>(m_pos.y),static_cast<const int>(m_texWide), static_cast<const int>(m_texHeight), &m_rect);
 }
 
 void HitPoint::PreUpdate()
@@ -37,8 +38,6 @@ void HitPoint::PreUpdate()
 		else if (playerHitPoint > m_oldHitPoint)
 		{
 			m_oldHitPoint = playerHitPoint;
-
-			//m_isDame = false;
 
 			m_rectY -= 50;
 			m_rect = { 0,m_rectY,150,50 };

@@ -10,7 +10,7 @@ Dist::Dist(const std::weak_ptr<Player>& wp)
 	m_pos = { -270,300 };
 
 	auto parameter{ std::vector<float>{} };
-	auto counter{ Def::SizTZero };
+	auto counter{ Def::UIntZero };
 
 	{
 		[[maybe_unused]] const auto IsAssert{ BinaryAccessor::Instance().Load("Asset/Data/PlayerScore/memory_float.dat", parameter, counter) };

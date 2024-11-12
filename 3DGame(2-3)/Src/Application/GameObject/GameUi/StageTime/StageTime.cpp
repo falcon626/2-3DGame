@@ -9,7 +9,7 @@ StageTime::StageTime(const std::weak_ptr<Player>& wp)
 	m_spTimer = std::make_shared<Timer>();
 	m_spCounter = std::make_shared<Counter>(m_spTex);
 
-	m_pos = { -460,300 };
+	m_pos = { -310,200 };
 
 	m_spTimer->Start();
 

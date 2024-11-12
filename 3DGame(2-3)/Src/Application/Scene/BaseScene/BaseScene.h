@@ -7,8 +7,10 @@ class BaseScene
 {
 public :
 
-	BaseScene() { Init(); }
+	BaseScene()  {}
 	virtual ~BaseScene() {}
+
+	virtual void Init();
 
 	void PreUpdate();
 	void Update(const float deltaTime);
@@ -71,7 +73,6 @@ protected :
 
 	// 継承先シーンで必要ならオーバーライドする
 	virtual void Event();
-	virtual void Init();
 
 	virtual void PreLoad() noexcept {}
 	

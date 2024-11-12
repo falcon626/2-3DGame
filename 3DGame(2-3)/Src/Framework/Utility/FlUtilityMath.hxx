@@ -93,16 +93,16 @@ namespace Formula // Convenience Functions
 	{
 		if (ids.empty() || percentages.empty() || (ids.size() != percentages.size())) return static_cast<ItemType>(nullptr);
 		std::unordered_map<ItemType, PercentageType> items;
-		for (auto i{Def::SizTZero}; i < ids.size(); ++i)
+		for (auto i{Def::UIntZero}; i < ids.size(); ++i)
 			items.insert(ids[i], percentages[i]);
 
 		// Create CDF
-		std::vector<std::pair<std::string, PercentageType>> cdf;
-		auto cumulative{ Def::DoubleZero };
-		for (const auto& item : items)
+		std::vector<std::pair<ItemType, PercentageType>> cdf;
+		auto cumulative = percentages.empty() ? Def::DoubleZero : percentages[0];
+		for (size_t i = 1; i < percentages.size(); ++i)
 		{
-			cumulative += item.second;
-			cdf.emplace_back(item.first, cumulative);
+			cumulative += percentages[i];
+			cdf.emplace_back(ids[i], cumulative);
 		}
 
 		PercentageType sun{};
@@ -112,11 +112,11 @@ namespace Formula // Convenience Functions
 		auto randValue{ Rand<PercentageType>(Def::DoubleZero, sun) };
 
 		// Select Item (Lambda)
-		auto it = std::lower_bound(cdf.begin(), cdf.end(), randValue,
-			[](const std::pair<std::string, double>& element, double value)
-			{ return element.second < value; });
+		auto it = std::upper_bound(cdf.begin(), cdf.end(), randValue,
+			[](const std::pair<ItemType, PercentageType>& element, PercentageType value)
+			{ return element.second <= value; });
 
-		return it->first;
+		return it == cdf.end() ? static_cast<ItemType>(nullptr) : it->first;
 	}
 
 	inline namespace Collider // So Deep Nest

@@ -7,11 +7,10 @@
 #include "Car/Car.h"
 #include "Train/Train.h"
 
-DamageObjects::DamageObjects()
+DamageObjects::DamageObjects(const std::weak_ptr<LaneManager>& wp)
+	: m_wpLaneMana(wp)
 {
 	m_entityId = Id::Enemy;
-
-
 }
 
 void DamageObjects::GenerateDepthMapFromLight()
@@ -51,6 +50,9 @@ void DamageObjects::Update()
 {
 	for (const auto& dameObj : m_damaObjList)
 		dameObj->Update();
+
+	auto logger{ std::make_shared<DebugLogger>() };
+	DEBUG_LOG(logger, "ゲームエネミー更新");
 }
 
 void DamageObjects::PostUpdate()
@@ -63,12 +65,15 @@ void DamageObjects::PostUpdate()
 
 void DamageObjects::AddDamaObjs() noexcept
 {
-	for (decltype(auto) laneWeakPtr : LaneManager::Instance().GetLaneData())
+	if (auto sp{ m_wpLaneMana.lock() })
 	{
-		if (auto lane{ laneWeakPtr.lock() })
+		for (decltype(auto) laneWeakPtr : sp->GetLaneData())
 		{
-			AddCar(lane);
-			AddTrain(lane);
+			if (auto lane{ laneWeakPtr.lock() })
+			{
+				AddCar(lane);
+				AddTrain(lane);
+			}
 		}
 	}
 }

@@ -54,7 +54,7 @@
     <ClCompile>
       <Optimization>Disabled</Optimization>
       <InlineFunctionExpansion>Default</InlineFunctionExpansion>
-      <AdditionalIncludeDirectories>.\;src;..\Library;..\Library\DirectXTK\Inc;..\Library\DirectXTex\DirectXTex;..\Library\tinygltf;..\Library\imgui;..\Library\Effekseer\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;src;..\Library;..\Library\DirectXTK\Inc;..\Library\DirectXTex\DirectXTex;..\Library\tinygltf;..\Library\imgui;..\Library\FMOD_API\studio\inc;..\Library\FMOD_API\core\inc;..\Library\Effekseer\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
@@ -81,7 +81,8 @@
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
-      <AdditionalLibraryDirectories>..\Library\DirectXTK\Lib\$(Platform)\$(Configuration)\Audio;..\Library\DirectXTK\Lib\$(Platform)\$(Configuration);..\Library\DirectXTex\Lib\$(Platform)\$(Configuration);..\Library\Effekseer\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Library\DirectXTK\Lib\$(Platform)\$(Configuration)\Audio;..\Library\DirectXTK\Lib\$(Platform)\$(Configuration);..\Library\DirectXTex\Lib\$(Platform)\$(Configuration);..\Library\Effekseer\Lib;..\Library\FMOD_API\core\lib\x86;..\Library\FMOD_API\studio\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(ProjectDir)..\Library\FMOD_API\core\lib\x86\fmod_vc.lib;$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderType>
@@ -95,6 +96,10 @@
       <VariableName>compiledBuffer</VariableName>
       <EnableDebuggingInformation>true</EnableDebuggingInformation>
     </FxCompile>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\core\lib\x86\*.dll" "$(OutDir)"
+xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <ClCompile>
@@ -103,7 +108,7 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <FavorSizeOrSpeed>Speed</FavorSizeOrSpeed>
       <OmitFramePointers>true</OmitFramePointers>
-      <AdditionalIncludeDirectories>.\;src;..\Library;..\Library\DirectXTK\Inc;..\Library\DirectXTex\DirectXTex;..\Library\tinygltf;..\Library\imgui;..\Library\Effekseer\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>.\;src;..\Library;..\Library\DirectXTK\Inc;..\Library\DirectXTex\DirectXTex;..\Library\tinygltf;..\Library\imgui;..\Library\FMOD_API\studio\inc;..\Library\FMOD_API\core\inc;..\Library\Effekseer\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -126,7 +131,8 @@
       <DataExecutionPrevention>
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
-      <AdditionalLibraryDirectories>..\Library\DirectXTK\Lib\$(Platform)\$(Configuration)\Audio;..\Library\DirectXTK\Lib\$(Platform)\$(Configuration);..\Library\DirectXTex\Lib\$(Platform)\$(Configuration);..\Library\Effekseer\Lib;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalLibraryDirectories>..\Library\DirectXTK\Lib\$(Platform)\$(Configuration)\Audio;..\Library\DirectXTK\Lib\$(Platform)\$(Configuration);..\Library\DirectXTex\Lib\$(Platform)\$(Configuration);..\Library\Effekseer\Lib;..\Library\FMOD_API\core\lib\x86;..\Library\FMOD_API\studio\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
+      <AdditionalDependencies>$(ProjectDir)..\Library\FMOD_API\core\lib\x86\fmod_vc.lib;$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderType>
@@ -139,8 +145,23 @@
       <HeaderFileOutput>%(RelativeDir)\%(Filename).shaderInc</HeaderFileOutput>
       <VariableName>compiledBuffer</VariableName>
     </FxCompile>
+    <PostBuildEvent>
+      <Command>xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\core\lib\x86\*.dll" "$(OutDir)"
+xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"</Command>
+    </PostBuildEvent>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod.h" />
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod.hpp" />
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_codec.h" />
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_common.h" />
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_dsp.h" />
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_dsp_effects.h" />
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_errors.h" />
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_output.h" />
+    <ClInclude Include="..\Library\FMOD_API\studio\inc\fmod_studio.h" />
+    <ClInclude Include="..\Library\FMOD_API\studio\inc\fmod_studio.hpp" />
+    <ClInclude Include="..\Library\FMOD_API\studio\inc\fmod_studio_common.h" />
     <ClInclude Include="..\Library\imgui\imconfig.h" />
     <ClInclude Include="..\Library\imgui\imgui.h" />
     <ClInclude Include="..\Library\imgui\imgui_impl_dx11.h" />
@@ -165,7 +186,6 @@
     <ClInclude Include="Src\Application\ExtensionBaseObject\BaseBasic3DObject\BaseBasic3DObject.hpp" />
     <ClInclude Include="Src\Application\ExtensionBaseObject\BaseBasicWork3DObject\BaseBasicWork3DObject.hpp" />
     <ClInclude Include="Src\Application\ExtensionBaseObject\BaseMoveObject\BaseMoveObject.hpp" />
-    <ClInclude Include="Src\Application\GameObject\Award\Award.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\CameraBase.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\CCTVCamera\CCTVCamera.h" />
     <ClInclude Include="Src\Application\GameObject\Camera\FPSCamera\FPSCamera.h" />
@@ -175,7 +195,6 @@
     <ClInclude Include="Src\Application\GameObject\GameUi\Dist\Dist.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\GameUi.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.h" />
-    <ClInclude Include="Src\Application\GameObject\GameUi\Score\Score.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\StageTime\StageTime.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.h" />
@@ -197,6 +216,7 @@
     <ClInclude Include="Src\Application\Scene\TitleScene\TitleScene.h" />
     <ClInclude Include="Src\Application\System\Console\Console.hpp" />
     <ClInclude Include="Src\Application\System\Counter\Counter.h" />
+    <ClInclude Include="Src\Application\System\Rule\Rule.cc" />
     <ClInclude Include="Src\Application\System\Timer\Timer.h" />
     <ClInclude Include="Src\Application\TitleObject\Bar\Bar.h" />
     <ClInclude Include="Src\Application\TitleObject\CheckBox\CheckBox.h" />
@@ -205,6 +225,7 @@
     <ClInclude Include="Src\Application\TitleObject\TitleCar\TitleCar.h" />
     <ClInclude Include="Src\Application\TitleObject\TitleFish\TitleFish.h" />
     <ClInclude Include="Src\Application\TitleObject\TitleTrain\TitleTrain.h" />
+    <ClInclude Include="Src\Framework\Audio\FlAudioManager.h" />
     <ClInclude Include="Src\Framework\Direct3D\KdMaterial.h" />
     <ClInclude Include="Src\Framework\Direct3D\Polygon\KdPolygon.h" />
     <ClInclude Include="Src\Framework\Direct3D\Polygon\KdSquarePolygon.h" />
@@ -231,8 +252,9 @@
     <ClInclude Include="Src\Framework\Utility\FlBinaryAccessor.hpp" />
     <ClInclude Include="Src\Framework\Utility\FlDataStorage.hpp" />
     <ClInclude Include="Src\Framework\Utility\FlFPSController.h" />
+    <ClInclude Include="Src\Framework\Utility\FlJsonDataManager.hpp" />
     <ClInclude Include="Src\Framework\Utility\FlUtilityContainer.hxx" />
-    <ClInclude Include="Src\Framework\Utility\FlUtilityDebug.hxx" />
+    <ClInclude Include="Src\Framework\Utility\FlUtilityDebug.hpp" />
     <ClInclude Include="Src\Framework\Utility\FlUtilityDefault.hxx" />
     <ClInclude Include="Src\Framework\Utility\FlUtilityKey.hxx" />
     <ClInclude Include="Src\Framework\Utility\FlUtilityMath.hxx" />
@@ -264,7 +286,6 @@
     <ClCompile Include="Src\Application\DebugRoom\Terrains\Terrain\Terrain.cpp" />
     <ClCompile Include="Src\Application\DebugRoom\Terrains\WoodenBox\WoodenBox.cpp" />
     <ClCompile Include="Src\Application\DebugRoom\TestObj\TestObj.cpp" />
-    <ClCompile Include="Src\Application\GameObject\Award\Award.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\CameraBase.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\CCTVCamera\CCTVCamera.cpp" />
     <ClCompile Include="Src\Application\GameObject\Camera\FPSCamera\FPSCamera.cpp" />
@@ -274,7 +295,6 @@
     <ClCompile Include="Src\Application\GameObject\GameUi\Dist\Dist.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\GameUi.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.cpp" />
-    <ClCompile Include="Src\Application\GameObject\GameUi\Score\Score.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\StageTime\StageTime.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.cpp" />
@@ -302,6 +322,7 @@
     <ClCompile Include="Src\Application\TitleObject\TitleCar\TitleCar.cpp" />
     <ClCompile Include="Src\Application\TitleObject\TitleFish\TitleFish.cpp" />
     <ClCompile Include="Src\Application\TitleObject\TitleTrain\TitleTrain.cpp" />
+    <ClCompile Include="Src\Framework\Audio\FlAudioManager.cpp" />
     <ClCompile Include="Src\Framework\Direct3D\KdMaterial.cpp">
       <SubType>
       </SubType>
@@ -344,6 +365,15 @@
     <ClCompile Include="src\Framework\Window\KdWindow.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <None Include="..\Library\FMOD_API\core\inc\fmod.cs" />
+    <None Include="..\Library\FMOD_API\core\inc\fmod_dsp.cs" />
+    <None Include="..\Library\FMOD_API\core\inc\fmod_errors.cs" />
+    <None Include="..\Library\FMOD_API\core\lib\x86\fmod.dll" />
+    <None Include="..\Library\FMOD_API\core\lib\x86\fmodL.dll" />
+    <None Include="..\Library\FMOD_API\studio\inc\fmod_studio.cs" />
+    <None Include="..\Library\FMOD_API\studio\lib\x86\fmodstudio.dll" />
+    <None Include="..\Library\FMOD_API\studio\lib\x86\fmodstudioL.dll" />
+    <None Include="packages.config" />
     <None Include="Src\Framework\Shader\inc_KdCommon.hlsli" />
     <None Include="Src\Framework\Shader\PostProcessShader\inc_KdPostProcessShader.hlsli" />
     <None Include="Src\Framework\Shader\SpriteShader\inc_KdSpriteShader.hlsli" />
@@ -399,6 +429,24 @@
       <ShaderType Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">Vertex</ShaderType>
     </FxCompile>
   </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\Library\FMOD_API\core\lib\x86\fmodL_vc.lib" />
+    <Library Include="..\Library\FMOD_API\core\lib\x86\fmod_vc.lib" />
+    <Library Include="..\Library\FMOD_API\core\lib\x86\libfmod.a" />
+    <Library Include="..\Library\FMOD_API\core\lib\x86\libfmodL.a" />
+    <Library Include="..\Library\FMOD_API\studio\lib\x86\fmodstudioL_vc.lib" />
+    <Library Include="..\Library\FMOD_API\studio\lib\x86\fmodstudio_vc.lib" />
+    <Library Include="..\Library\FMOD_API\studio\lib\x86\libfmodstudio.a" />
+    <Library Include="..\Library\FMOD_API\studio\lib\x86\libfmodstudioL.a" />
+  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
-  <ImportGroup Label="ExtensionTargets" />
+  <ImportGroup Label="ExtensionTargets">
+    <Import Project="packages\rapidjson.1.0.2\build\native\rapidjson.targets" Condition="Exists('packages\rapidjson.1.0.2\build\native\rapidjson.targets')" />
+  </ImportGroup>
+  <Target Name="EnsureNuGetPackageBuildImports" BeforeTargets="PrepareForBuild">
+    <PropertyGroup>
+      <ErrorText>このプロジェクトは、このコンピューター上にない NuGet パッケージを参照しています。それらのパッケージをダウンロードするには、[NuGet パッケージの復元] を使用します。詳細については、http://go.microsoft.com/fwlink/?LinkID=322105 を参照してください。見つからないファイルは {0} です。</ErrorText>
+    </PropertyGroup>
+    <Error Condition="!Exists('packages\rapidjson.1.0.2\build\native\rapidjson.targets')" Text="$([System.String]::Format('$(ErrorText)', 'packages\rapidjson.1.0.2\build\native\rapidjson.targets'))" />
+  </Target>
 </Project>

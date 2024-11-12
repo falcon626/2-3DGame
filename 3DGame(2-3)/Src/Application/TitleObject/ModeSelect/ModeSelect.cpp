@@ -21,7 +21,7 @@ void ModeSelect::DrawSprite()
 
 void ModeSelect::Update()
 {
-	auto i{ Def::SizTZero };
+	auto i{ Def::UIntZero };
 
 	for (const auto& arr : m_checkBoxArr)
 	{

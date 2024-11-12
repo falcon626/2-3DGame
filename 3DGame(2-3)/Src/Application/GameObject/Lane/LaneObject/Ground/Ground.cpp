@@ -3,7 +3,7 @@
 
 Ground::Ground(const Math::Vector3& pos) noexcept
 {
-	for (auto i{ Def::SizTZero }; i < 13; ++i)
+	for (auto i{ Def::UIntZero }; i < 13; ++i)
 	{
 		if (i == 8)
 		{

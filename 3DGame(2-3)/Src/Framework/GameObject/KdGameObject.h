@@ -62,7 +62,7 @@ public:
 	// Entity Id Getter
 	inline const auto GetEntityId() const noexcept { return m_entityId; }
 
-	inline const auto IdFilter(Id id, size_t filterMask) noexcept { return (static_cast<size_t>(id) & filterMask) != Def::SizTZero; }
+	inline const auto IdFilter(Id id, size_t filterMask) noexcept { return (static_cast<size_t>(id) & filterMask) != Def::UIntZero; }
 
 	virtual void OnHit()                                    {}
 	virtual void OnHit(const int  ) {}
@@ -80,7 +80,7 @@ public:
 	virtual bool IsVisible()	const { return false; }
 	virtual bool IsRideable()	const { return false; }
 
-	virtual inline void IsOverLap(const bool) noexcept {};
+	virtual inline void SetOverLap(const bool) noexcept {};
 
 	// 視錐台範囲内に入っているかどうか
 	virtual bool CheckInScreen(const DirectX::BoundingFrustum&) const { return false; }
@@ -103,25 +103,25 @@ protected:
 	void Release() {}
 
 	template <typename T>
-	inline const auto Increment(const T value, const std::type_identity_t<T> incrementRate, const float deltaTime, const T maxValue = static_cast<T>(Def::IntOne)) noexcept
+	inline const auto Increment(const T value, const std::type_identity_t<T> incrementRate, const float deltaTime) noexcept
 	{
 		static_assert(std::is_integral<T>::value || std::is_floating_point<T>::value, "Not A Valid Numeric Type");
 
 		auto newValue = value + incrementRate * deltaTime;
 
-		return newValue > maxValue ? maxValue : newValue;
+		return newValue;
 	}
 
 	inline const auto Increment(const auto incrementRate, const float deltaTime) noexcept { return incrementRate * deltaTime; }
 
 	template <typename _T>
-	inline const auto Decrement(const _T value, const std::type_identity_t<_T> decrementRate, const float deltaTime, const _T minValue = static_cast<_T>(-Def::IntOne)) noexcept
+	inline const auto Decrement(const _T value, const std::type_identity_t<_T> decrementRate, const float deltaTime) noexcept
 	{
 		static_assert(std::is_integral<_T>::value || std::is_floating_point<_T>::value, "Not A Valid Numeric Type");
 
 		auto newValue = value - decrementRate * deltaTime;
 
-		return newValue < minValue ? minValue : newValue;
+		return newValue;
 	}
 
 	inline const auto Decrement(const auto decrementRate, const float deltaTime) noexcept { return decrementRate * deltaTime; }

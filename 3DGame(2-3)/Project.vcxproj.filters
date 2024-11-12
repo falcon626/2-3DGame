@@ -208,14 +208,8 @@
     <Filter Include="Src\Application\GameObject\GameUi\HitPoint">
       <UniqueIdentifier>{2aff3990-7494-4058-a7a7-a6797d9ca96e}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Src\Application\GameObject\GameUi\Score">
-      <UniqueIdentifier>{e345eac7-505f-410d-b4ad-6816b5eb3a63}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Src\Application\GameObject\GameUi\Dist">
       <UniqueIdentifier>{b17e1f70-08d8-4881-8158-ab399449bd6d}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Src\Application\GameObject\Award">
-      <UniqueIdentifier>{c4a89c92-18a7-454b-a749-b01d06c8f509}</UniqueIdentifier>
     </Filter>
     <Filter Include="Src\Application\TitleObject\CheckBox">
       <UniqueIdentifier>{64fdcb99-facf-4695-b61a-c90e6dc92a65}</UniqueIdentifier>
@@ -225,6 +219,36 @@
     </Filter>
     <Filter Include="Src\Application\GameObject\GameUi\BestDist">
       <UniqueIdentifier>{a10f6c9f-4386-4ed1-afc8-1126055d2563}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\System\Rule">
+      <UniqueIdentifier>{71d2997e-3a57-4da2-9fdf-fc583b8a2cd5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\FMOD_API">
+      <UniqueIdentifier>{1810d87b-7859-42c4-b434-b12fb008ed62}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\FMOD_API\core">
+      <UniqueIdentifier>{96bdfb7a-ec75-44e5-abcb-81b2a94ed8bf}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\FMOD_API\studio">
+      <UniqueIdentifier>{1dbe3a52-7ab9-4a5e-8e6c-e850aea4bcb5}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\FMOD_API\core\inc">
+      <UniqueIdentifier>{f2f4fc3e-f8e0-4f06-b59d-62af6ce7db4a}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\FMOD_API\core\lib">
+      <UniqueIdentifier>{c23f5962-d945-48f0-8676-97a47d7f0b41}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\FMOD_API\core\lib\x86">
+      <UniqueIdentifier>{27fb21bc-92db-4492-bf94-cc0c31ef6242}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\FMOD_API\studio\lib">
+      <UniqueIdentifier>{36b5bd4e-ce93-4dca-a2fe-3deca4c0a506}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\FMOD_API\studio\inc">
+      <UniqueIdentifier>{0dbe5815-d215-47d0-ad8f-4825103856f6}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Library\FMOD_API\studio\lib\x86">
+      <UniqueIdentifier>{1798cbb6-2a35-4327-b6e9-379fdfa64299}</UniqueIdentifier>
     </Filter>
   </ItemGroup>
   <ItemGroup>
@@ -456,7 +480,7 @@
     <ClInclude Include="Src\Application\DebugRoom\TestObj\TestObj.h">
       <Filter>Src\Application\DebugRoom\TestObj</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Framework\Utility\FlUtilityDebug.hxx">
+    <ClInclude Include="Src\Framework\Utility\FlUtilityDebug.hpp">
       <Filter>Src\Framework\Utility</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\DebugRoom\DebugScene\DebugScene.h">
@@ -534,14 +558,8 @@
     <ClInclude Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.h">
       <Filter>Src\Application\GameObject\GameUi\HitPoint</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\GameUi\Score\Score.h">
-      <Filter>Src\Application\GameObject\GameUi\Score</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Application\GameObject\GameUi\Dist\Dist.h">
       <Filter>Src\Application\GameObject\GameUi\Dist</Filter>
-    </ClInclude>
-    <ClInclude Include="Src\Application\GameObject\Award\Award.h">
-      <Filter>Src\Application\GameObject\Award</Filter>
     </ClInclude>
     <ClInclude Include="Src\Application\TitleObject\CheckBox\CheckBox.h">
       <Filter>Src\Application\TitleObject\CheckBox</Filter>
@@ -551,6 +569,48 @@
     </ClInclude>
     <ClInclude Include="Src\Application\GameObject\GameUi\BestDist\BestDist.h">
       <Filter>Src\Application\GameObject\GameUi\BestDist</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\System\Rule\Rule.cc">
+      <Filter>Src\Application\System\Rule</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Framework\Utility\FlJsonDataManager.hpp">
+      <Filter>Src\Framework\Utility</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod.h">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod.hpp">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_codec.h">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_common.h">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_dsp.h">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_dsp_effects.h">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_errors.h">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\core\inc\fmod_output.h">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\studio\inc\fmod_studio.h">
+      <Filter>Library\FMOD_API\studio\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\studio\inc\fmod_studio.hpp">
+      <Filter>Library\FMOD_API\studio\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="..\Library\FMOD_API\studio\inc\fmod_studio_common.h">
+      <Filter>Library\FMOD_API\studio\inc</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Framework\Audio\FlAudioManager.h">
+      <Filter>Src\Framework\Audio</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -789,14 +849,8 @@
     <ClCompile Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.cpp">
       <Filter>Src\Application\GameObject\GameUi\HitPoint</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\GameUi\Score\Score.cpp">
-      <Filter>Src\Application\GameObject\GameUi\Score</Filter>
-    </ClCompile>
     <ClCompile Include="Src\Application\GameObject\GameUi\Dist\Dist.cpp">
       <Filter>Src\Application\GameObject\GameUi\Dist</Filter>
-    </ClCompile>
-    <ClCompile Include="Src\Application\GameObject\Award\Award.cpp">
-      <Filter>Src\Application\GameObject\Award</Filter>
     </ClCompile>
     <ClCompile Include="Src\Application\TitleObject\CheckBox\CheckBox.cpp">
       <Filter>Src\Application\TitleObject\CheckBox</Filter>
@@ -806,6 +860,9 @@
     </ClCompile>
     <ClCompile Include="Src\Application\GameObject\GameUi\BestDist\BestDist.cpp">
       <Filter>Src\Application\GameObject\GameUi\BestDist</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Framework\Audio\FlAudioManager.cpp">
+      <Filter>Src\Framework\Audio</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -820,6 +877,31 @@
     </None>
     <None Include="Src\Framework\Shader\StandardShader\inc_KdStandardShader.hlsli">
       <Filter>Src\Framework\Shader\StandardShader</Filter>
+    </None>
+    <None Include="packages.config" />
+    <None Include="..\Library\FMOD_API\core\lib\x86\fmod.dll">
+      <Filter>Library\FMOD_API\core\lib\x86</Filter>
+    </None>
+    <None Include="..\Library\FMOD_API\core\lib\x86\fmodL.dll">
+      <Filter>Library\FMOD_API\core\lib\x86</Filter>
+    </None>
+    <None Include="..\Library\FMOD_API\core\inc\fmod.cs">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </None>
+    <None Include="..\Library\FMOD_API\core\inc\fmod_dsp.cs">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </None>
+    <None Include="..\Library\FMOD_API\core\inc\fmod_errors.cs">
+      <Filter>Library\FMOD_API\core\inc</Filter>
+    </None>
+    <None Include="..\Library\FMOD_API\studio\lib\x86\fmodstudio.dll">
+      <Filter>Library\FMOD_API\studio\lib\x86</Filter>
+    </None>
+    <None Include="..\Library\FMOD_API\studio\lib\x86\fmodstudioL.dll">
+      <Filter>Library\FMOD_API\studio\lib\x86</Filter>
+    </None>
+    <None Include="..\Library\FMOD_API\studio\inc\fmod_studio.cs">
+      <Filter>Library\FMOD_API\studio\inc</Filter>
     </None>
   </ItemGroup>
   <ItemGroup>
@@ -859,5 +941,31 @@
     <FxCompile Include="Src\Framework\Shader\StandardShader\KdStandardShader_VS_UnLit.hlsl">
       <Filter>Src\Framework\Shader\StandardShader</Filter>
     </FxCompile>
+  </ItemGroup>
+  <ItemGroup>
+    <Library Include="..\Library\FMOD_API\core\lib\x86\fmod_vc.lib">
+      <Filter>Library\FMOD_API\core\lib\x86</Filter>
+    </Library>
+    <Library Include="..\Library\FMOD_API\core\lib\x86\fmodL_vc.lib">
+      <Filter>Library\FMOD_API\core\lib\x86</Filter>
+    </Library>
+    <Library Include="..\Library\FMOD_API\core\lib\x86\libfmod.a">
+      <Filter>Library\FMOD_API\core\lib\x86</Filter>
+    </Library>
+    <Library Include="..\Library\FMOD_API\core\lib\x86\libfmodL.a">
+      <Filter>Library\FMOD_API\core\lib\x86</Filter>
+    </Library>
+    <Library Include="..\Library\FMOD_API\studio\lib\x86\fmodstudio_vc.lib">
+      <Filter>Library\FMOD_API\studio\lib\x86</Filter>
+    </Library>
+    <Library Include="..\Library\FMOD_API\studio\lib\x86\fmodstudioL_vc.lib">
+      <Filter>Library\FMOD_API\studio\lib\x86</Filter>
+    </Library>
+    <Library Include="..\Library\FMOD_API\studio\lib\x86\libfmodstudio.a">
+      <Filter>Library\FMOD_API\studio\lib\x86</Filter>
+    </Library>
+    <Library Include="..\Library\FMOD_API\studio\lib\x86\libfmodstudioL.a">
+      <Filter>Library\FMOD_API\studio\lib\x86</Filter>
+    </Library>
   </ItemGroup>
 </Project>

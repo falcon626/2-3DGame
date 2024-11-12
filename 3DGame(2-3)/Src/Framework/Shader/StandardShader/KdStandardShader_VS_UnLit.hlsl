@@ -37,7 +37,7 @@ VSOutputNoLighting main(
 	if (g_EnableOutLineDraw)
 	{
 		// 頂点座標を「法線方向」に少しずらす
-		pos.xyz = pos.xyz + normal * 0.03;
+		//pos.xyz = pos.xyz + normal * 0.03;
 	}
 
 	// 座標変換

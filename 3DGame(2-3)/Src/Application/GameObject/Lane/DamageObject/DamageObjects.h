@@ -2,11 +2,12 @@
 
 class BaseBasic3DObject;
 class LaneObject;
+class LaneManager;
 
 class DamageObjects : public KdGameObject
 {
 public:
-	DamageObjects();
+	explicit DamageObjects(const std::weak_ptr<LaneManager>& wp);
 	~DamageObjects() override = default;
 
 	void GenerateDepthMapFromLight() override;
@@ -62,6 +63,7 @@ private:
 	std::list<std::shared_ptr<BaseBasic3DObject>> m_damaObjList;
 
 	std::weak_ptr<KdGameObject> m_wpTarget;
+	std::weak_ptr<LaneManager>  m_wpLaneMana;
 
 	std::shared_ptr<KdModelData> m_spTrain;
 	std::shared_ptr<KdModelData> m_spCar;

@@ -18,11 +18,20 @@ namespace Def // Only Constexpr Value
 	constexpr auto IntZero{ 0 };
 	constexpr auto IntOne { 1 };
 
+	constexpr auto UIntZero{ 0U };
+	constexpr auto UIntOne { 1U };
+
 	constexpr auto LongZero{ 0L };
 	constexpr auto LongOne { 1L };
 
-	constexpr auto SizTZero{ 0U };
-	constexpr auto SizTOne { 1U };
+	constexpr auto ULongZero{ 0UL };
+	constexpr auto ULongOne { 1UL };
+
+	constexpr auto LongLongZero{ 0LL };
+	constexpr auto LongLongOne { 1LL };
+
+	constexpr auto ULongLongZero{ 0ULL };
+	constexpr auto ULongLongOne { 1ULL };
 
 	constexpr auto FloatZero{ 0.F };
 	constexpr auto FloatOne { 1.F };
@@ -30,17 +39,8 @@ namespace Def // Only Constexpr Value
 	constexpr auto DoubleZero{ 0. };
 	constexpr auto DoubleOne { 1. };
 
-	constexpr auto LongLongZero{ 0LL };
-	constexpr auto LongLongOne { 1LL };
-
-	constexpr auto SizeTLongZero{ 0UL };
-	constexpr auto SizeTLongOne { 1UL };
-
 	constexpr auto LongDoubleZero{ 0.L };
 	constexpr auto LongDoubleOne { 1.L };
-
-	constexpr auto SizeTLongLongZero{ 0ULL };
-	constexpr auto SizeTLongLongOne { 1ULL };
 
 	constexpr auto BitMaskPos0 { 0B00000000U };
 	constexpr auto BitMaskPos1 { 0B00000001U };

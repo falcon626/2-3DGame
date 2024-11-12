@@ -14,5 +14,5 @@ public:
 	void MovePlusX(bool isMove) noexcept;
 	void MoveMinusX(bool isMove) noexcept;
 private:
-	uint32_t m_count{ Def::SizTZero };
+	uint32_t m_count{ Def::UIntZero };
 };

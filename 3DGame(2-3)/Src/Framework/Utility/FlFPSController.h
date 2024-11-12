@@ -18,7 +18,7 @@ private:
 	LARGE_INTEGER m_frameStartTime{ NULL };
 	LARGE_INTEGER m_fpsMonitorBeginTime{ NULL };
 	DWORD m_maxFps    = 10000;
-	DWORD m_fpsCnt    = Def::SizeTLongZero;
+	DWORD m_fpsCnt    = Def::ULongZero;
 	float m_nowfps    = Def::FloatZero;
 	float m_deltaTime = Def::FloatZero;
 

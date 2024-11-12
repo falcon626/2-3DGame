@@ -14,15 +14,17 @@ public:
 
 private:
 	inline auto SetPlayer(const std::weak_ptr<Player>& wp) noexcept { m_wpPlayer = wp; }
-	
+
 	std::weak_ptr<Player> m_wpPlayer;
 	std::shared_ptr<KdTexture> m_spTex;
 
 	Math::Rectangle m_rect;
 	Math::Vector2 m_pos;
-	Math::Vector2 m_siz;
+	
+	uint32_t m_texWide  { Def::UIntZero };
+	uint32_t m_texHeight{ Def::UIntZero };
 
-	int32_t m_rectY{ Def::SizTZero };
+	int32_t m_rectY{ Def::UIntZero };
 	int32_t m_oldHitPoint{ 3 };
 
 	float m_motionInterval{ Def::FloatZero };

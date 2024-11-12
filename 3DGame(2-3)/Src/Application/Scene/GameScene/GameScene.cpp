@@ -27,7 +27,7 @@ void GameScene::Event()
 	{
 		auto nowWheelVal{ KdWindow::Instance().GetMouseWheelVal() };
 
-		if (Key::IsPushingWithFocus({ Key::Right, Key::R_Click, Key::D }))      sp->MoveUp();
+		if (Key::IsPushing({ Key::Right, Key::R_Click, Key::D }))      sp->MoveUp();
 
 		else if (Key::IsPushingWithFocus({ Key::Left,  Key::L_Click, Key::A })) sp->MoveDown();
 
@@ -39,18 +39,12 @@ void GameScene::Event()
 
 		else if (nowWheelVal < Def::IntZero) sp->MoveRight();
 
-		sp->IsMinPow(Key::IsPushingWithFocus({ Key::Shift, Key::Wheel_Click }));
+		sp->SetMinPow(Key::IsPushingWithFocus({ Key::Shift, Key::Wheel_Click }));
 
-		LaneManager::Instance().PreUpdate(sp->GetPos().z);
+		m_spLaneMana->PreUpdate(sp->GetPos().z);
 
-		if (Key::IsPushingWithFocus(Key::Tab))
-		{
-			sp->SetPos({ 0,0.25f,0 });
-		}
-	}
-	else if (m_wpPlayer.expired())
-	{
-
+		auto logger{ std::make_shared<DebugLogger>() };
+		DEBUG_LOG(logger, "ゲームシーン更新");
 	}
 }
 
@@ -59,18 +53,19 @@ void GameScene::Init()
 	// Pre Asset Load
 	PreLoad();
 
-	LaneManager::Instance().Init();
+	m_spLaneMana = std::make_shared<LaneManager>();
+
+	for (auto i{ Def::UIntZero }; i < static_cast<uint32_t>(LaneManager::LaneNumber::Max); ++i)
+		m_spLaneMana->AddLane();
 
 	// Add Objects
 	AddObjListAndWeak<Player>(m_wpPlayer);
 
 	AddObjList<GameUi>(m_wpPlayer);
 
-	AddObjListAndWeak<DamageObjects>(m_wpDamaObjects);
+	AddObjListAndWeak<DamageObjects>(m_wpDamaObjects, m_spLaneMana);
 
-	AddLane();
-
-	//AddObjListInitAndWeak<AdminCamera>(m_wpCamera);
+	//AddObjListAndWeak<AdminCamera>(m_wpCamera);
 	AddObjListAndWeak<TPVCamera>(m_wpCamera);
 
 	// Setter
@@ -82,55 +77,20 @@ void GameScene::Init()
 	if (auto sp{ WeakPtrIsExpired(m_wpPlayer) })
 	{
 		sp->SetDameObjs(m_wpDamaObjects);
+		sp->SetLaneMana(m_spLaneMana);
 	}
+
+
+	// Debug
+	auto logger{ std::make_shared<DebugLogger>()};
+	DEBUG_LOG(logger, "ゲームシーン初期化");
 }
 
 void GameScene::PreLoad() noexcept
 {
 	FlDataStorage::Instance().PreLoadData({
-		"Player/fish1.gltf",
-		"Numbers/numbersBox.png"
+		"Numbers/numbers.png",
+		"Numbers/numbersBox.png",
+		"Train/trainCOL1.gltf"
 		});
-}
-
-void GameScene::AddLane()
-{
-	std::initializer_list<LaneObject::LaneType> lanes{
-		LaneObject::LaneType::Rail,
-		LaneObject::LaneType::Rail,
-		LaneObject::LaneType::Road,
-		LaneObject::LaneType::River,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::River,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::River,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Rail,
-		LaneObject::LaneType::Road,
-		LaneObject::LaneType::Road,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Rail,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Ground,
-		LaneObject::LaneType::Rail,
-		LaneObject::LaneType::Rail,
-		LaneObject::LaneType::River,
-	};
-
-	auto laneObj{ std::weak_ptr<LaneObject>{} };
-
-	auto z{ -9.f };
-
-	for(const auto& lane : lanes)
-	{
-		AddObjListAndWeak<LaneObject>(laneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, z), lane);
-		LaneManager::Instance().AddWeakPtr(laneObj);
-		++z;
-	}
 }

@@ -5,7 +5,7 @@ namespace Str // String Series
 	[[nodiscard(L"Extension Not Used")]] static const auto FileExtensionSearcher(const std::string& filePath) noexcept
 	{
 		const auto dotPos{ filePath.rfind('.') };
-		if (dotPos != std::string::npos) return filePath.substr(dotPos + Def::SizTOne);
+		if (dotPos != std::string::npos) return filePath.substr(dotPos + Def::UIntOne);
 
 		return std::string{ " " };
 	}
@@ -23,7 +23,7 @@ namespace Str // String Series
 	[[nodiscard(L"Result Not Used")]] static const auto ReplaceString(const std::string& str, const std::string& oldStr, const std::string& newStr) 
 	{
 		auto result{ str };
-		auto pos   { Def::SizTZero };
+		auto pos   { Def::UIntZero };
 
 		while ((pos = result.find(oldStr, pos)) != std::string::npos) 
 		{

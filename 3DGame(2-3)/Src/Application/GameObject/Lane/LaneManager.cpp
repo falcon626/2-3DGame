@@ -4,7 +4,7 @@
 #include "../Player/Player.h"
 #include "../../Scene/SceneManager.h"
 
-void LaneManager::Init() noexcept
+LaneManager::LaneManager()
 {
 	m_laneZ = -9;
 }
@@ -66,7 +66,7 @@ const std::list<std::shared_ptr<KdGameObject>> LaneManager::GetTilesList(const f
 		if (auto sp{ laneData.lock() })
 		{
 			auto laneZ{ sp->GetPos().z };
-			auto dist{ std::abs(laneZ - playerZ) };
+			auto dist { std::abs(laneZ - playerZ) };
 
 			nearLanes.emplace_back(dist, sp->GetLane());
 		}
@@ -77,10 +77,10 @@ const std::list<std::shared_ptr<KdGameObject>> LaneManager::GetTilesList(const f
 		});
 
 	auto top3Lanes{ std::vector<std::shared_ptr<BaseLaneObj>>{} };
-	for (size_t i = 0; i < 3 && i < nearLanes.size(); ++i)
+	for (auto i{ Def::UIntZero }; i < NearLaneNum && i < nearLanes.size(); ++i)
 		top3Lanes.push_back(nearLanes[i].second);
 
-	std::list<std::shared_ptr<KdGameObject>> resultList;
+	auto resultList{ std::list<std::shared_ptr<KdGameObject>>{} };
 
 	for (const auto& lane : top3Lanes)
 	{
@@ -103,6 +103,8 @@ void LaneManager::AddWeakPtr(const std::weak_ptr<LaneObject> newElement) noexcep
 
 	m_laneData[m_currentIndex] = newElement;
 
-	m_currentIndex = (m_currentIndex + Def::SizTOne) % m_laneData.size();
+	m_wpLastLane = newElement;
+
+	m_currentIndex = (m_currentIndex + Def::UIntOne) % m_laneData.size();
 	++m_laneZ;
 }

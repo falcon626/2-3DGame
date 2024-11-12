@@ -8,7 +8,7 @@ GameUi::GameUi(const std::weak_ptr<Player>& wp)
 {
 	m_entityId = Id::Ui;
 
-	//AddObjList<StageTime>(wp);
+	AddObjList<StageTime>(wp);
 	AddObjList<HitPoint>(wp);
 	AddObjList<Dist>(wp);
 	AddObjList<BestDist>();
@@ -33,4 +33,7 @@ void GameUi::Update()
 		ui->SetDeltaTime(m_deltaTime);
 		ui->Update();
 	}
+
+	auto logger{ std::make_shared<DebugLogger>() };
+	DEBUG_LOG(logger, "ゲームUI更新");
 }

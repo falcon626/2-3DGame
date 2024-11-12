@@ -16,12 +16,12 @@ public:
 private:
 	std::shared_ptr<KdTexture> m_spTex;
 
-	std::shared_ptr<Counter> m_spCounter;
-	std::shared_ptr<Timer>   m_spTimer;
+	std::shared_ptr<Counter>   m_spCounter;
+	std::shared_ptr<Timer>     m_spTimer;
+							  
+	std::weak_ptr<Player>      m_wpPlayer;
+							  
+	Math::Vector2              m_pos;
 
-	std::weak_ptr<Player> m_wpPlayer;
-
-	Math::Vector2            m_pos;
-
-	uint32_t m_time = Def::SizTZero;
+	uint32_t m_time{ Def::UIntZero };
 };

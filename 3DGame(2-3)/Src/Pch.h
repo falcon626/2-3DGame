@@ -48,6 +48,7 @@
 #include <mutex>
 #include <future>
 #include <fileSystem>
+#include <type_traits>
 
 //===============================================
 //
@@ -74,6 +75,21 @@
 // DirectX Tex
 #pragma comment(lib, "DirectXTex.lib")
 #include <DirectXTex.h>
+
+//===============================================
+// Json
+//===============================================
+
+#include <rapidjson/document.h>
+#include <rapidjson/writer.h>
+#include <rapidjson/stringbuffer.h>
+
+//===============================================
+// FMOD
+//===============================================
+
+#include "fmod_studio.hpp"
+#include "fmod.hpp"
 
 //============================================
 // imgui

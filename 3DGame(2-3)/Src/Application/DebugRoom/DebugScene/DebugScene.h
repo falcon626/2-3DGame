@@ -10,12 +10,12 @@ class TestObj;
 class DebugScene : public BaseScene
 {
 public:
-	DebugScene() { Init(); }
+	DebugScene() {}
 	~DebugScene(){}
 
+	void Init() override;
 private:
 	void Event() override;
-	void Init() override;
 
 	void PreLoad() noexcept override;
 

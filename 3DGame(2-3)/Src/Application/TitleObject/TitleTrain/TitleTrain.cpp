@@ -2,7 +2,7 @@
 
 TitleTrain::TitleTrain()
 {
-	for (auto i{Def::SizTZero}; i < 30; ++i)
+	for (auto i{Def::UIntZero}; i < 25; ++i)
 	{
 		AddObjList<Tile>("Terrains/Terrain/terrain_road.gltf", Math::Vector3{ 0,-1.2f,-10.f + static_cast<float>(i) });
 		AddObjList<Tile>("Terrains/River/river.gltf", Math::Vector3{ 1,-1.2f,-10.f + static_cast<float>(i) });
@@ -56,7 +56,7 @@ void TitleTrain::PostUpdate()
 	{
 		auto pos{ terrain->GetPos() };
 
-		if (pos.z > 20.f)
+		if (pos.z > 15.f)
 		{
 			if (pos.x == 0)		AddObjList<Tile>(terrain->GetPath(), Math::Vector3{ 0,-1.2f,-10.f });
 			else if(pos.x == 1) AddObjList<Tile>(terrain->GetPath(), Math::Vector3{ 1,-1.2f,-10.f });
@@ -77,6 +77,7 @@ TitleTrain::Tile::Tile(const std::string_view& path, const Math::Vector3& pos) n
 
 void TitleTrain::Tile::Update()
 {
-	m_pos.z = Increment(m_pos.z, 0.25f, m_deltaTime, 21.f);
+	m_pos.z = Increment(m_pos.z, 0.25f, m_deltaTime);
+
 	SetPos(m_pos);
 }

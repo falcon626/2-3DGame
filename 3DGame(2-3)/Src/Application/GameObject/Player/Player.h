@@ -4,6 +4,7 @@
 
 class DamageObjects;
 class CameraBase;
+class LaneManager;
 
 class Player : public BaseBasicWork3DObject, BaseMoveObject
 {
@@ -20,20 +21,21 @@ public:
 	void SetPos(const Math::Vector3& pos) noexcept override { SetMemberPos(pos); }
 	inline auto SetDameObjs(const std::weak_ptr<DamageObjects>& wp) noexcept { m_wpDameObjs = wp; }
 	inline auto SetCamera(const std::weak_ptr<CameraBase>& wp) noexcept { m_wpCamera = wp; }
-	inline void IsOverLap(const bool isOverLap) noexcept override { m_isOverLap = isOverLap; }
+	inline auto SetLaneMana(const std::weak_ptr<LaneManager>& wp) noexcept { m_wpLaneMana = wp; }
+	inline auto SetMinPow(const bool isMinPow) noexcept { m_isMinPow = isMinPow; }
+	inline void SetOverLap(const bool isOverLap) noexcept override { m_isOverLap = isOverLap; }
 
 	inline const auto GetHp() const noexcept { return (m_hp <= Def::IntZero) ? Def::IntZero : m_hp; }
 
 	inline const auto IsSafe() const noexcept { return m_isSafe; }
 
-	inline auto IsMinPow(const bool isMinPow) noexcept { m_isMinPow = isMinPow; }
 
 	void MoveRight();
 	void MoveLeft ();
 	void MoveUp   ();
 	void MoveDown ();
 
-	const auto IsMove() const { return m_isMove; }
+	const auto IsMove() const noexcept { return m_isMove; }
 private:
 	void UpdateBumpCol() noexcept;
 	void UpdateDameCol() noexcept;
@@ -43,29 +45,39 @@ private:
 
 	std::weak_ptr<DamageObjects> m_wpDameObjs;
 	std::weak_ptr<CameraBase>    m_wpCamera;
+	std::weak_ptr<LaneManager>   m_wpLaneMana;
 
 	Math::Vector3 m_velocity;
 
-	uint32_t m_count    { Def::SizTZero };
-	uint32_t m_jumpFream{ Def::SizTZero };
+	const Math::Vector3 VelocityZ;
+	const Math::Vector3 MinVelocityZ;
+	const Math::Vector3 VelocityX;
+	const Math::Vector3 MinVelocityX;
 
-	int32_t m_hp{ Def::IntZero };
-	int32_t m_healInterval{ Def::IntZero };
-	int32_t m_hitInterval { Def::IntZero };
+	const uint32_t AnimeSpd;
+	const int32_t MaxHp;
 
-	const float m_rotXrighat = 270;
-	const float m_rotXleft   = 90;
-	const float m_rotXup     = 180;
-	const float m_rotXdown   = 0;
-	float m_rotY;
-	const float GravityPow = -10.f;
-	const float JumpPow    = 1.f;
-	float m_gravity = 0.f;
+	uint32_t m_lifeTime;
 
-	bool m_isMove = false;
-	bool m_isDown = true;
+	int32_t  m_hp;
 
-	bool m_isMinPow  = false;
-	bool m_isSafe    = false;
-	bool m_isOverLap = false;
+	const float RotXleft;
+	const float RotXup;
+	const float RotXrighat;
+	const float RotXdown;
+	const float GravityPow;
+
+	const float Reverse;
+
+	float  m_healInterval;
+	float  m_hitInterval;
+
+	float m_rotX;
+
+	bool m_isDown;
+	bool m_isMove;
+
+	bool m_isMinPow;
+	bool m_isSafe;
+	bool m_isOverLap;
 };

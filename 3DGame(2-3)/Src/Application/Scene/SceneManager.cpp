@@ -112,6 +112,8 @@ void SceneManager::ChangeScene(SceneType sceneType)
 		break;
 	}
 
+	m_currentScene->Init();
+
 	WorkObjList().sort(BaseScene::CompareById);
 
 	FlDataStorage::Instance().ReleaseUnusedResources();

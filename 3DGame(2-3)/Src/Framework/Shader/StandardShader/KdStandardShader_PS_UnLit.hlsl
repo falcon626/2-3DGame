@@ -31,7 +31,7 @@ float4 main(VSOutputNoLighting In) : SV_Target0
 	// アウトライン描画
 	if (g_EnableOutLineDraw)
 	{
-		return float4(0, 0, 1, 1);
+		return baseColor *= float4(0.6f, 0.6f, 1.f, 1.f);
 	}
 	
 	// 自己発光色の適応

@@ -3,8 +3,7 @@
 class Counter
 {
 public:
-	Counter ()noexcept = default;
-	Counter (const std::shared_ptr<KdTexture>& spTex)noexcept;
+	explicit Counter (const std::shared_ptr<KdTexture>& spTex)noexcept;
 	~Counter()noexcept = default;
 
 	void DrawSpriteCounter() noexcept;

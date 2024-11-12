@@ -7,7 +7,8 @@ class Player;
 class LaneManager
 {
 public:
-	void Init() noexcept;
+	LaneManager();
+	~LaneManager() = default;
 
 	void PreUpdate(const float playerZ);
 	void Update();
@@ -15,7 +16,8 @@ public:
 
 	const std::list<std::shared_ptr<KdGameObject>> GetTilesList(const float playerZ) const;
 
-	inline const auto& GetLaneData() const noexcept { return m_laneData; }
+	inline const auto& GetLaneData()     const noexcept { return m_laneData; }
+	inline const auto& GetLastLaneData() const noexcept { return m_wpLastLane; }
 
 	void KillLane(const uint32_t element) noexcept;
 
@@ -28,19 +30,13 @@ public:
 		Twenty, TwentyOne, TwentyTwo, TwentyThree, TwentyFour,
 		Max,
 	};
-
-	inline static auto& Instance() noexcept
-	{
-		static LaneManager instance;
-		return instance;
-	}
-
 private:
-	LaneManager()  = default;
-	~LaneManager() = default;
-
 	std::array<std::weak_ptr<LaneObject>, static_cast<uint32_t>(LaneNumber::Max)> m_laneData;
+
+	std::weak_ptr<LaneObject> m_wpLastLane;
 	
-	uint32_t m_currentIndex{ Def::SizTZero };
+	const uint32_t NearLaneNum{ 3 };
+
+	uint32_t m_currentIndex{ Def::UIntZero };
 	float    m_laneZ{ -9 };
 };

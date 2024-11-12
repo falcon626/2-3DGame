@@ -4,7 +4,7 @@
 BestDist::BestDist() noexcept
 {
 	auto parameter{ std::vector<float>{} };
-	auto counter{ Def::SizTZero };
+	auto counter{ Def::UIntZero };
 
 	{
 		[[maybe_unused]] const auto IsAssert{ BinaryAccessor::Instance().Load("Asset/Data/PlayerScore/memory_float.dat", parameter, counter) };

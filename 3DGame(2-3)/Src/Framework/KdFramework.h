@@ -20,7 +20,7 @@
 #include "Utility/FlUtilityContainer.hxx"
 #include "Utility/FlBinaryAccessor.hpp"
 #include "Utility/FlFPSController.h"
-#include "Utility/FlUtilityDebug.hxx"
+#include "Utility/FlUtilityDebug.hpp"
 
 // 音関連
 #include "Audio/KdAudio.h"

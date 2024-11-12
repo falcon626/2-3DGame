@@ -52,6 +52,6 @@ void FlFPSController::Monitoring()
 		m_nowfps = static_cast<float>(m_fpsCnt / elapsedTime);
 
 		m_fpsMonitorBeginTime = currentTime;
-		m_fpsCnt = Def::SizeTLongZero;
+		m_fpsCnt = Def::ULongZero;
 	}
 }

@@ -23,7 +23,6 @@ public:
 	void DrawLit() override;
 
 	void PreUpdate() override;
-	void Update() override;
 
 	inline const auto GetLane() const noexcept { return m_laneObj; }
 	inline const auto GetType() const noexcept { return m_type; }
