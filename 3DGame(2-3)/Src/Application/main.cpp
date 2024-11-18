@@ -68,6 +68,7 @@ void Application::PreUpdate()
 // ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// ///// /////
 void Application::Update(const float deltaTime)
 {
+	FlResourceAdministrator::Instance().GetAudioInstance()->Update();
 	KdInputManager::Instance().Update();
 	SceneManager::Instance().Update(deltaTime);
 	KdEffekseerManager::GetInstance().Update();

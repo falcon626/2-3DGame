@@ -18,9 +18,11 @@
 #include "Utility/FlUtilityDefault.hxx"
 #include "Utility/FlUtilityString.hxx"
 #include "Utility/FlUtilityContainer.hxx"
-#include "Utility/FlBinaryAccessor.hpp"
 #include "Utility/FlFPSController.h"
 #include "Utility/FlUtilityDebug.hpp"
+
+// リソース
+#include "Resource/FlResourceAdministrator.h"
 
 // 音関連
 #include "Audio/KdAudio.h"
@@ -74,7 +76,10 @@
 
 // シェーダ
 #include "Shader/KdAmbientController.h"
+#pragma warning(push)
+#pragma warning(disable : 6262)
 #include "Shader/KdShaderManager.h"
+#pragma warning(pop)
 
 // デバッグ機能
 #include "Utility/KdDebugWireFrame.h"

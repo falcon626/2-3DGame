@@ -250,6 +250,18 @@
     <Filter Include="Library\FMOD_API\studio\lib\x86">
       <UniqueIdentifier>{1798cbb6-2a35-4327-b6e9-379fdfa64299}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Framework\Resource">
+      <UniqueIdentifier>{e4f7f9b4-88ce-4567-b5d7-b64281a655ac}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Framework\Resource\Audio">
+      <UniqueIdentifier>{2d3b20d5-e11d-4705-9009-21a90f8f1cbe}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Framework\Resource\Json">
+      <UniqueIdentifier>{d527146b-e028-4d83-824d-647adbf76cd3}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Framework\Resource\Binary">
+      <UniqueIdentifier>{a385eb61-2b19-477b-adef-db67fff599ed}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -450,9 +462,6 @@
     <ClInclude Include="Src\Application\GameObject\Camera\CCTVCamera\CCTVCamera.h">
       <Filter>Src\Application\GameObject\Camera\CCTVCamera</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Framework\Utility\FlBinaryAccessor.hpp">
-      <Filter>Src\Framework\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="Src\Framework\Utility\FlUtilityString.hxx">
       <Filter>Src\Framework\Utility</Filter>
     </ClInclude>
@@ -573,9 +582,6 @@
     <ClInclude Include="Src\Application\System\Rule\Rule.cc">
       <Filter>Src\Application\System\Rule</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Framework\Utility\FlJsonDataManager.hpp">
-      <Filter>Src\Framework\Utility</Filter>
-    </ClInclude>
     <ClInclude Include="..\Library\FMOD_API\core\inc\fmod.h">
       <Filter>Library\FMOD_API\core\inc</Filter>
     </ClInclude>
@@ -609,8 +615,17 @@
     <ClInclude Include="..\Library\FMOD_API\studio\inc\fmod_studio_common.h">
       <Filter>Library\FMOD_API\studio\inc</Filter>
     </ClInclude>
-    <ClInclude Include="Src\Framework\Audio\FlAudioManager.h">
-      <Filter>Src\Framework\Audio</Filter>
+    <ClInclude Include="Src\Framework\Resource\Audio\FlAudioManager.h">
+      <Filter>Src\Framework\Resource\Audio</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Framework\Resource\Json\FlJsonDataManager.hpp">
+      <Filter>Src\Framework\Resource\Json</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Framework\Resource\Binary\FlBinaryAccessor.hpp">
+      <Filter>Src\Framework\Resource\Binary</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Framework\Resource\FlResourceAdministrator.h">
+      <Filter>Src\Framework\Resource</Filter>
     </ClInclude>
   </ItemGroup>
   <ItemGroup>
@@ -861,8 +876,11 @@
     <ClCompile Include="Src\Application\GameObject\GameUi\BestDist\BestDist.cpp">
       <Filter>Src\Application\GameObject\GameUi\BestDist</Filter>
     </ClCompile>
-    <ClCompile Include="Src\Framework\Audio\FlAudioManager.cpp">
-      <Filter>Src\Framework\Audio</Filter>
+    <ClCompile Include="Src\Framework\Resource\Audio\FlAudioManager.cpp">
+      <Filter>Src\Framework\Resource\Audio</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Framework\Resource\FlResourceAdministrator.cpp">
+      <Filter>Src\Framework\Resource</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

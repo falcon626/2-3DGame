@@ -7,7 +7,7 @@ BestDist::BestDist() noexcept
 	auto counter{ Def::UIntZero };
 
 	{
-		[[maybe_unused]] const auto IsAssert{ BinaryAccessor::Instance().Load("Asset/Data/PlayerScore/memory_float.dat", parameter, counter) };
+		[[maybe_unused]] const auto IsAssert{ FlResourceAdministrator::Instance().GetBinaryInstance()->Load("Asset/Data/PlayerScore/memory_float.dat", parameter, counter) };
 		_ASSERT_EXPR(IsAssert, L"Not Found File");
 	}
 

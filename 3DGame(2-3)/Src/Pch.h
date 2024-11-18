@@ -80,9 +80,12 @@
 // Json
 //===============================================
 
+#pragma warning(push)
+#pragma warning(disable : 33010 26495 26819 6262 4996 5054 5232)
 #include <rapidjson/document.h>
 #include <rapidjson/writer.h>
 #include <rapidjson/stringbuffer.h>
+#pragma warning(pop)
 
 //===============================================
 // FMOD

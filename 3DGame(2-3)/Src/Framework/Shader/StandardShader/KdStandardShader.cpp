@@ -199,7 +199,7 @@ void KdStandardShader::DrawModel(const KdModelData& rModel, const Math::Matrix& 
 
 		if (GetEnableOutLineDraw())
 		{
-			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullBack);
+			KdShaderManager::Instance().UndoRasterizerState();
 		}
 	}
 
@@ -286,7 +286,7 @@ void KdStandardShader::DrawModel(KdModelWork& rModel, const Math::Matrix& mWorld
 
 		//if (GetEnableOutLineDraw())
 		//{
-		//	KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullBack);
+		//	KdShaderManager::Instance().UndoRasterizerState();
 		//}
 	}
 
@@ -329,7 +329,7 @@ void KdStandardShader::DrawModel(const KdModelData& rModel, const std::vector<Ma
 
 		if (GetEnableOutLineDraw())
 		{
-			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullBack);
+			KdShaderManager::Instance().UndoRasterizerState();
 		}
 	}
 
@@ -399,7 +399,7 @@ void KdStandardShader::DrawModel(KdModelWork& rModel, const std::vector<Math::Ma
 
 		if (GetEnableOutLineDraw())
 		{
-			KdShaderManager::Instance().ChangeRasterizerState(KdRasterizerState::CullBack);
+			KdShaderManager::Instance().UndoRasterizerState();
 		}
 	}
 

@@ -80,10 +80,10 @@ void SceneManager::Init()
 	{
 		// Load Initialization Value
 #if _DEBUG
-		const auto IsAssert = BinaryAccessor::Instance().Load("Asset/Data/SoundParameter/Initial_Float.dat", parameter, counter);
+		const auto IsAssert{ FlResourceAdministrator::Instance().GetBinaryInstance()->Load("Asset/Data/SoundParameter/Initial_Float.dat", parameter, counter) };
 		_ASSERT_EXPR(IsAssert, L"BinaryData Not Found");
 #else
-		BinaryAccessor::Instance().Load("Asset/Data/SoundParameter/Initial_Float.dat", parameter, counter);
+		FlResourceAdministrator::Instance().GetBinaryInstance()->Load("Asset/Data/SoundParameter/Initial_Float.dat", parameter, counter);
 #endif // _DEBUG
 	}
 
@@ -93,7 +93,10 @@ void SceneManager::Init()
 	m_soundTexPos.x = parameter[--counter];
 	m_soundTexPos.y = parameter[--counter];
 
-	KdAudioManager::Instance().Play("Asset/Sound/NightWave.wav", true);
+	FlResourceAdministrator::Instance().GetAudioInstance()->Play("Asset/Sound/NightWave.wav", true);
+
+	FlResourceAdministrator::Instance().GetAudioInstance()->SetReverb(5.f);
+	FlResourceAdministrator::Instance().GetAudioInstance()->SetPitch(0.5f);
 }
 
 void SceneManager::ChangeScene(SceneType sceneType)
@@ -145,18 +148,18 @@ void SceneManager::SoundUpdate() noexcept
 	}
 	else m_volDownKeyFlg = false;
 
-	if (Key::IsPushing(Key::M))
+	if (Key::IsPushingWithFocus(Key::M))
 	{
 		if (!m_volMuteKeyFlg)
 		{
 			m_muteFlg = !m_muteFlg;
+			FlResourceAdministrator::Instance().GetAudioInstance()->Mute(m_muteFlg);
 			m_volMuteKeyFlg = true;
 		}
 	}
 	else m_volMuteKeyFlg = false;
 
-	if (m_muteFlg) KdAudioManager::Instance().SetVolume(static_cast<float>(NULL));
-	else           KdAudioManager::Instance().SetVolume(m_masterVolume);
+	FlResourceAdministrator::Instance().GetAudioInstance()->SetVolume(m_masterVolume);
 }
 
 void SceneManager::SoundSpriteDraw() noexcept

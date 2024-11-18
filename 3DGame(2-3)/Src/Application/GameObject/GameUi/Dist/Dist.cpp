@@ -13,7 +13,7 @@ Dist::Dist(const std::weak_ptr<Player>& wp)
 	auto counter{ Def::UIntZero };
 
 	{
-		[[maybe_unused]] const auto IsAssert{ BinaryAccessor::Instance().Load("Asset/Data/PlayerScore/memory_float.dat", parameter, counter) };
+		[[maybe_unused]] const auto IsAssert{ FlResourceAdministrator::Instance().GetBinaryInstance()->Load("Asset/Data/PlayerScore/memory_float.dat", parameter, counter)};
 		_ASSERT_EXPR(IsAssert, L"Not Found File");
 	}
 
@@ -39,9 +39,12 @@ void Dist::Update()
 	}
 	else if(!m_dirty)
 	{
-		auto parameter{ std::vector<float>{m_best} };
+		{
+			auto parameter{ std::vector<float>{m_best} };
+			[[maybe_unused]] const auto IsAssert{ FlResourceAdministrator::Instance().GetBinaryInstance()->Save("Asset/Data/PlayerScore/memory_float.dat", parameter) };
+			_ASSERT_EXPR(IsAssert, L"Not Found File");
+		}
 
-		BinaryAccessor::Instance().Save("Asset/Data/PlayerScore/memory_float.dat", parameter);
 		m_dirty = true;
 	}
 

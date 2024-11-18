@@ -225,7 +225,6 @@ xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"<
     <ClInclude Include="Src\Application\TitleObject\TitleCar\TitleCar.h" />
     <ClInclude Include="Src\Application\TitleObject\TitleFish\TitleFish.h" />
     <ClInclude Include="Src\Application\TitleObject\TitleTrain\TitleTrain.h" />
-    <ClInclude Include="Src\Framework\Audio\FlAudioManager.h" />
     <ClInclude Include="Src\Framework\Direct3D\KdMaterial.h" />
     <ClInclude Include="Src\Framework\Direct3D\Polygon\KdPolygon.h" />
     <ClInclude Include="Src\Framework\Direct3D\Polygon\KdSquarePolygon.h" />
@@ -246,13 +245,15 @@ xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"<
     <ClInclude Include="Src\Framework\Direct3D\KdModel.h" />
     <ClInclude Include="src\Framework\Direct3D\KdTexture.h" />
     <ClInclude Include="Src\Framework\Math\KdUVAnimation.h" />
+    <ClInclude Include="Src\Framework\Resource\Audio\FlAudioManager.h" />
+    <ClInclude Include="Src\Framework\Resource\Binary\FlBinaryAccessor.hpp" />
+    <ClInclude Include="Src\Framework\Resource\Json\FlJsonDataManager.hpp" />
+    <ClInclude Include="Src\Framework\Resource\FlResourceAdministrator.h" />
     <ClInclude Include="Src\Framework\Shader\KdAmbientController.h" />
     <ClInclude Include="Src\Framework\Shader\KdRenderTargetChange.h" />
     <ClInclude Include="Src\Framework\Shader\StandardShader\KdStandardShader.h" />
-    <ClInclude Include="Src\Framework\Utility\FlBinaryAccessor.hpp" />
     <ClInclude Include="Src\Framework\Utility\FlDataStorage.hpp" />
     <ClInclude Include="Src\Framework\Utility\FlFPSController.h" />
-    <ClInclude Include="Src\Framework\Utility\FlJsonDataManager.hpp" />
     <ClInclude Include="Src\Framework\Utility\FlUtilityContainer.hxx" />
     <ClInclude Include="Src\Framework\Utility\FlUtilityDebug.hpp" />
     <ClInclude Include="Src\Framework\Utility\FlUtilityDefault.hxx" />
@@ -322,7 +323,6 @@ xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"<
     <ClCompile Include="Src\Application\TitleObject\TitleCar\TitleCar.cpp" />
     <ClCompile Include="Src\Application\TitleObject\TitleFish\TitleFish.cpp" />
     <ClCompile Include="Src\Application\TitleObject\TitleTrain\TitleTrain.cpp" />
-    <ClCompile Include="Src\Framework\Audio\FlAudioManager.cpp" />
     <ClCompile Include="Src\Framework\Direct3D\KdMaterial.cpp">
       <SubType>
       </SubType>
@@ -345,6 +345,8 @@ xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"<
     <ClCompile Include="Src\Framework\Direct3D\KdModel.cpp" />
     <ClCompile Include="src\Framework\Direct3D\KdTexture.cpp" />
     <ClCompile Include="Src\Framework\Math\KdUVAnimation.cpp" />
+    <ClCompile Include="Src\Framework\Resource\Audio\FlAudioManager.cpp" />
+    <ClCompile Include="Src\Framework\Resource\FlResourceAdministrator.cpp" />
     <ClCompile Include="Src\Framework\Shader\KdAmbientController.cpp" />
     <ClCompile Include="Src\Framework\Shader\KdRenderTargetChange.cpp" />
     <ClCompile Include="Src\Framework\Shader\StandardShader\KdStandardShader.cpp" />

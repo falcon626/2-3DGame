@@ -166,7 +166,7 @@ struct ImguiPosition
 					std::vector parameter{ pair.second.x,pair.second.y,pair.second.z };
 					auto uniqueName{ pair.first };
 
-					BinaryAccessor::Instance().Save("Asset/Data/ObjectPositionParameter/" + uniqueName + ".dat", parameter);
+					FlResourceAdministrator::Instance().GetBinaryInstance()->Save("Asset/Data/ObjectPositionParameter/" + uniqueName + ".dat", parameter);
 				}
 			}
         }
