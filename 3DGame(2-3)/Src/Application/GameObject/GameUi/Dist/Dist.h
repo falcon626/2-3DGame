@@ -17,10 +17,8 @@ private:
 
 	Math::Vector2 m_pos;
 
-	Math::Vector3 m_playerPos;
-
 	Math::Rectangle m_rect;
 
 	float m_best{};
-	bool m_dirty{ false };
+	bool m_dirty{ true };
 };

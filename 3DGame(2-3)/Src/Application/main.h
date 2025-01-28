@@ -123,56 +123,90 @@ struct ImguiPosition
 
 	auto Draw() noexcept
 	{
-		if (ImGui::Button("Select Object ID")) ImGui::OpenPopup("Select Object ID");
 
-		if (ImGui::BeginPopup("Select Object ID"))
+		// Select Object ID の親ノード
+		if (ImGui::TreeNode("Select Object ID"))
 		{
-			for (const auto& pair : m_positions)
-				if (ImGui::Selectable(("Object ID: " + pair.first).c_str(), m_currentId == pair.first)) m_currentId = pair.first;
-			ImGui::EndPopup();
-		}
+			// DATディレクトリのパス
+			const std::string basePath = "Asset/Data/";
 
-        if (m_positions.find(m_currentId) != m_positions.end())
-        {
-			auto& pos{ m_positions[m_currentId] };
-			// Slider for X component
-			float x = pos.x;
-			if (ImGui::SliderFloat("X", &x, -100.0f, 100.0f))
-				pos.x = x;
-			ImGui::SameLine();
-			if (ImGui::InputFloat("##XInput", &pos.x, 0.0f, 0.0f, "%.3f"))
-				pos.x = std::clamp(pos.x, -FLT_MAX, FLT_MAX);
-
-			// Slider for Y component
-			float y = pos.y;
-			if (ImGui::SliderFloat("Y", &y, -100.0f, 100.0f))
-				pos.y = y;
-			ImGui::SameLine();
-			if (ImGui::InputFloat("##YInput", &pos.y, 0.0f, 0.0f, "%.3f"))
-				pos.y = std::clamp(pos.y, -FLT_MAX, FLT_MAX);
-
-			// Slider for Z component
-			float z = pos.z;
-			if (ImGui::SliderFloat("Z", &z, -100.0f, 100.0f))
-				pos.z = z;
-			ImGui::SameLine();
-			if (ImGui::InputFloat("##ZInput", &pos.z, 0.0f, 0.0f, "%.3f"))
-				pos.z = std::clamp(pos.z, -FLT_MAX, FLT_MAX);
-
-			if (ImGui::Button("Save"))
+			// サブディレクトリを列挙
+			for (const auto& entry : std::filesystem::directory_iterator(basePath))
 			{
-				for (const auto& pair : m_positions)
+				// ディレクトリのみ対象にする
+				if (entry.is_directory())
 				{
-					std::vector parameter{ pair.second.x,pair.second.y,pair.second.z };
-					auto uniqueName{ pair.first };
+					std::string dirName = entry.path().filename().string(); // ディレクトリ名を取得
+					std::string diLabel = "Directory: " + dirName; // ラベル作成
 
-					FlResourceAdministrator::Instance().GetBinaryInstance()->Save("Asset/Data/ObjectPositionParameter/" + uniqueName + ".dat", parameter);
+					// サブディレクトリのTreeNode作成
+					if (ImGui::TreeNode(diLabel.c_str()))
+					{
+						for (const auto& pair : m_positions)
+						{
+							std::string label = "Object ID: " + pair.first;
+
+							// 各Object IDをTreeNodeとして表示
+							if (ImGui::TreeNode(label.c_str()))
+							{
+								// Selectableをクリックで選択
+								if (ImGui::Selectable("Select", m_currentId == pair.first))
+									m_currentId = pair.first;
+
+								// 選択中のIDに該当する場合、スライダーとボタンを表示
+								if (m_currentId == pair.first)
+								{
+									auto& pos = m_positions[m_currentId];
+
+									// Xコンポーネント
+									float x = pos.x;
+									if (ImGui::SliderFloat("X", &x, -100.0f, 100.0f))
+										pos.x = x;
+									ImGui::SameLine();
+									if (ImGui::InputFloat("##XInput", &pos.x, 0.0f, 0.0f, "%.3f"))
+										pos.x = std::clamp(pos.x, -FLT_MAX, FLT_MAX);
+
+									// Yコンポーネント
+									float y = pos.y;
+									if (ImGui::SliderFloat("Y", &y, -100.0f, 100.0f))
+										pos.y = y;
+									ImGui::SameLine();
+									if (ImGui::InputFloat("##YInput", &pos.y, 0.0f, 0.0f, "%.3f"))
+										pos.y = std::clamp(pos.y, -FLT_MAX, FLT_MAX);
+
+									// Zコンポーネント
+									float z = pos.z;
+									if (ImGui::SliderFloat("Z", &z, -100.0f, 100.0f))
+										pos.z = z;
+									ImGui::SameLine();
+									if (ImGui::InputFloat("##ZInput", &pos.z, 0.0f, 0.0f, "%.3f"))
+										pos.z = std::clamp(pos.z, -FLT_MAX, FLT_MAX);
+
+									// Saveボタン
+									if (ImGui::Button("Save"))
+									{
+										for (const auto& savePair : m_positions)
+										{
+											std::vector parameter{ savePair.second.x, savePair.second.y, savePair.second.z };
+											auto uniqueName = savePair.first;
+
+											FlResourceAdministrator::Instance().GetBinaryInstance()->SaveData(
+												"Asset/Data/ObjectPositionParameter/" + uniqueName + ".dat",
+												parameter);
+										}
+									}
+								}
+								ImGui::TreePop(); // このObject ID用TreeNodeを閉じる
+							}
+						}
+						ImGui::TreePop(); // 全体TreeNodeを閉じる
+					}
 				}
 			}
-        }
-    }
-
-	const auto& Here (const std::string& id) const noexcept { return m_positions.at(id); }
+			ImGui::TreePop(); // Select Object ID のTreeNodeを閉じる
+		}
+	}
+	const auto& Here(const std::string& id) const noexcept { return m_positions.at(id); }
 };
 
 //============================================================

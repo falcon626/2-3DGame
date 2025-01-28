@@ -2,7 +2,7 @@
 
 TitleFish::TitleFish()
 {
-	SetModelData("Player/fish1-1.gltf");
+	SetModelData("Player/fish1.gltf");
 
 	m_entityId = Id::Player;
 

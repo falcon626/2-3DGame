@@ -1,7 +1,7 @@
 ﻿#pragma once
 
 #include "Audio/FlAudioManager.h"
-#include "Binary/FlBinaryAccessor.hpp"
+#include "Binary/FlBinaryManager.hpp"
 #include "Json/FlJsonDataManager.hpp"
 
 class FlResourceAdministrator
@@ -9,6 +9,7 @@ class FlResourceAdministrator
 public:
 
 	void PreLoader(const std::initializer_list<std::string>& paths);
+	void AllClear() noexcept;
 
 	inline const auto& GetAudioInstance()  const noexcept { return m_spAudio; }
 	inline const auto& GetBinaryInstance() const noexcept { return m_spBinary; }
@@ -28,6 +29,6 @@ private:
 	FlResourceAdministrator& operator=(const FlResourceAdministrator&) = delete;
 
 	std::shared_ptr<FlAudioManager>    m_spAudio;
-	std::shared_ptr<FlBinaryAccessor>  m_spBinary;
+	std::shared_ptr<FlBinaryManager>   m_spBinary;
 	std::shared_ptr<FlJsonDataManager> m_spJson;
 };

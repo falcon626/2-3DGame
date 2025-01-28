@@ -7,7 +7,7 @@ namespace Str // String Series
 		const auto dotPos{ filePath.rfind('.') };
 		if (dotPos != std::string::npos) return filePath.substr(dotPos + Def::UIntOne);
 
-		return std::string{ " " };
+		return std::string{ "" };
 	}
 
 	[[nodiscard(L"Result Not Used")]] static const auto ReplaceChar(const std::string& str, char oldChar, char newChar) noexcept
@@ -32,5 +32,15 @@ namespace Str // String Series
 		}
 
 		return result;
+	}
+
+	[[nodiscard(L"File Paths Not Used")]] static const auto GetFilePaths(const std::filesystem::path& directory, const std::string_view& exte)
+	{
+		auto filePaths{ std::vector<std::string>{} };
+
+		for (const auto& entry : std::filesystem::directory_iterator(directory))
+			if (entry.path().extension() == exte) filePaths.emplace_back(entry.path().string());
+
+		return filePaths;
 	}
 }

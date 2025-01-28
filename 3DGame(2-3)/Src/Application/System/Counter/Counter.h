@@ -14,6 +14,8 @@ public:
 	void SetCounterParameter(const int& countNumber, const Math::Vector2& pos, const int& rectSize) noexcept;
 	void SetCounterParameter(const int& countNumber, const Math::Vector2& pos, const int& rectSize, const Math::Color& color) noexcept;
 
+	inline auto SetPos(const Math::Vector2& pos) noexcept { m_pos = pos; }
+
 private:
 
 	enum class Digit : size_t

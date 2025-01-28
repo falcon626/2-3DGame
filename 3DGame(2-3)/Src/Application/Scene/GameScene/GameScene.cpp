@@ -15,6 +15,8 @@
 //             Other                 //
 #include "../../System/Console/Console.hpp"
 
+#include "../../GameObject/Item/Cronus/ItemCronus.h"
+
 void GameScene::Event()
 {
 	if (Key::IsPushingWithFocus(Key::F11)) SceneManager::Instance().SetNextScene(SceneManager::SceneType::Debug);
@@ -27,7 +29,7 @@ void GameScene::Event()
 	{
 		auto nowWheelVal{ KdWindow::Instance().GetMouseWheelVal() };
 
-		if (Key::IsPushing({ Key::Right, Key::R_Click, Key::D }))      sp->MoveUp();
+		if (Key::IsPushing({ Key::Right, Key::R_Click, Key::D }))			    sp->MoveUp();
 
 		else if (Key::IsPushingWithFocus({ Key::Left,  Key::L_Click, Key::A })) sp->MoveDown();
 
@@ -52,8 +54,25 @@ void GameScene::Init()
 {
 	// Pre Asset Load
 	PreLoad();
+	
+	{
+		auto parameter{ FlResourceAdministrator::Instance().
+			GetBinaryInstance()->LoadData<float>("Asset/Data/LaneParameter/laneParameter_float.dat") };
+		
+		if (!parameter)_ASSERT_EXPR(false, "Empty Parameter");
+		
+		auto counter{ parameter->size()};
+		Container::ReverseVector(*parameter);
 
-	m_spLaneMana = std::make_shared<LaneManager>();
+		const auto nearNum  { static_cast<uint32_t>((*parameter)[--counter]) };
+		const auto tileNum  { static_cast<uint32_t>((*parameter)[--counter]) };
+		const auto randMax  { static_cast<uint32_t>((*parameter)[--counter]) };
+		const auto startPosX{ (*parameter)[--counter] };
+		const auto lanePosZ { (*parameter)[--counter] };
+
+
+		m_spLaneMana = std::make_shared<LaneManager>(nearNum, tileNum, randMax, startPosX, lanePosZ);
+	}
 
 	for (auto i{ Def::UIntZero }; i < static_cast<uint32_t>(LaneManager::LaneNumber::Max); ++i)
 		m_spLaneMana->AddLane();
@@ -67,6 +86,8 @@ void GameScene::Init()
 
 	//AddObjListAndWeak<AdminCamera>(m_wpCamera);
 	AddObjListAndWeak<TPVCamera>(m_wpCamera);
+	
+	AddObjList<ItemCronus>();
 
 	// Setter
 	if (auto sp{ WeakPtrIsExpired(m_wpCamera) })

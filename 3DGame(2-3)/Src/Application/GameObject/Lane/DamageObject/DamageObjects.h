@@ -24,14 +24,14 @@ public:
 private:
 	void AddDamaObjs() noexcept;
 
-	void AddCar(const std::shared_ptr<LaneObject>& lane) noexcept;
-	void AddTrain(const std::shared_ptr<LaneObject>& lane) noexcept;
+	void AddCar(const std::shared_ptr<LaneObject>& spLaneObj) noexcept;
+	void AddTrain(const std::shared_ptr<LaneObject>& spLaneObj) noexcept;
 
 	void KillDameObj() noexcept;
 
 	const std::vector<Math::Matrix> CreateMatrixVector(const std::list<std::shared_ptr<BaseBasic3DObject>>& dameObjs)noexcept;
 
-	// functionoid : functor
+	// <Functionoid:Custom Hash Functor>
 	template<typename T>
 	struct WeakPtrHash 
 	{
@@ -42,7 +42,7 @@ private:
 		}
 	};
 
-	// functionoid : functor
+	// <Functionoid:Custom Equal Functor>
 	template<typename _T>
 	struct WeakPtrEqual 
 	{

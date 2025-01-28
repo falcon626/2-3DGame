@@ -2,6 +2,8 @@
 #include "../../../System/Counter/Counter.h"
 #include "../../../System/Timer/Timer.h"
 
+#include "../../Player/Player.h"
+
 StageTime::StageTime(const std::weak_ptr<Player>& wp)
 {
 	m_spTex = FlDataStorage::Instance().GetTexture("Numbers/numbersBox.png");
@@ -13,6 +15,8 @@ StageTime::StageTime(const std::weak_ptr<Player>& wp)
 
 	m_spTimer->Start();
 
+	m_color = Def::Color;
+
 	m_wpPlayer = wp;
 }
 
@@ -23,11 +27,25 @@ void StageTime::DrawSprite()
 
 void StageTime::Update()
 {
-	m_time = m_spTimer->ElapsedSeconds();
+	if (auto sp{ m_wpPlayer.lock() })
+	{
+		const auto time{ sp->GetLifeTime() };
+		if (time <= 10)
+		{
+			m_color.G(Formula::SinCurve(m_curveVal));
+			m_color.B(Formula::SinCurve(m_curveVal));
 
-	m_spCounter->SetCounterParameter(m_time, m_pos);
+			m_curveVal = Increment(m_curveVal, 900, m_deltaTime);
+			if (m_curveVal >= 360) m_curveVal -= 360;
+		}
+		else m_color = Def::Color;
 
+		m_spCounter->SetCounterParameter(time, m_pos, m_color);
+	}
+	else
+	{
+		m_color = kRedColor;
+		m_spCounter->SetCounterParameter(Def::IntZero, m_pos, m_color);
+	}
 	m_spCounter->Update();
-
-	if (m_wpPlayer.expired()) m_spTimer->Stop();
 }

@@ -38,5 +38,5 @@ void TitleScene::Init()
 	AddObjList<TitleCar>();
 	AddObjList<TitleTrain>();
 	AddObjList<TitleFish>();
-	// AddObjList<ModeSelect>();
+	//AddObjList<ModeSelect>();
 }

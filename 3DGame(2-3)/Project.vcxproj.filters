@@ -262,6 +262,12 @@
     <Filter Include="Src\Framework\Resource\Binary">
       <UniqueIdentifier>{a385eb61-2b19-477b-adef-db67fff599ed}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Src\Application\GameObject\Item">
+      <UniqueIdentifier>{dfab337b-5c0b-47d2-9a09-c10f521dc947}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Src\Application\GameObject\Item\Cronus">
+      <UniqueIdentifier>{9fe710d1-d8a2-4268-8c67-4a7009deb997}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Pch.h">
@@ -627,6 +633,12 @@
     <ClInclude Include="Src\Framework\Resource\FlResourceAdministrator.h">
       <Filter>Src\Framework\Resource</Filter>
     </ClInclude>
+    <ClInclude Include="Src\Framework\Resource\Binary\FlBinaryManager.hpp">
+      <Filter>Src\Framework\Resource\Binary</Filter>
+    </ClInclude>
+    <ClInclude Include="Src\Application\GameObject\Item\Cronus\ItemCronus.h">
+      <Filter>Src\Application\GameObject\Item\Cronus</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\Pch.cpp">
@@ -881,6 +893,9 @@
     </ClCompile>
     <ClCompile Include="Src\Framework\Resource\FlResourceAdministrator.cpp">
       <Filter>Src\Framework\Resource</Filter>
+    </ClCompile>
+    <ClCompile Include="Src\Application\GameObject\Item\Cronus\ItemCronus.cpp">
+      <Filter>Src\Application\GameObject\Item\Cronus</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>

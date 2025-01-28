@@ -74,28 +74,19 @@ void SceneManager::Init()
 	m_spSoundTex->Load("Asset/Textures/Sound/sound.png");
 
 	// Local Declaration
-	std::vector<float> parameter;
-	auto counter(static_cast<size_t>(NULL));
 
-	{
-		// Load Initialization Value
-#if _DEBUG
-		const auto IsAssert{ FlResourceAdministrator::Instance().GetBinaryInstance()->Load("Asset/Data/SoundParameter/Initial_Float.dat", parameter, counter) };
-		_ASSERT_EXPR(IsAssert, L"BinaryData Not Found");
-#else
-		FlResourceAdministrator::Instance().GetBinaryInstance()->Load("Asset/Data/SoundParameter/Initial_Float.dat", parameter, counter);
-#endif // _DEBUG
-	}
+	const auto parameter{ FlResourceAdministrator::Instance().GetBinaryInstance()->LoadData<float>("Asset/Data/SoundParameter/Initial_Float.dat") };
+	auto counter{ parameter->size() };
+	
+	m_masterVolume = (*parameter)[--counter] * 0.5f;
+	m_changeVol = (*parameter)[--counter];
 
-	m_masterVolume = parameter[--counter] * 0.5f;
-	m_changeVol = parameter[--counter];
-
-	m_soundTexPos.x = parameter[--counter];
-	m_soundTexPos.y = parameter[--counter];
+	m_soundTexPos.x = (*parameter)[--counter];
+	m_soundTexPos.y = (*parameter)[--counter];
 
 	FlResourceAdministrator::Instance().GetAudioInstance()->Play("Asset/Sound/NightWave.wav", true);
 
-	FlResourceAdministrator::Instance().GetAudioInstance()->SetReverb(5.f);
+	FlResourceAdministrator::Instance().GetAudioInstance()->SetReverb(10.f);
 	FlResourceAdministrator::Instance().GetAudioInstance()->SetPitch(0.5f);
 }
 
@@ -120,6 +111,7 @@ void SceneManager::ChangeScene(SceneType sceneType)
 	WorkObjList().sort(BaseScene::CompareById);
 
 	FlDataStorage::Instance().ReleaseUnusedResources();
+	FlResourceAdministrator::Instance().AllClear();
 
 	// 現在のシーン情報を更新
 	m_currentSceneType = sceneType;

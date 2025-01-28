@@ -31,7 +31,7 @@
 // cbuffer cbBones
 // {
 //
-//   row_major float4x4 g_mBones[300];  // Offset:    0 Size: 19200
+//   row_major float4x4 g_mBones[800];  // Offset:    0 Size: 51200
 //
 // }
 //
@@ -94,7 +94,7 @@ vs_5_0
 dcl_globalFlags refactoringAllowed
 dcl_constantbuffer CB0[2], immediateIndexed
 dcl_constantbuffer CB1[4], immediateIndexed
-dcl_constantbuffer CB3[1200], dynamicIndexed
+dcl_constantbuffer CB3[3200], dynamicIndexed
 dcl_constantbuffer CB9[7], immediateIndexed
 dcl_input v0.xyzw
 dcl_input v1.xy
@@ -222,10 +222,10 @@ ret
 
 const BYTE compiledBuffer[] =
 {
-     68,  88,  66,  67, 112,  41, 
-     76, 131, 232, 201, 141, 238, 
-     92, 110,  29, 249,  62,  65, 
-     95,  18,   1,   0,   0,   0, 
+     68,  88,  66,  67,  12,  30, 
+     54, 105, 117,  84,  78, 237, 
+     71,  22, 170, 117,  61, 247, 
+    140, 128,   1,   0,   0,   0, 
     104,  21,   0,   0,   5,   0, 
       0,   0,  52,   0,   0,   0, 
     184,   7,   0,   0, 172,   8, 
@@ -278,7 +278,7 @@ const BYTE compiledBuffer[] =
       0,   0,   0,   0,   0,   0, 
       0,   0,   0,   0, 204,   0, 
       0,   0,   1,   0,   0,   0, 
-    124,   4,   0,   0,   0,  75, 
+    124,   4,   0,   0,   0, 200, 
       0,   0,   0,   0,   0,   0, 
       0,   0,   0,   0, 212,   0, 
       0,   0,   6,   0,   0,   0, 
@@ -424,7 +424,7 @@ const BYTE compiledBuffer[] =
       0,   0,   0,   0,   0,   0, 
       0,   0,   0,   0,  77,   4, 
       0,   0, 164,   4,   0,   0, 
-      0,   0,   0,   0,   0,  75, 
+      0,   0,   0,   0,   0, 200, 
       0,   0,   2,   0,   0,   0, 
     176,   4,   0,   0,   0,   0, 
       0,   0, 255, 255, 255, 255, 
@@ -433,7 +433,7 @@ const BYTE compiledBuffer[] =
     103,  95, 109,  66, 111, 110, 
     101, 115,   0, 171, 171, 171, 
       2,   0,   3,   0,   4,   0, 
-      4,   0,  44,   1,   0,   0, 
+      4,   0,  32,   3,   0,   0, 
       0,   0,   0,   0,   0,   0, 
       0,   0,   0,   0,   0,   0, 
       0,   0,   0,   0,   0,   0, 
@@ -625,7 +625,7 @@ const BYTE compiledBuffer[] =
       1,   0,   0,   0,   4,   0, 
       0,   0,  89,   8,   0,   4, 
      70, 142,  32,   0,   3,   0, 
-      0,   0, 176,   4,   0,   0, 
+      0,   0, 128,  12,   0,   0, 
      89,   0,   0,   4,  70, 142, 
      32,   0,   9,   0,   0,   0, 
       7,   0,   0,   0,  95,   0, 

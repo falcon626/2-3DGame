@@ -7,7 +7,7 @@ class Player;
 class LaneManager
 {
 public:
-	LaneManager();
+	explicit LaneManager(const uint32_t nearNum, const uint32_t tileNum, const uint32_t randMax, const float startPosX, const float initializeLanePosZ) noexcept;
 	~LaneManager() = default;
 
 	void PreUpdate(const float playerZ);
@@ -35,8 +35,13 @@ private:
 
 	std::weak_ptr<LaneObject> m_wpLastLane;
 	
-	const uint32_t NearLaneNum{ 3 };
+	const uint32_t NearLaneNum;
+	const uint32_t TileNum;
+	const uint32_t RandMax;
 
-	uint32_t m_currentIndex{ Def::UIntZero };
-	float    m_laneZ{ -9 };
+	const float OffsetStartPosX;
+
+
+	uint32_t m_currentIndex;
+	float    m_laneZ;
 };

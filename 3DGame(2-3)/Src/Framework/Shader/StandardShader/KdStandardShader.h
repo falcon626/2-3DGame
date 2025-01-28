@@ -8,7 +8,7 @@ class KdStandardShader
 {
 public:
 	// スキンメッシュ対応
-	static const int maxBoneBufferSize = 300;
+	static const int maxBoneBufferSize = 800;
 
 
 	// 定数バッファ(オブジェクト単位更新)

@@ -4,9 +4,14 @@
 #include "../Player/Player.h"
 #include "../../Scene/SceneManager.h"
 
-LaneManager::LaneManager()
+LaneManager::LaneManager(const uint32_t nearNum, const uint32_t tileNum, const uint32_t randMax, const float startPosX, const float initializeLanePosZ) noexcept
+	: NearLaneNum	 { nearNum }
+	, TileNum		 { tileNum }
+	, RandMax		 { randMax }
+	, OffsetStartPosX{ startPosX }
+	, m_currentIndex { Def::UIntZero }
+	, m_laneZ		 { initializeLanePosZ }
 {
-	m_laneZ = -9;
 }
 
 void LaneManager::PreUpdate(const float playerZ)
@@ -36,22 +41,22 @@ void LaneManager::AddLane()
 {
 	auto wpLaneObj{ std::weak_ptr<LaneObject>{} };
 
-	auto isSafe{ static_cast<int>(m_laneZ) % 15};
+	auto isSafe{ static_cast<int>(m_laneZ) % 30};
 
 	if (!isSafe)
 	{
-		SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::River);
+		SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::River, TileNum, OffsetStartPosX);
 	}
 	else
 	{
 		auto rnd{ Formula::Rand(1, 100) };
 
 		if (rnd < 75)
-			SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Ground);
+			SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Ground, TileNum, OffsetStartPosX, RandMax);
 		else if (rnd < 85)
-			SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Road);
+			SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Road, TileNum, OffsetStartPosX);
 		else
-			SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Rail);
+			SceneManager::Instance().AddObjListAndWeak<LaneObject>(wpLaneObj, Math::Vector3(Def::FloatZero, Def::FloatZero, m_laneZ), LaneObject::LaneType::Rail, TileNum, OffsetStartPosX);
 	}
 
 	AddWeakPtr(wpLaneObj);
@@ -72,6 +77,7 @@ const std::list<std::shared_ptr<KdGameObject>> LaneManager::GetTilesList(const f
 		}
 	}
 
+	// <Lambda Function:Sort Near Lanes>
 	std::sort(nearLanes.begin(), nearLanes.end(), [](const auto& lhs, const auto& rhs) {
 		return lhs.first < rhs.first;
 		});

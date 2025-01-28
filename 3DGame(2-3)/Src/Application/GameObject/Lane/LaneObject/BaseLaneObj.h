@@ -5,7 +5,9 @@ class CommonTile;
 class BaseLaneObj : public KdGameObject
 {
 public:
-	BaseLaneObj () = default;
+	BaseLaneObj() noexcept
+		: m_isUp{ false } {};
+
 	virtual ~BaseLaneObj() override = default;
 
 	void GenerateDepthMapFromLight() override;
@@ -29,7 +31,7 @@ protected:
 
 	std::list<std::shared_ptr<KdGameObject>> m_tilesList;
 
-	bool m_isUp{ false };
+	bool m_isUp;
 private:
 
 	//uint32_t m_tilesNum;

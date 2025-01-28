@@ -5,6 +5,7 @@
 class DamageObjects;
 class CameraBase;
 class LaneManager;
+class Timer;
 
 class Player : public BaseBasicWork3DObject, BaseMoveObject
 {
@@ -26,6 +27,7 @@ public:
 	inline void SetOverLap(const bool isOverLap) noexcept override { m_isOverLap = isOverLap; }
 
 	inline const auto GetHp() const noexcept { return (m_hp <= Def::IntZero) ? Def::IntZero : m_hp; }
+	inline const auto GetLifeTime() const noexcept { return m_lifeTime; }
 
 	inline const auto IsSafe() const noexcept { return m_isSafe; }
 
@@ -43,6 +45,8 @@ private:
 
 	void UpdateHeal() noexcept;
 
+	std::shared_ptr<Timer>	     m_spTimer;
+
 	std::weak_ptr<DamageObjects> m_wpDameObjs;
 	std::weak_ptr<CameraBase>    m_wpCamera;
 	std::weak_ptr<LaneManager>   m_wpLaneMana;
@@ -55,6 +59,8 @@ private:
 	const Math::Vector3 MinVelocityX;
 
 	const uint32_t AnimeSpd;
+	const uint32_t LifeTimeMax;
+	
 	const int32_t MaxHp;
 
 	uint32_t m_lifeTime;
@@ -73,6 +79,8 @@ private:
 	float  m_hitInterval;
 
 	float m_rotX;
+
+	bool m_isStartTimer;
 
 	bool m_isDown;
 	bool m_isMove;

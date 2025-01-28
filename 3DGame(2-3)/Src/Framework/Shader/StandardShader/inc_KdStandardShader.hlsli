@@ -37,7 +37,7 @@ cbuffer cbMaterial : register(b2)
 // スキンメッシュ対応　（Bone行列配列）
 cbuffer cbBones : register(b3)
 {
-	row_major float4x4 g_mBones[300];
+	row_major float4x4 g_mBones[800];
 };
 
 // インスタンスごとのワールド行列

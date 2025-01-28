@@ -11,7 +11,7 @@ GameUi::GameUi(const std::weak_ptr<Player>& wp)
 	AddObjList<StageTime>(wp);
 	AddObjList<HitPoint>(wp);
 	AddObjList<Dist>(wp);
-	AddObjList<BestDist>();
+	AddObjList<BestDist>(wp);
 }
 
 void GameUi::DrawSprite()

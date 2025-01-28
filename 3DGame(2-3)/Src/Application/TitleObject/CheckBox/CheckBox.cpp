@@ -26,12 +26,7 @@ void CheckBox::Update()
 
 void CheckBox::Check() noexcept
 {
-	auto mouse{ POINT{} };
-	GetCursorPos(&mouse);
+	const auto mouse{ Math::Vector2{static_cast<float>(m_mouse.x),static_cast<float>(m_mouse.y)} };
 
-	auto x   { m_pos.x - mouse.x };
-	auto y   { m_pos.y - mouse.y };
-	auto dist{ sqrt(x * x + y * y) };
-
-	if (dist <= 40) m_isCheck = !m_isCheck;
+	if (Formula::GetDistance(m_pos, mouse) <= 40) m_isCheck = !m_isCheck;
 }

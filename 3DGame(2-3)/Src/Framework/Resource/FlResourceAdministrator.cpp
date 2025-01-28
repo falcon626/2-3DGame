@@ -2,7 +2,7 @@
 
 FlResourceAdministrator::FlResourceAdministrator() noexcept
 	: m_spAudio { std::make_shared<FlAudioManager>() }
-	, m_spBinary{ std::make_shared<FlBinaryAccessor>() }
+	, m_spBinary{ std::make_shared<FlBinaryManager>() }
 	, m_spJson  { std::make_shared<FlJsonDataManager>() }
 {}
 
@@ -17,5 +17,14 @@ void FlResourceAdministrator::PreLoader(const std::initializer_list<std::string>
 			m_spAudio->LoadSound(path);
 			continue;
 		}
+		else if (exte == "gltf" || exte == "png")
+		{
+			
+		}
 	}
+}
+
+void FlResourceAdministrator::AllClear() noexcept
+{
+	m_spBinary->ClearCache();
 }

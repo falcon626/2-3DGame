@@ -1,10 +1,10 @@
 ﻿#include "Road.h"
 #include "../CommonTile/CommonTile.hpp"
 
-Road::Road(const Math::Vector3 pos) noexcept
+Road::Road(const Math::Vector3 pos, const uint32_t tileNum, const float startPosX) noexcept
 {
-	if (Formula::Rand(0, 1)) m_isUp = true;
+	if (Formula::Rand(Def::UIntZero, Def::UIntOne)) m_isUp = true;
 
-	for (auto i{ Def::UIntZero }; i < 13; ++i)
-		AddObjList<CommonTile>("Terrains/Terrain/terrain_road.gltf", Math::Vector3((1 * static_cast<float>(i)) - 8, 0, 0) + pos);
+	for (auto i{ Def::UIntZero }; i < tileNum; ++i)
+		AddObjList<CommonTile>("Terrains/Terrain/terrain_road.gltf", Math::Vector3((Def::FloatOne * static_cast<float>(i)) - startPosX, Def::FloatZero, Def::FloatZero) + pos);
 }

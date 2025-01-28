@@ -16,7 +16,7 @@ public:
 		Max
 	};
 
-	explicit LaneObject (const Math::Vector3& pos, const LaneType type) noexcept;
+	explicit LaneObject (const Math::Vector3& pos, const LaneType type, const uint32_t tileNum, const float startPosX, const uint32_t randMax = Def::UIntZero) noexcept;
 	~LaneObject() noexcept override = default;
 
 	void GenerateDepthMapFromLight() override;

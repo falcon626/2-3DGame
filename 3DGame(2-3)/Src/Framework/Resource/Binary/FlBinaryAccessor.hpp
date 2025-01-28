@@ -56,7 +56,4 @@ public:
 		}
 		else return false;
 	}
-
-private:
-
 };

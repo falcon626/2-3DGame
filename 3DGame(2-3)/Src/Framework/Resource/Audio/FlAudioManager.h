@@ -1,6 +1,6 @@
 ﻿#pragma once
 
-// <Flyweight>
+/// <summary> =Flyweight= </summary>
 class FlAudioManager 
 {
 public:
@@ -51,6 +51,8 @@ public:
 
 	void Update();
 
+	inline auto ClearCache() noexcept { m_soundController.clear(); }
+
 	FlAudioManager(const FlAudioManager&) = delete;
 	FlAudioManager& operator=(const FlAudioManager&) = delete;
 private:
@@ -58,33 +60,37 @@ private:
 	inline const auto FmodVecToSimpleMath(const FMOD_VECTOR& vec) noexcept { Math::Vector3 resultVec{ vec.x,vec.y,vec.z }; return resultVec; }
 	inline const auto SimpleMathToFmodVec(const Math::Vector3& vec) noexcept { FMOD_VECTOR resultVec{ vec.x,vec.y,vec.z }; return resultVec; }
 
-	// FMOD のカスタムデリータを定義
+	// <Custom Deleter:FMOD System>
 	struct FMODSystemDeleter {
 		void operator()(FMOD::System* system) const {
 			if (system) system->release();
 		}
 	};
 
+	// <Custom Deleter:FMOD Sound>
 	struct FMODSoundDeleter {
 		void operator()(FMOD::Sound* sound) const {
 			if (sound) sound->release();
 		}
 	};
 
+	// <Custom Deleter:FMOD ChannelGroup>
 	struct FMODChannelGroupDeleter {
-		void operator()(FMOD::ChannelGroup* channelGrp) const {
-			if (channelGrp) channelGrp->stop();
+		void operator()(FMOD::ChannelGroup* channelGroup) const {
+			if (channelGroup) channelGroup->stop();
 		}
 	};
 
+	// <Custom Deleter:FMOD Channel>
 	struct FMODChannelDeleter {
 		void operator()(FMOD::Channel* channel) const {
 			if (channel) channel->stop();
 		}
 	};
 
-	// FMOD::System を unique_ptr で管理
 	std::unique_ptr<FMOD::System, FMODSystemDeleter> m_upSystem;
 	std::unique_ptr<FMOD::ChannelGroup, FMODChannelGroupDeleter> m_upChannelGroup;
-	std::unordered_map<std::string, std::pair<std::shared_ptr<FMOD::Sound>, std::unique_ptr<FMOD::Channel, FMODChannelDeleter>>> m_soundController;
+	std::unordered_map<
+		std::string, std::pair<
+		std::shared_ptr<FMOD::Sound>, std::unique_ptr<FMOD::Channel, FMODChannelDeleter>>> m_soundController;
 };

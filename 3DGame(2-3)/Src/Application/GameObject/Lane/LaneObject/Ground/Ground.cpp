@@ -1,23 +1,18 @@
 ﻿#include "Ground.h"
 #include "../CommonTile/CommonTile.hpp"
 
-Ground::Ground(const Math::Vector3& pos) noexcept
+Ground::Ground(const Math::Vector3& pos, const uint32_t tileNum, const float startPosX, const uint32_t randMax) noexcept
 {
-	for (auto i{ Def::UIntZero }; i < 13; ++i)
+	for (auto i{ Def::UIntZero }; i < tileNum; ++i)
 	{
-		if (i == 8)
-		{
-			AddObjList<CommonTile>("Terrains/Terrain/terrain_grass.gltf", Math::Vector3((1 * static_cast<float>(i)) - 8, 0, 0) + pos);
-			continue;
-		}
-		if (Formula::Rand(0, 9)) AddObjList<CommonTile>("Terrains/Terrain/terrain_grass.gltf", Math::Vector3((1 * static_cast<float>(i)) - 8, 0, 0) + pos);
+		if (Formula::Rand(Def::UIntZero, randMax)) AddObjList<CommonTile>("Terrains/Terrain/terrain_grass.gltf", Math::Vector3((Def::FloatOne * static_cast<float>(i)) - startPosX, Def::FloatZero, Def::FloatZero) + pos);
 		else
 		{
 			auto path{ std::string{} };
-			if (Formula::Rand(0, 1)) path = "Terrains/Terrain/terrain_treeCOL.gltf";
+			if (Formula::Rand(Def::UIntZero, Def::UIntOne)) path = "Terrains/Terrain/terrain_treeCOL.gltf";
 			else path = "Terrains/Terrain/terrain_tree1COL.gltf";
 
-			AddObjList<CommonTile>(path, Math::Vector3((1 * static_cast<float>(i)) - 8, 0, 0) + pos, "TreeCol", KdCollider::Type::TypeBump);
+			AddObjList<CommonTile>(path, Math::Vector3((Def::FloatOne * static_cast<float>(i)) - startPosX, Def::FloatZero, Def::FloatZero) + pos, "TreeCol", KdCollider::Type::TypeBump);
 		}
 	}
 }

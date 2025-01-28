@@ -119,6 +119,80 @@ namespace Formula // Convenience Functions
 		return it == cdf.end() ? static_cast<ItemType>(nullptr) : it->first;
 	}
 
+	inline auto SinCurve(const float degrees, const double amplitude = Def::DoubleOne, const double frequency = Def::DoubleOne, const double phase = Def::DoubleZero) noexcept 
+	{
+		const auto radians{ DirectX::XMConvertToRadians(degrees) };
+		return amplitude * std::sin(frequency * radians + phase);
+	}
+
+	inline auto CosCurve(const float degrees, const double amplitude = Def::DoubleOne, const double frequency = Def::DoubleOne, const double phase = Def::DoubleZero) noexcept 
+	{
+		const auto radians{ DirectX::XMConvertToRadians(degrees) };
+		return amplitude * std::cos(frequency * radians + phase);
+	}
+
+	inline auto TanCurve(const float degrees, const double amplitude = Def::DoubleOne, const double frequency = Def::DoubleOne, const double phase = Def::DoubleZero) noexcept 
+	{
+		const auto radians{ DirectX::XMConvertToRadians(degrees) };
+		return amplitude * std::tan(frequency * radians + phase);
+	}
+
+	inline auto SinhCurve(const float degrees, const double amplitude = Def::DoubleOne, const double frequency = Def::DoubleOne, const double phase = Def::DoubleZero) noexcept
+	{
+		const auto radians{ DirectX::XMConvertToRadians(degrees) };
+		return amplitude * std::sinh(frequency * radians + phase);
+	}
+
+	inline auto CoshCurve(const float degrees, const double amplitude = Def::DoubleOne, const double frequency = Def::DoubleOne, const double phase = Def::DoubleZero) noexcept
+	{
+		const auto radians{ DirectX::XMConvertToRadians(degrees) };
+		return amplitude * std::cosh(frequency * radians + phase);
+	}
+
+	inline auto TanhCurve(const float degrees, const double amplitude = Def::DoubleOne, const double frequency = Def::DoubleOne, const double phase = Def::DoubleZero) noexcept
+	{
+		const auto radians{ DirectX::XMConvertToRadians(degrees) };
+		return amplitude * std::tanh(frequency * radians + phase);
+	}
+
+	inline auto AsinCurve(const float degrees, const double amplitude = Def::DoubleOne, const double frequency = Def::DoubleOne, const double phase = Def::DoubleZero) noexcept
+	{
+		const auto radians{ DirectX::XMConvertToRadians(degrees) };
+		return amplitude * std::asin(frequency * radians + phase);
+	}
+
+	inline auto AcosCurve(const float degrees, const double amplitude = Def::DoubleOne, const double frequency = Def::DoubleOne, const double phase = Def::DoubleZero) noexcept
+	{
+		const auto radians{ DirectX::XMConvertToRadians(degrees) };
+		return amplitude * std::acos(frequency * radians + phase);
+	}
+
+	inline auto AtanCurve(const float degrees, const double amplitude = Def::DoubleOne, const double frequency = Def::DoubleOne, const double phase = Def::DoubleZero) noexcept
+	{
+		const auto radians{ DirectX::XMConvertToRadians(degrees) };
+		return amplitude * std::atan(frequency * radians + phase);
+	}
+
+	inline auto GetDistance(const Math::Vector3& pos1, const Math::Vector3& pos2) noexcept
+	{
+		return std::sqrt((pos1.x - pos2.x) * (pos1.x - pos2.x) + (pos1.y - pos2.y) * (pos1.y - pos2.y) + (pos1.z - pos2.z) * (pos1.z - pos2.z));
+	}
+
+	inline auto GetDistance(const Math::Vector2& pos1, const Math::Vector2& pos2) noexcept
+	{
+		return std::sqrt((pos1.x - pos2.x) * (pos1.x - pos2.x) + (pos1.y - pos2.y) * (pos1.y - pos2.y));
+	}
+
+	inline auto GetDistance(const Math::Vector3& pos1, const Math::Vector2& pos2) noexcept
+	{
+		return std::sqrt((pos1.x - pos2.x) * (pos1.x - pos2.x) + (pos1.y - pos2.y) * (pos1.y - pos2.y) + (pos1.z - Def::FloatZero) * (pos1.z - Def::FloatZero));
+	}
+
+	inline auto GetDistance(const Math::Vector2& pos1, const Math::Vector3& pos2) noexcept
+	{
+		return std::sqrt((pos1.x - pos2.x) * (pos1.x - pos2.x) + (pos1.y - pos2.y) * (pos1.y - pos2.y) + (Def::FloatZero - pos2.z) * (Def::FloatZero - pos2.z));
+	}
+
 	inline namespace Collider // So Deep Nest
 	{
 		using collider_type = uint32_t;

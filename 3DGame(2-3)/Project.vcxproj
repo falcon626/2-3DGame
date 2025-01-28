@@ -58,7 +58,6 @@
       <PreprocessorDefinitions>WIN32;_DEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <MinimalRebuild>false</MinimalRebuild>
       <BasicRuntimeChecks>EnableFastChecks</BasicRuntimeChecks>
-      <RuntimeLibrary>MultiThreadedDebug</RuntimeLibrary>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>Use</PrecompiledHeader>
       <PrecompiledHeaderFile>Pch.h</PrecompiledHeaderFile>
@@ -68,6 +67,7 @@
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <AdditionalOptions>/nodefaultlib:"LIBCMT"
@@ -82,7 +82,7 @@
       <TargetMachine>MachineX86</TargetMachine>
       <ImageHasSafeExceptionHandlers>false</ImageHasSafeExceptionHandlers>
       <AdditionalLibraryDirectories>..\Library\DirectXTK\Lib\$(Platform)\$(Configuration)\Audio;..\Library\DirectXTK\Lib\$(Platform)\$(Configuration);..\Library\DirectXTex\Lib\$(Platform)\$(Configuration);..\Library\Effekseer\Lib;..\Library\FMOD_API\core\lib\x86;..\Library\FMOD_API\studio\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(ProjectDir)..\Library\FMOD_API\core\lib\x86\fmod_vc.lib;$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)..\Library\FMOD_API\core\lib\x86\fmod_vc.lib;$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\fmodstudioL_vc.lib;$(ProjectDir)..\Library\Assimp\lib\assimp-vc143-mt.lib;$(ProjectDir)..\Library\Assimp\lib\assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderType>
@@ -111,7 +111,6 @@ xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"<
       <AdditionalIncludeDirectories>.\;src;..\Library;..\Library\DirectXTK\Inc;..\Library\DirectXTex\DirectXTex;..\Library\tinygltf;..\Library\imgui;..\Library\FMOD_API\studio\inc;..\Library\FMOD_API\core\inc;..\Library\Effekseer\Inc;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <PreprocessorDefinitions>WIN32;NDEBUG;_WINDOWS;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <StringPooling>true</StringPooling>
-      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <RuntimeTypeInfo>true</RuntimeTypeInfo>
       <PrecompiledHeader>Use</PrecompiledHeader>
@@ -121,6 +120,7 @@ xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"<
       <MultiProcessorCompilation>true</MultiProcessorCompilation>
       <LanguageStandard>stdcpp20</LanguageStandard>
       <DisableSpecificWarnings>4819;%(DisableSpecificWarnings)</DisableSpecificWarnings>
+      <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
     </ClCompile>
     <Link>
       <OutputFile>$(OutDir)$(TargetName)$(TargetExt)</OutputFile>
@@ -132,7 +132,7 @@ xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"<
       </DataExecutionPrevention>
       <TargetMachine>MachineX86</TargetMachine>
       <AdditionalLibraryDirectories>..\Library\DirectXTK\Lib\$(Platform)\$(Configuration)\Audio;..\Library\DirectXTK\Lib\$(Platform)\$(Configuration);..\Library\DirectXTex\Lib\$(Platform)\$(Configuration);..\Library\Effekseer\Lib;..\Library\FMOD_API\core\lib\x86;..\Library\FMOD_API\studio\lib\x86;%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
-      <AdditionalDependencies>$(ProjectDir)..\Library\FMOD_API\core\lib\x86\fmod_vc.lib;$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\fmodstudioL_vc.lib;%(AdditionalDependencies)</AdditionalDependencies>
+      <AdditionalDependencies>$(ProjectDir)..\Library\FMOD_API\core\lib\x86\fmod_vc.lib;$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\fmodstudioL_vc.lib;$(ProjectDir)..\Library\Assimp\lib\assimp-vc143-mt.lib;$(ProjectDir)..\Library\Assimp\lib\assimp-vc143-mtd.lib;%(AdditionalDependencies)</AdditionalDependencies>
     </Link>
     <FxCompile>
       <ShaderType>
@@ -196,6 +196,7 @@ xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"<
     <ClInclude Include="Src\Application\GameObject\GameUi\GameUi.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.h" />
     <ClInclude Include="Src\Application\GameObject\GameUi\StageTime\StageTime.h" />
+    <ClInclude Include="Src\Application\GameObject\Item\Cronus\ItemCronus.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.h" />
     <ClInclude Include="Src\Application\GameObject\Lane\DamageObject\DamageObjects.h" />
@@ -247,6 +248,7 @@ xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"<
     <ClInclude Include="Src\Framework\Math\KdUVAnimation.h" />
     <ClInclude Include="Src\Framework\Resource\Audio\FlAudioManager.h" />
     <ClInclude Include="Src\Framework\Resource\Binary\FlBinaryAccessor.hpp" />
+    <ClInclude Include="Src\Framework\Resource\Binary\FlBinaryManager.hpp" />
     <ClInclude Include="Src\Framework\Resource\Json\FlJsonDataManager.hpp" />
     <ClInclude Include="Src\Framework\Resource\FlResourceAdministrator.h" />
     <ClInclude Include="Src\Framework\Shader\KdAmbientController.h" />
@@ -297,6 +299,7 @@ xcopy /y /d "$(ProjectDir)..\Library\FMOD_API\studio\lib\x86\*.dll" "$(OutDir)"<
     <ClCompile Include="Src\Application\GameObject\GameUi\GameUi.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\HitPoint\HitPoint.cpp" />
     <ClCompile Include="Src\Application\GameObject\GameUi\StageTime\StageTime.cpp" />
+    <ClCompile Include="Src\Application\GameObject\Item\Cronus\ItemCronus.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\BaseDamegeObj\BaseDamegeObj.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\Car\Car.cpp" />
     <ClCompile Include="Src\Application\GameObject\Lane\DamageObject\DamageObjects.cpp" />

@@ -23,9 +23,15 @@ void ModeSelect::Update()
 {
 	auto i{ Def::UIntZero };
 
+	auto mouse{ POINT{} };
+	GetCursorPos(&mouse);
+
 	for (const auto& arr : m_checkBoxArr)
 	{
 		++i;
+
+		arr->SetMousePos(mouse);
+
 		arr->Check();
 		if (arr->IsCheck())
 		{

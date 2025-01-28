@@ -29,5 +29,5 @@ private:
 
 	float m_motionInterval{ Def::FloatZero };
 
-	bool m_isDame{ false };;
+	bool m_isDame{ false };
 };

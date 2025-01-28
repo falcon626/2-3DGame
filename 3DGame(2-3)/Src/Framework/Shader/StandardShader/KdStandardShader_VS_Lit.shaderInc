@@ -31,7 +31,7 @@
 // cbuffer cbBones
 // {
 //
-//   row_major float4x4 g_mBones[300];  // Offset:    0 Size: 19200
+//   row_major float4x4 g_mBones[800];  // Offset:    0 Size: 51200
 //
 // }
 //
@@ -95,7 +95,7 @@ vs_5_0
 dcl_globalFlags refactoringAllowed
 dcl_constantbuffer CB0[4], immediateIndexed
 dcl_constantbuffer CB1[4], immediateIndexed
-dcl_constantbuffer CB3[1200], dynamicIndexed
+dcl_constantbuffer CB3[3200], dynamicIndexed
 dcl_constantbuffer CB4[1200], dynamicIndexed
 dcl_constantbuffer CB7[8], immediateIndexed
 dcl_input v0.xyzw
@@ -294,10 +294,10 @@ ret
 
 const BYTE compiledBuffer[] =
 {
-     68,  88,  66,  67, 105, 107, 
-    101, 141, 196, 117, 148,  72, 
-     94, 234, 235,  47,  85, 145, 
-     37, 122,   1,   0,   0,   0, 
+     68,  88,  66,  67,  42, 236, 
+    248, 145, 192,  45,   4,   8, 
+    108, 247, 253,   4, 146,  94, 
+    133, 195,   1,   0,   0,   0, 
     120,  29,   0,   0,   5,   0, 
       0,   0,  52,   0,   0,   0, 
     160,   6,   0,   0, 188,   7, 
@@ -358,7 +358,7 @@ const BYTE compiledBuffer[] =
       0,   0,   0,   0,   0,   0, 
     236,   0,   0,   0,   1,   0, 
       0,   0, 192,   4,   0,   0, 
-      0,  75,   0,   0,   0,   0, 
+      0, 200,   0,   0,   0,   0, 
       0,   0,   0,   0,   0,   0, 
     244,   0,   0,   0,   1,   0, 
       0,   0,  24,   5,   0,   0, 
@@ -508,7 +508,7 @@ const BYTE compiledBuffer[] =
       0,   0,   0,   0,   0,   0, 
     145,   4,   0,   0, 232,   4, 
       0,   0,   0,   0,   0,   0, 
-      0,  75,   0,   0,   2,   0, 
+      0, 200,   0,   0,   2,   0, 
       0,   0, 244,   4,   0,   0, 
       0,   0,   0,   0, 255, 255, 
     255, 255,   0,   0,   0,   0, 
@@ -516,7 +516,7 @@ const BYTE compiledBuffer[] =
       0,   0, 103,  95, 109,  66, 
     111, 110, 101, 115,   0, 171, 
     171, 171,   2,   0,   3,   0, 
-      4,   0,   4,   0,  44,   1, 
+      4,   0,   4,   0,  32,   3, 
       0,   0,   0,   0,   0,   0, 
       0,   0,   0,   0,   0,   0, 
       0,   0,   0,   0,   0,   0, 
@@ -669,7 +669,7 @@ const BYTE compiledBuffer[] =
       1,   0,   0,   0,   4,   0, 
       0,   0,  89,   8,   0,   4, 
      70, 142,  32,   0,   3,   0, 
-      0,   0, 176,   4,   0,   0, 
+      0,   0, 128,  12,   0,   0, 
      89,   8,   0,   4,  70, 142, 
      32,   0,   4,   0,   0,   0, 
     176,   4,   0,   0,  89,   0, 

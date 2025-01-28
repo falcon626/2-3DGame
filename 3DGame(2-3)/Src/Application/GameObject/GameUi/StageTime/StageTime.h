@@ -23,5 +23,9 @@ private:
 							  
 	Math::Vector2              m_pos;
 
+	Math::Color m_color;
+
+	float m_curveVal{ 360 };
+
 	uint32_t m_time{ Def::UIntZero };
 };

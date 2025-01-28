@@ -19,8 +19,9 @@ Player::Player() noexcept
 	, VelocityX     { 2,2,0 }
 	, MinVelocityX  { 1,0.5f,0 }
 	, AnimeSpd      { 600U }
+	, LifeTimeMax	{ 30U }
 	, MaxHp         { 3 }
-	, m_lifeTime    { Def::UIntZero }
+	, m_lifeTime    { LifeTimeMax }
 	, m_hp          { Def::IntZero }
 	, RotXleft      { 90 }
 	, RotXup        { RotXleft + RotXleft }
@@ -31,6 +32,7 @@ Player::Player() noexcept
 	, m_healInterval{ Def::FloatZero }
 	, m_hitInterval { Def::FloatZero }
 	, m_rotX        { Def::FloatZero }
+	, m_isStartTimer{ false }
 	, m_isDown      { true }
 	, m_isMove      { false }
 	, m_isMinPow    { false }
@@ -45,6 +47,8 @@ Player::Player() noexcept
 	m_spAnimator->SetAnimation(m_spModelWork->GetData()->GetAnimation("Swim"));
 
 	m_pDebugWire = std::make_unique<KdDebugWireFrame>();
+
+	m_spTimer = std::make_shared<Timer>();
 
 	m_rotX  = RotXup;
 	m_pos.y = 0.25f;
@@ -71,6 +75,9 @@ void Player::PreUpdate()
 
 void Player::Update()
 {
+	m_lifeTime = LifeTimeMax - m_spTimer->ElapsedSeconds();
+	if (m_lifeTime == Def::UIntZero)m_lifeTime = Def::UIntZero;
+
 	if (m_isMove) 
 	{
 		m_pos = MoveJump(m_pos, m_velocity, GravityPow, m_deltaTime);
@@ -104,7 +111,7 @@ void Player::PostUpdate()
 		) *
 		Math::Matrix::CreateTranslation(m_pos);
 
-	if (m_hp == Def::IntZero)KillExistence();
+	if (m_hp == Def::IntZero || m_lifeTime == Def::UIntZero)KillExistence();
 }
 
 void Player::UpdateBumpCol() noexcept
@@ -201,7 +208,18 @@ void Player::UpdateHeal() noexcept
 	m_healInterval = Decrement(m_healInterval, Def::Freame, m_deltaTime);
 	if (m_healInterval < Def::FloatZero)m_healInterval = Def::FloatZero;
 
-	if (!m_isSafe)return;
+	if (!m_isSafe)
+	{
+		if (!m_isStartTimer)
+		{
+			m_spTimer->Start();
+			m_isStartTimer = true;
+		}
+		return;
+	}
+	
+	m_isStartTimer = false;
+	m_spTimer->Reset();
 
 	if (m_healInterval <= Def::FloatZero)
 	{
